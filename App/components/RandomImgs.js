@@ -1,0 +1,22 @@
+export const RandomPrompts = [
+    "Create a whimsical 3D forest scene with talking animals",
+    "Design a futuristic cityscape with flying cars and towering skyscrapers",
+    "Craft a surreal underwater world inhabited by colorful marine creatures",
+    "Build a majestic castle nestled on a mountaintop with a cascading waterfall",
+    "Imagine a bustling market square in a medieval town with merchants and performers",
+    "Construct a mythical creature, combining features of different animals in a unique way",
+    "Sculpt a serene garden with blooming flowers and tranquil water features",
+    "Develop a space station orbiting a distant planet, complete with astronauts and alien life",
+    "Design an otherworldly landscape on an alien planet with strange rock formations",
+    "Create a steampunk-inspired airship floating in the clouds",
+    "Generate a futuristic robot that performs a specific task in an advanced society",
+    "Craft a magical forest glade with fairies and glowing plants",
+    "Design an ancient temple hidden deep within a lush jungle",
+    "Imagine a group of explorers discovering a lost city in the desert",
+    "Create a bustling harbor with ships of various sizes and sailors going about their tasks",
+    "Sculpt a mythical creature that guards a hidden treasure in a mystical cave",
+    "Develop a floating island in the sky with floating waterfalls and floating trees",
+    "Craft a post-apocalyptic wasteland with crumbling buildings and overgrown vegetation",
+    "Design an enchanted winter wonderland with ice sculptures and a frozen lake",
+    "Create a vibrant coral reef teeming with exotic fish and sea turtles"
+]
