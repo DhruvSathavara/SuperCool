@@ -19,19 +19,40 @@ export const SupercoolAuthContextProvider = (props) => {
   const [userAdd, setUserAdd] = useState(null);
   const [genRanImgLoding, setGenRanImgLoding] = useState(false);
 
-  if(allNfts.length > 0){
-    console.log('here all nfts',allNfts);
+  if (allNfts.length > 0) {
+    console.log('here all nfts', allNfts);
   }
 
   const login = async () => {
     if (!window.ethereum) return;
-    const accounts = await window.ethereum?.request({
-      method: "eth_requestAccounts",
-    });
-    setUserAdd(accounts[0]);
-    localStorage.setItem("address", accounts[0]);
-    console.log('user add--', localStorage.getItem("address"))
-    setWalletConnected(true);
+
+    try {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      localStorage.setItem("address", accounts[0]);
+      console.log('user address:', localStorage.getItem("address"));
+
+      // Check if the user is connected to the Polygon Mumbai network
+      if (window.ethereum.networkVersion === '80001') {
+        // User is already connected to the Polygon Mumbai network
+        setWalletConnected(true);
+      } else {
+        // Prompt the user to switch to the Polygon Mumbai network
+        await window.ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x13881' }] // Polygon Mumbai chain ID
+        });
+
+        // User has switched the network
+        setWalletConnected(true);
+      }
+    } catch (error) {
+      // Handle error during account request or network switch
+      console.error('Login error:', error);
+      // Inform the user or perform error handling
+    }
+
   }
 
   const logout = async () => {
@@ -93,13 +114,13 @@ export const SupercoolAuthContextProvider = (props) => {
       const owner = await contract.ownerOf(i);
       const maticToUsdPricee = await contract.convertMaticUsd(ethers.utils.parseUnits(metadata.price, 'ether'));
 
-      const newMetadata = { ...metadata, owner: owner, tokenId: i,maticToUSD: maticToUsdPricee._hex/100000000}
+      const newMetadata = { ...metadata, owner: owner, tokenId: i, maticToUSD: maticToUsdPricee._hex / 100000000 }
 
       metadatas.push(newMetadata);
     }
     setAllNfts(metadatas);
     setLoading(!loading);
-    
+
   }
 
 
