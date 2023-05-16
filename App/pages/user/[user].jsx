@@ -24,7 +24,7 @@ const User = () => {
   const [copied, setCopied] = useState(false);
   const [data, setData] = useState([]);
   const superCoolContext = React.useContext(SupercoolAuthContext);
-  const { userAdd, allNfts } = superCoolContext;
+  const { allNfts } = superCoolContext;
 
   useEffect(() => {
     if (allNfts.length > 0) {
@@ -35,7 +35,7 @@ const User = () => {
     const dataa = [];
     for (let i = 0; i < allNfts.length; i++) {
       const element = allNfts[i];
-      if (element.owner.toLowerCase() == userAdd.toLowerCase()) {
+      if (element.owner.toLowerCase() == localStorage.getItem("address").toLowerCase()) {
         dataa.push(element)
       }
     }
@@ -114,7 +114,7 @@ const User = () => {
                 <div className="container">
                   <div className="text-center">
                     <h4 className="font-display text-jacarta-700 mb-2 text-2xl font-medium dark:text-white">
-                      {userAdd ? userAdd : "user"}
+                      {localStorage.getItem("address") ? localStorage.getItem("address") : "user"}
                     </h4>
                     <div className="dark:bg-jacarta-700 dark:border-jacarta-600 border-jacarta-100 mb-8 inline-flex items-center justify-center rounded-full border bg-white py-1.5 px-4">
                       <Tippy content="ETH">
@@ -131,10 +131,10 @@ const User = () => {
                       >
                         <button className="js-copy-clipboard dark:text-jacarta-200 max-w-[10rem] select-none overflow-hidden text-ellipsis whitespace-nowrap">
                           <CopyToClipboard
-                            text={userAdd}
+                            text={localStorage.getItem("address")}
                             onCopy={() => setCopied(true)}
                           >
-                            <span>{userAdd}</span>
+                            <span>{localStorage.getItem("address")}</span>
                           </CopyToClipboard>
                         </button>
                       </Tippy>
