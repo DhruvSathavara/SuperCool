@@ -20,9 +20,13 @@ export const SupercoolAuthContextProvider = (props) => {
   const [userAdd, setUserAdd] = useState();
   const [genRanImgLoding, setGenRanImgLoding] = useState(false);
 
-  if (allNfts.length > 0) {
-    // console.log('here all nfts', allNfts);
+  let provider;
+  let signer;
+  if (typeof window !== "undefined") {
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    signer = provider.getSigner();
   }
+
 
   const login = async () => {
     if (!window.ethereum) return;
@@ -33,24 +37,18 @@ export const SupercoolAuthContextProvider = (props) => {
       });
       setUserAdd(accounts[0]);
       localforage.setItem('address',accounts[0]);
-      // Check if the user is connected to the Polygon Mumbai network
       if (window.ethereum.networkVersion === '80001') {
-        // User is already connected to the Polygon Mumbai network
         setWalletConnected(true);
       } else {
-        // Prompt the user to switch to the Polygon Mumbai network
         await window.ethereum.request({
           method: 'wallet_switchEthereumChain',
           params: [{ chainId: '0x13881' }] // Polygon Mumbai chain ID
         });
 
-        // User has switched the network
         setWalletConnected(true);
       }
     } catch (error) {
-      // Handle error during account request or network switch
       console.error('Login error:', error);
-      // Inform the user or perform error handling
     }
 
   }
@@ -81,23 +79,19 @@ export const SupercoolAuthContextProvider = (props) => {
       authorization: auth,
     },
   });
-  let provider;
-  let signer;
-  // Connect to the Ethereum network using ethers.js
-  if (typeof window !== "undefined") {
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    signer = provider.getSigner("0xBA2566CC36E2644FAB4086C8F557C3FFC9913ECA");
-  }
+ 
 
   const contract = new ethers.Contract(
     SUPER_COOL_NFT_CONTRACT,
     abi,
     signer
   );
-localforage.getItem('address').then((value) => {
-  console.log(value) // Output: { name: 'John', age: 30 }
-})
+
   const GenerateNum = async () => {
+    const accounts = await ethereum.request({
+      method: 'eth_requestAccounts',
+    });
+console.log(accounts);
     setGenRanImgLoding(true);
     const tx = await contract.getRandomNumber();
     await tx.wait();
@@ -108,6 +102,8 @@ localforage.getItem('address').then((value) => {
   }
 
   const getAllNfts = async () => {
+
+    console.log('getting all nfts ...');
     const totalNfts = await contract.getTotalSupply();
     const metadatas = [];
     for (let i = 1; i <= totalNfts.toString(); i++) {
@@ -123,7 +119,6 @@ localforage.getItem('address').then((value) => {
     }
     setAllNfts(metadatas);
     setLoading(!loading);
-
   }
 
   useState(() => {
@@ -177,7 +172,8 @@ localforage.getItem('address').then((value) => {
         prompt,
         setPrompt,
         genRanImgLoding,
-        userAdd
+        userAdd,
+        getAllNfts
       }}
       {...props}
     >

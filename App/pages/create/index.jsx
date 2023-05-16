@@ -10,7 +10,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import ImageModal from "../modal/modal";
 const Create = () => {
   const superCoolContext = React.useContext(SupercoolAuthContext);
-  const { uploadOnIpfs, handleImgUpload, loading, setLoading, GenerateNum, prompt, setPrompt, genRanImgLoding } = superCoolContext;
+  const { uploadOnIpfs, handleImgUpload, loading, setLoading, GenerateNum, prompt, setPrompt, genRanImgLoding, getAllNfts } = superCoolContext;
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState();
@@ -82,6 +82,8 @@ const Create = () => {
     } catch (e) {
       console.error("Failed to mint NFT: " + e.message);
     }
+    // setLoading(!loading)
+   await getAllNfts()
     setMintLoading(false);
     setPrompt(null);
     setImages([]);
@@ -206,15 +208,15 @@ const Create = () => {
 
           <div className="create-btn">
             {
-              mintLoading ? <CircularProgress/> :
-              <button
-              onClick={() => createNft()}
-              className="bg-accent-lighter rounded-full py-3 px-8 text-center font-semibold text-white transition-all"
-            >
-              Create
-            </button>
+              mintLoading ? <CircularProgress /> :
+                <button
+                  onClick={() => createNft()}
+                  className="bg-accent-lighter rounded-full py-3 px-8 text-center font-semibold text-white transition-all"
+                >
+                  Create
+                </button>
             }
-            
+
           </div>
         </div>
       );
@@ -248,14 +250,14 @@ const Create = () => {
 
             <div className="mb-6">
               <p className="dark:text-jacarta-300 text-4xs mb-3">
-                We're excited to bring your NFT to life, but we need your input. Please provide us with a brief description of what you want it to look like. 
+                We're excited to bring your NFT to life, but we need your input. Please provide us with a brief description of what you want it to look like.
                 <span>
-                  <a style={{cursor:"pointer"}} onClick={GenerateNum}> {
-                    genRanImgLoding ? 
-                    "generating random prompt..." :
-                    <a className="hover:text-accent dark:hover:text-white">
-                    Or generate random image.
-                  </a>
+                  <a style={{ cursor: "pointer" }} onClick={GenerateNum}> {
+                    genRanImgLoding ?
+                      "generating random prompt..." :
+                      <a className="hover:text-accent dark:hover:text-white">
+                        Or generate random image.
+                      </a>
                   }  </a>
                 </span>
               </p>
@@ -270,25 +272,66 @@ const Create = () => {
                 required
               >
               </textarea>
-             
+
               <div className="generate-btn">
                 {generateLoading ?
                   <CircularProgress />
                   :
                   <button
-                  className="bg-accent-lighter rounded-full py-3 px-8 text-center font-semibold text-white transition-all  "
-                  style={{ marginBottom: "15px" }}
-                  onClick={generateImage}
-                >
-                  Generate
-                </button>
+                    className="bg-accent-lighter rounded-full py-3 px-8 text-center font-semibold text-white transition-all  "
+                    style={{ marginBottom: "15px" }}
+                    onClick={generateImage}
+                  >
+                    Generate
+                  </button>
                 }
               </div>
-              <br/>
+              <br />
 
-              <div className="row main-row">
+              {
+                images.length > 0 ?
+                <>
+                  <div className="row main-row">
+                    {images && images.map((url) => (
+                      <div
+                        className="col-lg-4 mb-4 mb-lg-0"
+                        onClick={() => handleSelectedImg(url)}
+                      >
+                        <div
+                          className="bg-image hover-overlay ripple shadow-1-strong rounded col-4"
+                          data-ripple-color="light"
+                        >
+                          <div className="img-nft">
+                            <img
+                              src={url}
+                            />
+                          </div>
+                          <div className="radio-img">
+                            <input
+                              type="radio"
+                              id="huey"
+                              name="drone"
+                              value="huey"
+                              checked={url == selectedImage}
+                              className="mt-3"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  
+                  </div>
+                  <div>
+                      <p style={{ textAlign: "center" }} className="dark:text-jacarta-300 text-4xs mb-3"
+                      >Select the image you wish to mint.</p>
+                    </div>
+                  </>
+                   : ""
+              }
+
+              {/* <div className="row main-row">
+              <>
                 {images && images.map((url) => (
-                  <>
                     <div
                       className="col-lg-4 mb-4 mb-lg-0"
                       onClick={() => handleSelectedImg(url)}
@@ -314,11 +357,12 @@ const Create = () => {
                         </div>
                       </div>
                     </div>
-                  </>
                 ))}
-              </div>
-              <p style={{textAlign:"center"}} className="dark:text-jacarta-300 text-4xs mb-3"
+                  </>
+                  <p style={{textAlign:"center"}} className="dark:text-jacarta-300 text-4xs mb-3"
               >Select the image you wish to mint.</p>
+
+              </div> */}
 
             </div>
 
