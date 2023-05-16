@@ -32,7 +32,7 @@ export const SupercoolAuthContextProvider = (props) => {
         method: "eth_requestAccounts",
       });
       setUserAdd(accounts[0]);
-      localforage.setItem('address',accounts[0]);
+      localforage.setItem('address', accounts[0]);
       // Check if the user is connected to the Polygon Mumbai network
       if (window.ethereum.networkVersion === '80001') {
         // User is already connected to the Polygon Mumbai network
@@ -59,7 +59,7 @@ export const SupercoolAuthContextProvider = (props) => {
     localforage.removeItem('address');
     setWalletConnected(false);
     localforage.getItem('address').then((value) => {
-      console.log(value) 
+      console.log(value)
     })
   }
 
@@ -94,9 +94,9 @@ export const SupercoolAuthContextProvider = (props) => {
     abi,
     signer
   );
-localforage.getItem('address').then((value) => {
-  console.log(value) // Output: { name: 'John', age: 30 }
-})
+  localforage.getItem('address').then((value) => {
+    console.log(value) // Output: { name: 'John', age: 30 }
+  })
   const GenerateNum = async () => {
     setGenRanImgLoding(true);
     const tx = await contract.getRandomNumber();
@@ -144,8 +144,11 @@ localforage.getItem('address').then((value) => {
     const added = await client.add(file);
     const hash = added.path;
     const ipfsURL = `https://superfun.infura-ipfs.io/ipfs/${hash}`;
+    console.log('ipfsURL', ipfsURL);
+
     return ipfsURL;
   };
+
 
   // Edit profile
 
@@ -153,10 +156,13 @@ localforage.getItem('address').then((value) => {
     let dataStringify = JSON.stringify(e);
     const ipfsResult = await client.add(dataStringify);
     const contentUri = `https://superfun.infura-ipfs.io/ipfs/${ipfsResult.path}`;
+    console.log('contentUri', contentUri);
     return contentUri;
+
   }
 
-  const getProfile = async () =>{
+
+  const getProfile = async () => {
 
   }
 
@@ -177,7 +183,8 @@ localforage.getItem('address').then((value) => {
         prompt,
         setPrompt,
         genRanImgLoding,
-        userAdd
+        userAdd,
+        uploadDatainIpfs
       }}
       {...props}
     >

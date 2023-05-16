@@ -1,4 +1,4 @@
-export const SUPER_COOL_NFT_CONTRACT = "0x102807Cd0f92C9c140b8FADF5b0a05076EF0FBC7"
+export const SUPER_COOL_NFT_CONTRACT = "0x8742476A31FB42647b353063353c6F89B7370c21"
 // export const SUPER_COOL_NFT_CONTRACT = "0xe98C5C2cD9E16D177373BC44CC3058Fbd1Cae15A"
 export const abi = [
   {
@@ -273,6 +273,25 @@ export const abi = [
         "type": "address"
       }
     ],
+    "name": "getUserProfile",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
     "name": "getUserTokens",
     "outputs": [
       {
@@ -480,6 +499,19 @@ export const abi = [
   {
     "inputs": [
       {
+        "internalType": "string",
+        "name": "metadata",
+        "type": "string"
+      }
+    ],
+    "name": "storeProfileData",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes4",
         "name": "interfaceId",
         "type": "bytes4"
@@ -552,7 +584,6 @@ export const abi = [
     "type": "function"
   }
 ]
-
 
 
 

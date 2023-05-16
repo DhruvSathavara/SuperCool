@@ -5,16 +5,20 @@ import Image from 'next/image';
 import UserId from '../../components/userId';
 import Head from 'next/head';
 import Meta from '../../components/Meta';
+import { ethers, Signer } from 'ethers';
 import { SupercoolAuthContext } from '../../context/supercoolContext';
+import axios from 'axios';
+import { abi, SUPER_COOL_NFT_CONTRACT } from '../../constant/constant';
 const Edit_user = () => {
 	const superCoolContext = React.useContext(SupercoolAuthContext);
 	const { uploadDatainIpfs } = superCoolContext;
-	const [coverePhoto, setCoverePhoto] = useState('https://source.unsplash.com/9wg5jCEPBsw');
+	const [coverePhoto, setCoverePhoto] = useState();
 	const [username, setUsername] = useState("");
 	const [bio, setBio] = useState("");
-	const [profilePhoto, setProfilePhoto] = useState('https://source.unsplash.com/9wg5jCEPBsw');
+	const [profilePhoto, setProfilePhoto] = useState();
 	const [preview, setPreview] = useState()
 	const [coverPreview, setCoverPreview] = useState()
+	const [Data, setData] = useState()
 	// Profile data
 	const Profiledata = {
 		username: username,
@@ -23,6 +27,21 @@ const Edit_user = () => {
 		coverimage: coverePhoto,
 		// walletAddress: localStorage.getItem("address")
 	}
+
+	let provider;
+	let signer;
+	if (typeof window !== "undefined") {
+		provider = new ethers.providers.Web3Provider(window.ethereum);
+		signer = provider.getSigner();
+	}
+
+	const contract = new ethers.Contract(
+		SUPER_COOL_NFT_CONTRACT,
+		abi,
+		signer
+	);
+
+
 
 	console.log('Profiledata=', Profiledata);
 
@@ -65,12 +84,21 @@ const Edit_user = () => {
 
 	const Profile = async () => {
 		let metadataurl = await uploadDatainIpfs(Profiledata);
-		console.log(metadataurl, ':::metaprofile');
+		console.log('metadataurl==', metadataurl);
+
+		// profileUrl = metadataurl;
+		// console.log('profileUrl', profileUrl);
+		// const response = await axios.get(profileUrl);
+		// console.log(metadataurl, ':::metaprofile');
+		// setData(response.data);
 		setBio('');
 		setUsername("");
 		setProfilePhoto('');
 		setCoverePhoto('')
 	}
+	// console.log('Data', Data);
+
+
 
 
 	return (
@@ -80,7 +108,7 @@ const Edit_user = () => {
 				{/* <!-- Banner --> */}
 				<div className="relative">
 					<img
-						src={coverPreview ? coverPreview : '/images/user/banner.jpg'}
+						src={''}
 						alt="banner"
 						className="h-[18.75rem] w-full object-cover"
 					/>
@@ -152,7 +180,7 @@ const Edit_user = () => {
 
 									<UserId
 										classes="js-copy-clipboard dark:bg-jacarta-700 border-jacarta-100 hover:bg-jacarta-50 dark:border-jacarta-600 dark:text-jacarta-300 flex w-full select-none items-center rounded-lg border bg-white py-3 px-4"
-										// userId={localStorage.getItem('address').slice(0, 34)}
+									// userId={localStorage.getItem('address').slice(0, 34)}
 									/>
 								</div>
 								<button className="bg-accent shadow-accent-volume hover:bg-accent-dark rounded-full py-3 px-8 text-center font-semibold text-white transition-all"
@@ -165,8 +193,8 @@ const Edit_user = () => {
 							<div className="flex space-x-5 md:w-1/2 md:pl-8">
 								<form className="shrink-0">
 									<figure className="relative inline-block">
-										<Image
-											src={preview ? preview : '/images/user/user_avatar.gif'}
+										<img
+											src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80"
 											alt="collection avatar"
 											className="dark:border-jacarta-600 rounded-xl border-[5px] border-white"
 											height={140}
