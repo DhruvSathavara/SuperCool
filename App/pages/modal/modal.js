@@ -35,13 +35,9 @@ const ImageModal = ({ setModalOpen, selectedImage, setSelectedImage, setrenderse
                 {selectedImage && <img src={selectedImage} alt="imgg" />}
             </div>
 
-            {/* <button
-            onClick={() => handleGenerate}
-            className="img-modal-btn">Generate</button> */}
 
             <div className="create-nftimg-btn row">
                 <button
-                    //   onClick={() => setrendersellNFT(true)}
                       onClick={handleGenerate}
                     className="bg-accent-lighter rounded-full py-3 px-8 text-center font-semibold text-white transition-all"
                 >
