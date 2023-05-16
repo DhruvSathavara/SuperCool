@@ -5,6 +5,8 @@ import { Buffer } from 'buffer';
 import { create } from 'ipfs-http-client';
 import { ethers } from 'ethers';
 import { RandomPrompts } from "../components/RandomImgs";
+import localforage from 'localforage'
+
 export const SupercoolAuthContext = createContext(undefined);
 
 export const SupercoolAuthContextProvider = (props) => {
@@ -15,6 +17,7 @@ export const SupercoolAuthContextProvider = (props) => {
   const [loading, setLoading] = useState(false);
   const [allNfts, setAllNfts] = useState([]);
   const [prompt, setPrompt] = useState(null);
+  const [userAdd, setUserAdd] = useState();
   const [genRanImgLoding, setGenRanImgLoding] = useState(false);
 
   if (allNfts.length > 0) {
@@ -28,9 +31,8 @@ export const SupercoolAuthContextProvider = (props) => {
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
-      localStorage.setItem("address", accounts[0]);
-      console.log('user address:', localStorage.getItem("address"));
-
+      setUserAdd(accounts[0]);
+      localforage.setItem('address',accounts[0]);
       // Check if the user is connected to the Polygon Mumbai network
       if (window.ethereum.networkVersion === '80001') {
         // User is already connected to the Polygon Mumbai network
@@ -54,9 +56,11 @@ export const SupercoolAuthContextProvider = (props) => {
   }
 
   const logout = async () => {
-    localStorage.removeItem("address");
+    localforage.removeItem('address');
     setWalletConnected(false);
-    console.log('user add--', localStorage.getItem("address"))
+    localforage.getItem('address').then((value) => {
+      console.log(value) 
+    })
   }
 
   const INFURA_KEY = "2DQRq820rLbznhFlkIbTkuYAyCS"
@@ -90,7 +94,9 @@ export const SupercoolAuthContextProvider = (props) => {
     abi,
     signer
   );
-
+localforage.getItem('address').then((value) => {
+  console.log(value) // Output: { name: 'John', age: 30 }
+})
   const GenerateNum = async () => {
     setGenRanImgLoding(true);
     const tx = await contract.getRandomNumber();
@@ -159,7 +165,7 @@ export const SupercoolAuthContextProvider = (props) => {
         prompt,
         setPrompt,
         genRanImgLoding,
-        // userAdd
+        userAdd
       }}
       {...props}
     >

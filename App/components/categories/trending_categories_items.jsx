@@ -11,7 +11,7 @@ const Trending_categories_items = ({data}) => {
   const dispatch = useDispatch();
   const { trendingCategorySorText } = useSelector((state) => state.counter);
   const [filterVal, setFilterVal] = useState(0);
-console.log('data in cate',data);
+// console.log('data in cate',data);
   const handleFilter = (category) => {
     if (category !== "all") {
       setItemdata(

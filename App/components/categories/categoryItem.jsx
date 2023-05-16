@@ -6,6 +6,7 @@ import "tippy.js/dist/tippy.css";
 import Likes from "../likes";
 import { useDispatch, useSelector } from "react-redux";
 import { buyModalShow } from "../../redux/counterSlice";
+import { toast } from 'react-toastify';
 const likes = 54;
 const CategoryItem = ({ data }) => {
 

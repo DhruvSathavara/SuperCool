@@ -11,31 +11,47 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import Head from "next/head";
 import Meta from "../../components/Meta";
 import { SupercoolAuthContext } from "../../context/supercoolContext";
+import localforage from 'localforage'
 
 
 const User = () => {
 
-
+  const [address, setAddress] = useState();
   const router = useRouter();
   const pid = router.query.user;
-  // console.log(pid);
 
+  // localforage.getItem('address').then((value) => {
+  //   setAddress(value)
+  //   console.log(value) // Output: { name: 'John', age: 30 }
+  // })
+  // console.log('--add---', address);
   const [likesImage, setLikesImage] = useState(false);
   const [copied, setCopied] = useState(false);
   const [data, setData] = useState([]);
   const superCoolContext = React.useContext(SupercoolAuthContext);
-  const { allNfts } = superCoolContext;
-
+  const { allNfts,userAdd } = superCoolContext;
+  
   useEffect(() => {
+    console.log(allNfts.length);
     if (allNfts.length > 0) {
-      getUserData();
+      localforage.getItem('address').then( async (value) => {
+        setAddress(value)
+        console.log(address);
+        getUserData(value);
+       
+        // if(address !== undefined){
+        //   console.log(address);
+        // }
+      }
+      )
+      // getUserData();
     }
   }, [])
-  const getUserData = async () => {
+  const getUserData = async (address) => {
     const dataa = [];
     for (let i = 0; i < allNfts.length; i++) {
       const element = allNfts[i];
-      if (element.owner.toLowerCase() == localStorage.getItem("address").toLowerCase()) {
+      if (element.owner.toLowerCase() == address.toLowerCase()) {
         dataa.push(element)
       }
     }
@@ -114,7 +130,7 @@ const User = () => {
                 <div className="container">
                   <div className="text-center">
                     <h4 className="font-display text-jacarta-700 mb-2 text-2xl font-medium dark:text-white">
-                      {localStorage.getItem("address") ? localStorage.getItem("address") : "user"}
+                      {address !== null ? address : "user"}
                     </h4>
                     <div className="dark:bg-jacarta-700 dark:border-jacarta-600 border-jacarta-100 mb-8 inline-flex items-center justify-center rounded-full border bg-white py-1.5 px-4">
                       <Tippy content="ETH">
@@ -131,10 +147,10 @@ const User = () => {
                       >
                         <button className="js-copy-clipboard dark:text-jacarta-200 max-w-[10rem] select-none overflow-hidden text-ellipsis whitespace-nowrap">
                           <CopyToClipboard
-                            text={localStorage.getItem("address")}
+                            text={address}
                             onCopy={() => setCopied(true)}
                           >
-                            <span>{localStorage.getItem("address")}</span>
+                            <span>{address}</span>
                           </CopyToClipboard>
                         </button>
                       </Tippy>
@@ -146,27 +162,6 @@ const User = () => {
                     <span className="text-jacarta-400">
                       Joined May 2023
                     </span>
-
-                    <div className="mt-6 flex items-center justify-center space-x-2.5 relative">
-                      <div className="dark:border-jacarta-600 dark:hover:bg-jacarta-600 border-jacarta-100 hover:bg-jacarta-100 dark:bg-jacarta-700 rounded-xl border bg-white">
-                        <div className="js-likes relative inline-flex h-10 w-10 cursor-pointer items-center justify-center text-sm">
-                          <button onClick={() => handleLikes()}>
-                            {likesImage ? (
-                              <svg className="icon dark:fill-jacarta-200 fill-jacarta-500 h-4 w-4">
-                                <use xlinkHref="/icons.svg#icon-heart-fill"></use>
-                              </svg>
-                            ) : (
-                              <svg className="icon dark:fill-jacarta-200 fill-jacarta-500 h-4 w-4">
-                                <use xlinkHref="/icons.svg#icon-heart"></use>
-                              </svg>
-                            )}
-                          </button>
-                        </div>
-                      </div>
-
-
-                      {/* <Auctions_dropdown classes="dark:border-jacarta-600 dark:hover:bg-jacarta-600 border-jacarta-100 dropdown hover:bg-jacarta-100 dark:bg-jacarta-700 rounded-xl border bg-white relative" /> */}
-                    </div>
                   </div>
                 </div>
               </section>

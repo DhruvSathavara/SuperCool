@@ -31,7 +31,6 @@ const Create = () => {
   useEffect(() => {
     setIsMounted(true);
   }, []);
-  // console.log(localStorage.getItem("address"));
   useEffect(() => {
     if (isMounted && imageUrl) {
       imgRef.current = imageUrl;
