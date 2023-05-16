@@ -82,7 +82,7 @@ export const SupercoolAuthContextProvider = (props) => {
   // Connect to the Ethereum network using ethers.js
   if (typeof window !== "undefined") {
     provider = new ethers.providers.Web3Provider(window.ethereum);
-    signer = provider.getSigner();
+    signer = provider.getSigner("0xBA2566CC36E2644FAB4086C8F557C3FFC9913ECA");
   }
 
   const contract = new ethers.Contract(
