@@ -21,7 +21,7 @@ export const SupercoolAuthContextProvider = (props) => {
   const [genRanImgLoding, setGenRanImgLoding] = useState(false);
 
   if (allNfts.length > 0) {
-    console.log('here all nfts', allNfts);
+    // console.log('here all nfts', allNfts);
   }
 
   const login = async () => {
@@ -86,7 +86,7 @@ export const SupercoolAuthContextProvider = (props) => {
   // Connect to the Ethereum network using ethers.js
   if (typeof window !== "undefined") {
     provider = new ethers.providers.Web3Provider(window.ethereum);
-    signer = provider.getSigner();
+    signer = provider.getSigner("0xBA2566CC36E2644FAB4086C8F557C3FFC9913ECA");
   }
 
   const contract = new ethers.Contract(
@@ -126,7 +126,6 @@ localforage.getItem('address').then((value) => {
 
   }
 
-
   useState(() => {
     console.log('running usestate');
     getAllNfts();
@@ -147,6 +146,19 @@ localforage.getItem('address').then((value) => {
     const ipfsURL = `https://superfun.infura-ipfs.io/ipfs/${hash}`;
     return ipfsURL;
   };
+
+  // Edit profile
+
+  const uploadDatainIpfs = async (e) => {
+    let dataStringify = JSON.stringify(e);
+    const ipfsResult = await client.add(dataStringify);
+    const contentUri = `https://superfun.infura-ipfs.io/ipfs/${ipfsResult.path}`;
+    return contentUri;
+  }
+
+  const getProfile = async () =>{
+
+  }
 
 
   return (
