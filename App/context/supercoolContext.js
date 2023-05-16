@@ -13,10 +13,8 @@ export const SupercoolAuthContextProvider = (props) => {
 
   const [walletConnected, setWalletConnected] = useState(false);
   const [loading, setLoading] = useState(false);
-  // const [randomPrompt, setRandomPrompt] = useState(null);
   const [allNfts, setAllNfts] = useState([]);
   const [prompt, setPrompt] = useState(null);
-  const [userAdd, setUserAdd] = useState(null);
   const [genRanImgLoding, setGenRanImgLoding] = useState(false);
 
   if (allNfts.length > 0) {
@@ -58,7 +56,6 @@ export const SupercoolAuthContextProvider = (props) => {
   const logout = async () => {
     localStorage.removeItem("address");
     setWalletConnected(false);
-    setUserAdd(null);
     console.log('user add--', localStorage.getItem("address"))
   }
 
@@ -146,16 +143,6 @@ export const SupercoolAuthContextProvider = (props) => {
   };
 
 
-
-  // Chain link price feed
-  // const fetchPrice = async () => {
-  //   const price = await contract.getMaticUsdPrice();
-  //   console.log('MATIC/USD price:', price.toString());
-  //   // Do something with the price in your React component
-  // };
-
-  // fetchPrice();
-
   return (
     <SupercoolAuthContext.Provider
       value={{
@@ -172,7 +159,7 @@ export const SupercoolAuthContextProvider = (props) => {
         prompt,
         setPrompt,
         genRanImgLoding,
-        userAdd
+        // userAdd
       }}
       {...props}
     >

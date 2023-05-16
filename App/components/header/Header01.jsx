@@ -26,8 +26,8 @@ export default function Header01() {
   });
 
   const superCoolContext = React.useContext(SupercoolAuthContext);
-  const { login, logout, userAdd } = superCoolContext;
-
+  const { login, logout } = superCoolContext;
+// if(typeof(localStorage) !== undefined)
   // console.log(localStorage.getItem("address"));
   const shortAddress = (addr) =>
     addr?.length > 10 && addr?.startsWith("0x")
@@ -136,7 +136,7 @@ export default function Header01() {
     ],
   };
 
- 
+//  console.log(localStorage.getItem("address"),'local--')
   const resource = {
     id: 4,
     name: "Resources",
@@ -198,26 +198,7 @@ export default function Header01() {
           <div className="js-mobile-menu dark:bg-jacarta-800 invisible fixed inset-0 z-10 ml-auto items-center bg-white opacity-0 lg:visible lg:relative lg:inset-auto lg:flex lg:bg-transparent lg:opacity-100 dark:lg:bg-transparent">
             <nav className="navbar w-full">
               <ul className="flex flex-col lg:flex-row">
-                {/* explore */}
-                {/* <li className="group">
-                  <Link href="/explore">
-                    <a>
-                      <button className="text-jacarta-700 font-display hover:text-accent focus:text-accent dark:hover:text-accent dark:focus:text-accent flex items-center justify-between py-3.5 text-base dark:text-white lg:px-5">
-                        <span
-                          className={
-                            isChildrenPageActive(route.asPath, "/explore")
-                              ? "text-accent dark:text-accent"
-                              : ""
-                          }
-                        >
-                          Explore
-                        </span>
-                      </button>
-                    </a>
-                  </Link>
-                </li> */}
-
-                {/* create */}
+               
                 <li className="group">
                   <Link href="/create">
                     <a>
@@ -276,7 +257,8 @@ export default function Header01() {
                   <div>
                     <button className="js-copy-clipboard font-display text-jacarta-700 my-4 flex select-none items-center whitespace-nowrap px-5 leading-none dark:text-white">
                       {/* <span>{shortAddress(localStorage.getItem("address") !== undefined ? localStorage.getItem("address") : "login...")}</span> */}
-                      { userAdd && shortAddress(userAdd)}
+
+                      {/* { localStorage.getItem("address") !== null ? shortAddress(localStorage.getItem("address")) : ""} */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
