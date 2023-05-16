@@ -18,7 +18,7 @@ export const SupercoolAuthContextProvider = (props) => {
   const [genRanImgLoding, setGenRanImgLoding] = useState(false);
 
   if (allNfts.length > 0) {
-    console.log('here all nfts', allNfts);
+    // console.log('here all nfts', allNfts);
   }
 
   const login = async () => {
@@ -120,7 +120,6 @@ export const SupercoolAuthContextProvider = (props) => {
 
   }
 
-
   useState(() => {
     console.log('running usestate');
     getAllNfts();
@@ -142,6 +141,19 @@ export const SupercoolAuthContextProvider = (props) => {
     return ipfsURL;
   };
 
+  // Edit profile
+
+  const uploadDatainIpfs = async (e) => {
+    let dataStringify = JSON.stringify(e);
+    const ipfsResult = await client.add(dataStringify);
+    const contentUri = `https://superfun.infura-ipfs.io/ipfs/${ipfsResult.path}`;
+    return contentUri;
+  }
+
+  const getProfile = async () =>{
+
+  }
+
 
   return (
     <SupercoolAuthContext.Provider
@@ -159,6 +171,7 @@ export const SupercoolAuthContextProvider = (props) => {
         prompt,
         setPrompt,
         genRanImgLoding,
+        uploadDatainIpfs
         // userAdd
       }}
       {...props}
