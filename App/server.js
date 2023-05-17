@@ -10,9 +10,10 @@ app.use(cors());
 
 const port = 5001;
 const configuration = new Configuration({
-    apiKey: "22T9ohqBKmh4RAyjgs9KT3BlbkFJqd7iKemIhQfEVx6k5I63", // Replace with your OpenAI API key
+    apiKey: process.env.apiKey, // Replace with your OpenAI API key
 });
 const openai = new OpenAIApi(configuration);
+console.log(process.env.apiKey,'api');
 
 app.post("/api", async (req, res) => {
     const { prompt } = req.body;
@@ -31,5 +32,3 @@ app.post("/api", async (req, res) => {
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-
-// 22T9ohqBKmh4RAyjgs9KT3BlbkFJqd7iKemIhQfEVx6k5I63

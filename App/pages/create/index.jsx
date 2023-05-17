@@ -39,7 +39,7 @@ const Create = () => {
   }, [imageUrl, isMounted]);
 
   const configuration = new Configuration({
-    apiKey: "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",
+    apiKey: process.env.apiKey,
   });
   const openai = new OpenAIApi(configuration);
 

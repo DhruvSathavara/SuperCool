@@ -36,7 +36,7 @@ export const SupercoolAuthContextProvider = (props) => {
         method: "eth_requestAccounts",
       });
       setUserAdd(accounts[0]);
-      localforage.setItem('address',accounts[0]);
+      localforage.setItem('address', accounts[0]);
       if (window.ethereum.networkVersion === '80001') {
         setWalletConnected(true);
       } else {
@@ -61,14 +61,10 @@ export const SupercoolAuthContextProvider = (props) => {
     })
   }
 
-  const INFURA_KEY = "2DQRq820rLbznhFlkIbTkuYAyCS"
-  const INFURA_SECRET_KEY = "33d97cf6366f9565421e36ff7e018e60"
-
-  // console.log(INFURA_KEY, INFURA_SECRET_KEY);
   const auth =
     "Basic " +
     Buffer.from(
-      INFURA_KEY + ":" + INFURA_SECRET_KEY
+      process.env.infuraProjectKey + ":" + process.env.infuraSecretKey
     ).toString("base64");
 
   const client = create({
@@ -79,7 +75,7 @@ export const SupercoolAuthContextProvider = (props) => {
       authorization: auth,
     },
   });
- 
+
 
   const contract = new ethers.Contract(
     SUPER_COOL_NFT_CONTRACT,
@@ -93,7 +89,7 @@ export const SupercoolAuthContextProvider = (props) => {
     const accounts = await ethereum.request({
       method: 'eth_requestAccounts',
     });
-console.log(accounts);
+    console.log(accounts);
     setGenRanImgLoding(true);
     const tx = await contract.getRandomNumber();
     await tx.wait();
