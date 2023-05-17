@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
 
   // console.log(' NEXT_PUBLIC_APP_INFURA_PROJECT_KEY=== ', process.env.NEXT_PUBLIC_APP_INFURA_PROJECT_KEY);
 
-  console.log(' NEXT_PUBLIC_APP_INFURA_APP_SECRET_KEY ++++ ', process.env.NEXT_PUBLIC_APP_INFURA_APP_SECRET_KEY );
+  // console.log(' NEXT_PUBLIC_APP_INFURA_APP_SECRET_KEY ++++ ', process.env.NEXT_PUBLIC_APP_INFURA_APP_SECRET_KEY );
 
   return (
     <>

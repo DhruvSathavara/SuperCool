@@ -8,25 +8,36 @@ import Meta from '../../components/Meta';
 import { ethers, Signer } from 'ethers';
 import { SupercoolAuthContext } from '../../context/supercoolContext';
 import axios from 'axios';
+import localforage from 'localforage'
+
 import { abi, SUPER_COOL_NFT_CONTRACT } from '../../constant/constant';
 const Edit_user = () => {
 	const superCoolContext = React.useContext(SupercoolAuthContext);
-	const { uploadDatainIpfs } = superCoolContext;
+	const { uploadDatainIpfs, handleImgUpload, getProfileData } = superCoolContext;
 	const [coverePhoto, setCoverePhoto] = useState();
 	const [username, setUsername] = useState("");
+	const [walletAddress, setWalletAddress] = useState(undefined);
 	const [bio, setBio] = useState("");
 	const [profilePhoto, setProfilePhoto] = useState();
-	const [preview, setPreview] = useState()
-	const [coverPreview, setCoverPreview] = useState()
 	const [Data, setData] = useState()
 	// Profile data
+
+	localforage.getItem('address').then((value) => {
+		setWalletAddress(value)
+	  })
 	const Profiledata = {
 		username: username,
 		bio: bio,
 		profilephoto: profilePhoto,
 		coverimage: coverePhoto,
-		// walletAddress: localStorage.getItem("address")
+		walletAddress: walletAddress
 	}
+
+	useEffect(() => {
+		if(walletAddress !== undefined){
+			editProfileData();
+		}
+	},[walletAddress])
 
 	let provider;
 	let signer;
@@ -40,9 +51,6 @@ const Edit_user = () => {
 		abi,
 		signer
 	);
-
-
-
 	console.log('Profiledata=', Profiledata);
 
 	const UsernameEvent = (e) => {
@@ -51,50 +59,47 @@ const Edit_user = () => {
 	const BioEvent = (e) => {
 		setBio(e.target.value)
 	}
-	const handleCoverPhoto = (event) => {
-		setCoverePhoto(URL.createObjectURL(event.target.files[0]));
+	const handleCoverPhoto = async (event) => {
+		let coverImg = await handleImgUpload(event.target.files[0]);
+		setCoverePhoto(coverImg);
 	}
 
-	const handleProfilePhoto = (event) => {
-		setProfilePhoto(URL.createObjectURL(event.target.files[0]));
+	const handleProfilePhoto = async (event) => {
+		let pfpImg = await handleImgUpload(event.target.files[0]);
+		setProfilePhoto(pfpImg)
 	}
 
+	const editProfileData = async () => {
 
-	useEffect(() => {
-		if (profilePhoto) {
-			const reader = new FileReader();
-			reader.onloadend = () => {
-				setPreview(reader.result);
-			};
-		} else {
-			setPreview(null);
-		}
-	}, [profilePhoto]);
+		localforage.getItem('address').then( async (value) => {
+			setWalletAddress(value)
+			const response = await getProfileData(value);
+			console.log(response);
+			setUsername(response.data.username)
+			setBio(response.data.bio)
+			setCoverePhoto(response.data.coverimage);
+			setProfilePhoto(response.data.profilephoto)
+		  })
+	}
 
-	useEffect(() => {
-		if (coverePhoto) {
-			const reader = new FileReader();
-			reader.onloadend = () => {
-				setCoverPreview(reader.result);
-			};
-		} else {
-			setCoverPreview(null);
-		}
-	}, [coverePhoto]);
+	const updateProfile = async () => {
+		let url = await uploadDatainIpfs(Profiledata);
+		console.log('metadataurl==', url);
 
-	const Profile = async () => {
-		let metadataurl = await uploadDatainIpfs(Profiledata);
-		console.log('metadataurl==', metadataurl);
+		const tx = await contract.storeProfileData(url);
+		await tx.wait();
+
 
 		// profileUrl = metadataurl;
 		// console.log('profileUrl', profileUrl);
 		// const response = await axios.get(profileUrl);
 		// console.log(metadataurl, ':::metaprofile');
 		// setData(response.data);
-		setBio('');
-		setUsername("");
-		setProfilePhoto('');
-		setCoverePhoto('')
+		
+		// setBio('');
+		// setUsername("");
+		// setProfilePhoto('');
+		// setCoverePhoto('')
 	}
 	// console.log('Data', Data);
 
@@ -108,7 +113,7 @@ const Edit_user = () => {
 				{/* <!-- Banner --> */}
 				<div className="relative">
 					<img
-						src={''}
+						src={coverePhoto}
 						alt="banner"
 						className="h-[18.75rem] w-full object-cover"
 					/>
@@ -156,6 +161,7 @@ const Edit_user = () => {
 										className="dark:bg-jacarta-700 border-jacarta-100 hover:ring-accent/10 focus:ring-accent dark:border-jacarta-600 dark:placeholder:text-jacarta-300 w-full rounded-lg py-3 hover:ring-2 dark:text-white px-3"
 										placeholder="Enter username"
 										required
+										value={username}
 										onChange={UsernameEvent}
 									/>
 								</div>
@@ -167,6 +173,7 @@ const Edit_user = () => {
 										id="profile-bio"
 										className="dark:bg-jacarta-700 border-jacarta-100 hover:ring-accent/10 focus:ring-accent dark:border-jacarta-600 dark:placeholder:text-jacarta-300 w-full rounded-lg py-3 hover:ring-2 dark:text-white px-3"
 										required
+										value={bio}
 										placeholder="Tell the world your story!"
 										onChange={BioEvent}
 									></textarea>
@@ -177,14 +184,23 @@ const Edit_user = () => {
 									<label className="font-display text-jacarta-700 mb-1 block text-sm dark:text-white">
 										Wallet Address
 									</label>
-
-									<UserId
-										classes="js-copy-clipboard dark:bg-jacarta-700 border-jacarta-100 hover:bg-jacarta-50 dark:border-jacarta-600 dark:text-jacarta-300 flex w-full select-none items-center rounded-lg border bg-white py-3 px-4"
-									// userId={localStorage.getItem('address').slice(0, 34)}
+									<input
+										type="text"
+										id="profile-username"
+										className="dark:bg-jacarta-700 border-jacarta-100 hover:ring-accent/10 focus:ring-accent dark:border-jacarta-600 dark:placeholder:text-jacarta-300 w-full rounded-lg py-3 hover:ring-2 dark:text-white px-3"
+										placeholder="wallet address"
+										required
+										value={walletAddress}
+										disabled
+										// onChange={UsernameEvent}
 									/>
+									{/* <UserId
+										classes="js-copy-clipboard dark:bg-jacarta-700 border-jacarta-100 hover:bg-jacarta-50 dark:border-jacarta-600 dark:text-jacarta-300 flex w-full select-none items-center rounded-lg border bg-white py-3 px-4"
+									userId={localStorage.getItem('address').slice(0, 34)}
+									/> */}
 								</div>
 								<button className="bg-accent shadow-accent-volume hover:bg-accent-dark rounded-full py-3 px-8 text-center font-semibold text-white transition-all"
-									onClick={Profile}
+									onClick={updateProfile}
 								>
 									Update Profile
 								</button>
@@ -194,7 +210,8 @@ const Edit_user = () => {
 								<form className="shrink-0">
 									<figure className="relative inline-block">
 										<img
-											src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80"
+											// src={`$` }"https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80"
+											src={profilePhoto} 
 											alt="collection avatar"
 											className="dark:border-jacarta-600 rounded-xl border-[5px] border-white"
 											height={140}
