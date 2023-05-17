@@ -104,6 +104,30 @@ const Edit_user = () => {
 	// console.log('Data', Data);
 
 
+	const uploadImageToIPFS = async (imageData) => {
+		try {
+			const uploadedImage = await ipfs.add(imageData);
+			const imageHash = uploadedImage.cid.toString();
+			return imageHash;
+		} catch (error) {
+			console.error('Error uploading image to IPFS:', error);
+			return null;
+		}
+	};
+
+	const handleCoverPhoto = async (event) => {
+		const file = event.target.files[0];
+		const reader = new FileReader();
+		reader.onloadend = async () => {
+			const imageBuffer = Buffer.from(reader.result);
+			const imageHash = await uploadImageToIPFS(imageBuffer);
+			// Do something with the image hash, such as storing it in a database or using it in your application
+			console.log('Image hash:', imageHash);
+		};
+		reader.readAsArrayBuffer(file);
+	};
+
+
 
 
 	return (

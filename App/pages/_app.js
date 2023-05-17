@@ -19,13 +19,11 @@ function MyApp({ Component, pageProps }) {
   const scrollRef = useRef({
     scrollPos: 0,
   });
+  console.log('apiKey', process.env.apiKey);
+  console.log('infuraProjectKey', process.env.infuraProjectKey);
+  console.log('infuraSecretKey', process.env.infuraSecretKey);
+  console.log('privateKey', process.env.privateKey);
 
-  const NEXT_PUBLIC_APP_OPEN_AI = process.env.NEXT_PUBLIC_APP_OPEN_AI;
-  // console.log('NEXT_PUBLIC_APP_OPEN_AI---', NEXT_PUBLIC_APP_OPEN_AI);
-
-  // console.log(' NEXT_PUBLIC_APP_INFURA_PROJECT_KEY=== ', process.env.NEXT_PUBLIC_APP_INFURA_PROJECT_KEY);
-
-  // console.log(' NEXT_PUBLIC_APP_INFURA_APP_SECRET_KEY ++++ ', process.env.NEXT_PUBLIC_APP_INFURA_APP_SECRET_KEY );
 
   return (
     <>
