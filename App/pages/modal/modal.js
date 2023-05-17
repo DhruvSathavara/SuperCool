@@ -32,7 +32,7 @@ const ImageModal = ({ setModalOpen, selectedImage, setSelectedImage, setrenderse
                 </svg>
             </button>
             <div className="img-container">
-                {selectedImage && <img src={selectedImage} alt="imgg" />}
+                {selectedImage && <img height="400px" width="400px" src={selectedImage} alt="imgg" />}
             </div>
 
 
