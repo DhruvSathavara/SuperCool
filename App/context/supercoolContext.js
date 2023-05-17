@@ -27,7 +27,6 @@ export const SupercoolAuthContextProvider = (props) => {
     signer = provider.getSigner();
   }
 
-
   const login = async () => {
     if (!window.ethereum) return;
 

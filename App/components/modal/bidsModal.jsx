@@ -34,7 +34,7 @@ const BidsModal = () => {
           .map((item) => {
             console.log(item);
             return (
-              <div className={bidsModal ? "modal fade show block" : "modal fade"}>
+              <div key={item.tokenId} className={bidsModal ? "modal fade show block" : "modal fade"}>
                 <div className="modal-dialog max-w-2xl">
                   <div className="modal-content">
                     <div className="modal-header">

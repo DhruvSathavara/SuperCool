@@ -38,10 +38,7 @@ const User = () => {
         setAddress(value)
         console.log(address);
         getUserData(value);
-       
-        // if(address !== undefined){
-        //   console.log(address);
-        // }
+     
       }
       )
       // getUserData();
