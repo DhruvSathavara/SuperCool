@@ -56,7 +56,7 @@ export const SupercoolAuthContextProvider = (props) => {
     localforage.removeItem('address');
     setWalletConnected(false);
     localforage.getItem('address').then((value) => {
-      console.log(value) 
+      console.log(value)
     })
   }
 
@@ -85,7 +85,9 @@ export const SupercoolAuthContextProvider = (props) => {
     abi,
     signer
   );
-
+  localforage.getItem('address').then((value) => {
+    console.log(value) // Output: { name: 'John', age: 30 }
+  })
   const GenerateNum = async () => {
     const accounts = await ethereum.request({
       method: 'eth_requestAccounts',
@@ -138,8 +140,11 @@ console.log(accounts);
     const added = await client.add(file);
     const hash = added.path;
     const ipfsURL = `https://superfun.infura-ipfs.io/ipfs/${hash}`;
+    console.log('ipfsURL', ipfsURL);
+
     return ipfsURL;
   };
+
 
   // Edit profile
 
@@ -147,10 +152,13 @@ console.log(accounts);
     let dataStringify = JSON.stringify(e);
     const ipfsResult = await client.add(dataStringify);
     const contentUri = `https://superfun.infura-ipfs.io/ipfs/${ipfsResult.path}`;
+    console.log('contentUri', contentUri);
     return contentUri;
+
   }
 
-  const getProfile = async () =>{
+
+  const getProfile = async () => {
 
   }
 
@@ -172,6 +180,7 @@ console.log(accounts);
         setPrompt,
         genRanImgLoding,
         userAdd,
+        uploadDatainIpfs,
         getAllNfts
       }}
       {...props}

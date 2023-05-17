@@ -8,14 +8,14 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/math/SafeCast.sol";
 import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
 
- contract SUPCool is ERC721URIStorage, VRFConsumerBase {
+contract SUPCool is ERC721URIStorage, VRFConsumerBase {
     using SafeCast for int256;
     using SafeMath for uint256;
     using Counters for Counters.Counter;
     Counters.Counter private tokenCounter;
 
     AggregatorV3Interface internal matic_usd_price_feed;
-    
+
     uint256 maxPrompt = 20;
     uint256 public fee;
     uint256 public ranNum;
@@ -23,6 +23,7 @@ import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
 
     mapping(uint256 => uint256) private tokenPrices;
     mapping(address => uint256[]) private userNFTs;
+    mapping(address => string) private Profile;
 
     constructor(
         string memory name,
@@ -31,9 +32,7 @@ import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
         address linkToken,
         bytes32 _keyHash,
         uint256 _fee
-    ) ERC721(name, symbol)
-     VRFConsumerBase(vrfCoordinator, linkToken) 
-     {
+    ) ERC721(name, symbol) VRFConsumerBase(vrfCoordinator, linkToken) {
         matic_usd_price_feed = AggregatorV3Interface(
             0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada
         );
@@ -104,12 +103,15 @@ import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
         return tokenCounter.current();
     }
 
-    function fulfillRandomness(bytes32 requestId,uint256 randomness) internal virtual override {
+    function fulfillRandomness(
+        bytes32 requestId,
+        uint256 randomness
+    ) internal virtual override {
         uint256 winnerIndex = randomness % maxPrompt;
         ranNum = winnerIndex;
     }
 
-     function generateRandomNum() private returns (bytes32 requestId) {
+    function generateRandomNum() private returns (bytes32 requestId) {
         require(LINK.balanceOf(address(this)) >= fee, "Not enough LINK");
         return requestRandomness(keyHash, fee);
     }
@@ -118,4 +120,11 @@ import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
         generateRandomNum();
     }
 
+    function storeProfileData(string memory metadata) public {
+        Profile[msg.sender] = metadata;
+    }
+
+    function getUserProfile(address user) public view returns (string memory) {
+        return Profile[user];
+    }
 }
