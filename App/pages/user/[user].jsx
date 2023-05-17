@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import Link from "next/link";
 // import Auctions_dropdown from "../../components/dropdown/Auctions_dropdown";
 import user_data from "../../data/user_data";
@@ -18,35 +17,54 @@ const User = () => {
 
   const [address, setAddress] = useState();
   const router = useRouter();
+  const [walletAddress, setWalletAddress] = useState(undefined);
   const pid = router.query.user;
-
-  // localforage.getItem('address').then((value) => {
-  //   setAddress(value)
-  //   console.log(value) // Output: { name: 'John', age: 30 }
-  // })
-  // console.log('--add---', address);
+  const [coverePhoto, setCoverePhoto] = useState();
+  const [username, setUsername] = useState("");
+  const [bio, setBio] = useState("");
+  const [profilePhoto, setProfilePhoto] = useState();
   const [likesImage, setLikesImage] = useState(false);
   const [copied, setCopied] = useState(false);
   const [data, setData] = useState([]);
   const superCoolContext = React.useContext(SupercoolAuthContext);
-  const { allNfts,userAdd } = superCoolContext;
-  
+  const { allNfts, getProfileData } = superCoolContext;
+
+
+  localforage.getItem('address').then((value) => {
+    setWalletAddress(value)
+  })
+
   useEffect(() => {
-    console.log(allNfts.length);
+    // console.log(allNfts.length);
+    // if (walletAddress !== undefined) {
+    //   console.log(walletAddress);
+      ProfileData();
+    // }
     if (allNfts.length > 0) {
-      localforage.getItem('address').then( async (value) => {
-        setAddress(value)
-        console.log(address);
-        getUserData(value);
-       
-        // if(address !== undefined){
-        //   console.log(address);
-        // }
+      localforage.getItem('address').then(async (value) => {
+        setAddress(value);
+        getUserData(value); 
       }
       )
-      // getUserData();
     }
+   
   }, [])
+
+  const ProfileData = async () => {
+
+    localforage.getItem('address').then( async (value) => {
+      setWalletAddress(value)
+
+      const response = await getProfileData(value);
+      console.log('response--',response);
+      setUsername(response.data.username)
+      setBio(response.data.bio)
+      setCoverePhoto(response.data.coverimage);
+      setProfilePhoto(response.data.profilephoto)
+    })
+  
+  }
+
   const getUserData = async (address) => {
     const dataa = [];
     for (let i = 0; i < allNfts.length; i++) {
@@ -57,15 +75,8 @@ const User = () => {
     }
     setData(dataa)
   }
-  console.log('user data', data);
+  // console.log('user data', data);
 
-  const handleLikes = () => {
-    if (!likesImage) {
-      setLikesImage(true);
-    } else {
-      setLikesImage(false);
-    }
-  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -77,99 +88,91 @@ const User = () => {
 
   return (
     <>
-      <Meta title="Super Cool" />
-      {/* <!-- Profile --> */}
-      {user_data
-        .filter((item) => item.id === pid)
-        .map((item) => {
-          const { id, image, title, userId, text, joinYear, icon, coverPhoto } =
-            item;
-          return (
-            <div className="pt-[5.5rem] lg:pt-24" key={id}>
-              {/* <!-- Banner --> */}
-              <div className="relative h-[18.75rem]">
-                <Image
-                  src={coverPhoto}
-                  alt="banner"
-                  layout="fill"
-                  objectFit="cover"
-                />
-              </div>
-              {/* <!-- end banner --> */}
-              <section className="dark:bg-jacarta-800 bg-light-base relative pb-12 pt-28">
-                {/* <!-- Avatar --> */}
-                <div className="absolute left-1/2 top-0 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center">
-                  <figure className="relative h-40 w-40 dark:border-jacarta-600 rounded-xl border-[5px] border-white">
-                    <Image
-                      src={image}
-                      alt={title}
-                      layout="fill"
-                      objectFit="contain"
-                      className="dark:border-jacarta-600 rounded-xl border-[5px] border-white"
-                    />
-                    <div
-                      className="dark:border-jacarta-600 bg-green absolute -right-3 bottom-0 flex h-6 w-6 items-center justify-center rounded-full border-2 border-white"
-                      data-tippy-content="Verified Collection"
+      <div className="pt-[5.5rem] lg:pt-24" >
+        {/* <!-- Banner --> */}
+        <div className="relative h-[18.75rem]">
+          <img
+            src={coverePhoto}
+            alt="banner"
+            layout="fill"
+            // objectFit="cover"
+						className="h-[18.75rem] w-full object-cover"
+
+          />
+        </div>
+        {/* <!-- end banner --> */}
+        <section className="dark:bg-jacarta-800 bg-light-base relative pb-12 pt-28">
+          {/* <!-- Avatar --> */}
+          <div className="absolute left-1/2 top-0 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center">
+            <figure className="relative h-40 w-40 dark:border-jacarta-600 rounded-xl border-[5px] border-white">
+              <img
+                src={profilePhoto}
+                alt={username}
+                layout="fill"
+                objectFit="contain"
+                className="dark:border-jacarta-600 rounded-xl border-[5px] border-white"
+              />
+              {/* <div
+                className="dark:border-jacarta-600 bg-green absolute -right-3 bottom-0 flex h-6 w-6 items-center justify-center rounded-full border-2 border-white"
+                data-tippy-content="Verified Collection"
+              >
+                {icon && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                    className="h-[.875rem] w-[.875rem] fill-white"
+                  >
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                    <path d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"></path>
+                  </svg>
+                )}
+              </div> */}
+            </figure>
+          </div>
+
+          <div className="container">
+            <div className="text-center">
+              <h4 className="font-display text-jacarta-700 mb-2 text-2xl font-medium dark:text-white">
+                {username ? username : "user"}
+              </h4>
+              <div className="dark:bg-jacarta-700 dark:border-jacarta-600 border-jacarta-100 mb-8 inline-flex items-center justify-center rounded-full border bg-white py-1.5 px-4">
+                <Tippy content="ETH">
+                  <svg className="icon h-4 w-4 mr-1">
+                    <use xlinkHref="/icons.svg#icon-ETH"></use>
+                  </svg>
+                </Tippy>
+
+                <Tippy
+                  hideOnClick={false}
+                  content={
+                    copied ? <span>copied</span> : <span>copy</span>
+                  }
+                >
+                  <button className="js-copy-clipboard dark:text-jacarta-200 max-w-[10rem] select-none overflow-hidden text-ellipsis whitespace-nowrap">
+                    <CopyToClipboard
+                      text={address}
+                      onCopy={() => setCopied(true)}
                     >
-                      {icon && (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          width="24"
-                          height="24"
-                          className="h-[.875rem] w-[.875rem] fill-white"
-                        >
-                          <path fill="none" d="M0 0h24v24H0z"></path>
-                          <path d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"></path>
-                        </svg>
-                      )}
-                    </div>
-                  </figure>
-                </div>
+                      <span>{address}</span>
+                    </CopyToClipboard>
+                  </button>
+                </Tippy>
+              </div>
 
-                <div className="container">
-                  <div className="text-center">
-                    <h4 className="font-display text-jacarta-700 mb-2 text-2xl font-medium dark:text-white">
-                      {address !== null ? address : "user"}
-                    </h4>
-                    <div className="dark:bg-jacarta-700 dark:border-jacarta-600 border-jacarta-100 mb-8 inline-flex items-center justify-center rounded-full border bg-white py-1.5 px-4">
-                      <Tippy content="ETH">
-                        <svg className="icon h-4 w-4 mr-1">
-                          <use xlinkHref="/icons.svg#icon-ETH"></use>
-                        </svg>
-                      </Tippy>
-
-                      <Tippy
-                        hideOnClick={false}
-                        content={
-                          copied ? <span>copied</span> : <span>copy</span>
-                        }
-                      >
-                        <button className="js-copy-clipboard dark:text-jacarta-200 max-w-[10rem] select-none overflow-hidden text-ellipsis whitespace-nowrap">
-                          <CopyToClipboard
-                            text={address}
-                            onCopy={() => setCopied(true)}
-                          >
-                            <span>{address}</span>
-                          </CopyToClipboard>
-                        </button>
-                      </Tippy>
-                    </div>
-
-                    <p className="dark:text-jacarta-300 mx-auto mb-2 max-w-xl text-lg">
-                      {text}
-                    </p>
-                    <span className="text-jacarta-400">
-                      Joined May 2023
-                    </span>
-                  </div>
-                </div>
-              </section>
-              {/* <!-- end profile --> */}
-              <User_items data={data} />
+              <p className="dark:text-jacarta-300 mx-auto mb-2 max-w-xl text-lg">
+                {bio}
+              </p>
+              <span className="text-jacarta-400">
+                Joined May 2023
+              </span>
             </div>
-          );
-        })}
+          </div>
+        </section>
+        {/* <!-- end profile --> */}
+        <User_items data={data} />
+      </div>
     </>
   );
 };

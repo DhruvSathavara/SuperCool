@@ -38,7 +38,7 @@ const Item = () => {
 						.filter((item) => item.tokenId == pid)
 						.map((item) => {
 							return (
-								<div className="md:flex md:flex-wrap" >
+								<div key={item.tokenId} className="md:flex md:flex-wrap" >
 									{/* <!-- Image --> */}
 									<figure className="mb-8 md:w-2/5 md:flex-shrink-0 md:flex-grow-0 md:basis-auto lg:w-1/2 w-full">
 										<button className=" w-full" onClick={() => setImageModal(true)}>

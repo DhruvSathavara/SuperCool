@@ -6,6 +6,7 @@ import { create } from 'ipfs-http-client';
 import { ethers } from 'ethers';
 import { RandomPrompts } from "../components/RandomImgs";
 import localforage from 'localforage'
+import axios from 'axios';
 
 export const SupercoolAuthContext = createContext(undefined);
 
@@ -26,7 +27,6 @@ export const SupercoolAuthContextProvider = (props) => {
     provider = new ethers.providers.Web3Provider(window.ethereum);
     signer = provider.getSigner();
   }
-
 
   const login = async () => {
     if (!window.ethereum) return;
@@ -82,9 +82,7 @@ export const SupercoolAuthContextProvider = (props) => {
     abi,
     signer
   );
-  localforage.getItem('address').then((value) => {
-    console.log(value) // Output: { name: 'John', age: 30 }
-  })
+ 
   const GenerateNum = async () => {
     const accounts = await ethereum.request({
       method: 'eth_requestAccounts',
@@ -98,6 +96,19 @@ export const SupercoolAuthContextProvider = (props) => {
     setGenRanImgLoding(false);
     // console.log(num.toString());
   }
+
+  const getProfileData = async (add) => {
+    console.log('use add--',add);
+    if(add !== undefined){
+      const dataurl = await contract.getUserProfile(add);
+      console.log(dataurl);
+      const response = await axios.get(dataurl);
+      console.log(response.data);
+      return response;
+    }
+	
+  }
+
 
   const getAllNfts = async () => {
 
@@ -120,8 +131,10 @@ export const SupercoolAuthContextProvider = (props) => {
   }
 
   useState(() => {
+    setTimeout(() => {
     console.log('running usestate');
-    getAllNfts();
+      getAllNfts();
+    }, 5000);
   }, [loading])
   const uploadOnIpfs = async (e) => {
     let dataStringify = JSON.stringify(e);
@@ -137,8 +150,6 @@ export const SupercoolAuthContextProvider = (props) => {
     const added = await client.add(file);
     const hash = added.path;
     const ipfsURL = `https://superfun.infura-ipfs.io/ipfs/${hash}`;
-    console.log('ipfsURL', ipfsURL);
-
     return ipfsURL;
   };
 
@@ -178,7 +189,8 @@ export const SupercoolAuthContextProvider = (props) => {
         genRanImgLoding,
         userAdd,
         uploadDatainIpfs,
-        getAllNfts
+        getAllNfts,
+        getProfileData
       }}
       {...props}
     >
