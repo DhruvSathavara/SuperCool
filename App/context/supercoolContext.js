@@ -20,13 +20,59 @@ export const SupercoolAuthContextProvider = (props) => {
   const [prompt, setPrompt] = useState(null);
   const [userAdd, setUserAdd] = useState();
   const [genRanImgLoding, setGenRanImgLoding] = useState(false);
+  // const [provider, setProvider] = useState(null);
+  // const [signer, setSigner] = useState(null);
 
   let provider;
   let signer;
-  if (typeof window !== "undefined") {
+  if (typeof window !== "undefined" && window.ethereum) {
     provider = new ethers.providers.Web3Provider(window.ethereum);
     signer = provider.getSigner();
+  } else {
+    console.log('No wallet connected or logged out');
   }
+
+ 
+
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined' && window.ethereum) {
+  //     const provider = new ethers.providers.Web3Provider(window.ethereum);
+  //     const signer = provider.getSigner();
+  //     setProvider(provider);
+  //     setSigner(signer);
+  //   }
+  // }, []);
+
+
+  // const initializeProvider = async () => {
+  //   try {
+  //     if (provider && signer) {
+  //       // Check if the user is connected to a wallet
+  //       if (window.ethereum && window.ethereum.selectedAddress) {
+  //         const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+  //         if (accounts.length > 0) {
+  //           console.log('Account address:', accounts[0]);
+  //         } else {
+  //           console.log('No wallet connected or logged out');
+  //         }
+  //       } else {
+  //         console.log('No wallet connected or logged out');
+  //       }
+  //     } else {
+  //       console.log('No wallet connected or logged out');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (provider && signer) {
+  //     initializeProvider();
+  //   }
+  // }, [provider, signer]);
+
+
 
   const login = async () => {
     if (!window.ethereum) return;
@@ -46,6 +92,17 @@ export const SupercoolAuthContextProvider = (props) => {
         });
 
         setWalletConnected(true);
+      }
+
+      if (ethereum && ethereum.selectedAddress) {
+        console.log(ethereum, 'ethererrmmm');
+        const address = await signer.getAddress();
+
+        // Use the account address as needed
+        console.log('Account address:', address);
+      } else {
+        // Handle the case when no wallet is connected or logged out
+        console.log('No wallet connected or logged out');
       }
     } catch (error) {
       console.error('Login error:', error);
@@ -82,7 +139,7 @@ export const SupercoolAuthContextProvider = (props) => {
     abi,
     signer
   );
- 
+
   const GenerateNum = async () => {
     const accounts = await ethereum.request({
       method: 'eth_requestAccounts',
@@ -98,15 +155,15 @@ export const SupercoolAuthContextProvider = (props) => {
   }
 
   const getProfileData = async (add) => {
-    console.log('use add--',add);
-    if(add !== undefined){
+    console.log('use add--', add);
+    if (add !== undefined) {
       const dataurl = await contract.getUserProfile(add);
       console.log(dataurl);
       const response = await axios.get(dataurl);
       console.log(response.data);
       return response;
     }
-	
+
   }
 
 
@@ -132,7 +189,7 @@ export const SupercoolAuthContextProvider = (props) => {
 
   useState(() => {
     setTimeout(() => {
-    console.log('running usestate');
+      console.log('running usestate');
       getAllNfts();
     }, 5000);
   }, [loading])

@@ -24,7 +24,7 @@ const Edit_user = () => {
 
 	localforage.getItem('address').then((value) => {
 		setWalletAddress(value)
-	  })
+	})
 	const Profiledata = {
 		username: username,
 		bio: bio,
@@ -34,10 +34,10 @@ const Edit_user = () => {
 	}
 
 	useEffect(() => {
-		if(walletAddress !== undefined){
+		if (walletAddress !== undefined) {
 			editProfileData();
 		}
-	},[walletAddress])
+	}, [walletAddress])
 
 	let provider;
 	let signer;
@@ -71,7 +71,7 @@ const Edit_user = () => {
 
 	const editProfileData = async () => {
 
-		localforage.getItem('address').then( async (value) => {
+		localforage.getItem('address').then(async (value) => {
 			setWalletAddress(value)
 			const response = await getProfileData(value);
 			console.log(response);
@@ -79,7 +79,7 @@ const Edit_user = () => {
 			setBio(response.data.bio)
 			setCoverePhoto(response.data.coverimage);
 			setProfilePhoto(response.data.profilephoto)
-		  })
+		})
 	}
 
 	const updateProfile = async () => {
@@ -95,7 +95,7 @@ const Edit_user = () => {
 		// const response = await axios.get(profileUrl);
 		// console.log(metadataurl, ':::metaprofile');
 		// setData(response.data);
-		
+
 		// setBio('');
 		// setUsername("");
 		// setProfilePhoto('');
@@ -186,7 +186,7 @@ const Edit_user = () => {
 										placeholder="Enter username"
 										required
 										value={username}
-										onChange={UsernameEvent}
+										onChange={() => UsernameEvent}
 									/>
 								</div>
 								<div className="mb-6">
@@ -199,7 +199,7 @@ const Edit_user = () => {
 										required
 										value={bio}
 										placeholder="Tell the world your story!"
-										onChange={BioEvent}
+										onChange={() => BioEvent}
 									></textarea>
 								</div>
 
@@ -216,7 +216,7 @@ const Edit_user = () => {
 										required
 										value={walletAddress}
 										disabled
-										// onChange={UsernameEvent}
+									// onChange={UsernameEvent}
 									/>
 									{/* <UserId
 										classes="js-copy-clipboard dark:bg-jacarta-700 border-jacarta-100 hover:bg-jacarta-50 dark:border-jacarta-600 dark:text-jacarta-300 flex w-full select-none items-center rounded-lg border bg-white py-3 px-4"
@@ -235,7 +235,7 @@ const Edit_user = () => {
 									<figure className="relative inline-block">
 										<img
 											// src={`$` }"https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80"
-											src={profilePhoto} 
+											src={profilePhoto}
 											alt="collection avatar"
 											className="dark:border-jacarta-600 rounded-xl border-[5px] border-white"
 											height={140}

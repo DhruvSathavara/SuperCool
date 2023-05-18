@@ -52,7 +52,7 @@ const Create = () => {
         n: 3,
         size: "256x256",
       });
-      setPrompt(null);
+      // setPrompt(null);
       console.log(res);
 
       let arr = [];
@@ -83,9 +83,9 @@ const Create = () => {
       console.error("Failed to mint NFT: " + e.message);
     }
     // setLoading(!loading)
-   await getAllNfts()
+    await getAllNfts()
     setMintLoading(false);
-    setPrompt(null);
+    // setPrompt(null);
     setImages([]);
     setTitle('');
     setDescription('');
@@ -250,15 +250,16 @@ const Create = () => {
 
             <div className="mb-6">
               <p className="dark:text-jacarta-300 text-4xs mb-3">
-                We're excited to bring your NFT to life, but we need your input. Please provide us with a brief description of what you want it to look like.
+                We're excited to bring your NFT to life, but we need your input. Please provide us with a brief description of what you want it to look like. Or
                 <span>
-                  <a style={{ cursor: "pointer" }} onClick={GenerateNum}> {
-                    genRanImgLoding ?
-                      "generating random prompt..." :
-                      <a className="hover:text-accent dark:hover:text-white">
-                        Or generate random image.
-                      </a>
-                  }  </a>
+                  <a
+                    className="hover:text-accent dark:hover:text-white text-jacarta-700 font-bold font-display mb-6 text-center text-md dark:text-white md:text-left lg:text-md xl:text-md animate-gradient"
+                    style={{ cursor: "pointer" }} onClick={GenerateNum}
+                  > {
+                      genRanImgLoding ?
+                        "generating random prompt..." : "generate random image."
+
+                    }  </a>
                 </span>
               </p>
 
@@ -290,43 +291,43 @@ const Create = () => {
 
               {
                 images.length > 0 ?
-                <>
-                  <div className="row main-row">
-                    {images && images.map((url) => (
-                      <div
-                        className="col-lg-4 mb-4 mb-lg-0"
-                        onClick={() => handleSelectedImg(url)}
-                      >
+                  <>
+                    <div className="row main-row">
+                      {images && images.map((url) => (
                         <div
-                          className="bg-image hover-overlay ripple shadow-1-strong rounded col-4"
-                          data-ripple-color="light"
+                          className="col-lg-4 mb-4 mb-lg-0"
+                          onClick={() => handleSelectedImg(url)}
                         >
-                          <div className="img-nft">
-                            <img
-                              src={url}
-                            />
-                          </div>
-                          <div className="radio-img">
-                            <input
-                              type="radio"
-                              id="huey"
-                              name="drone"
-                              value="huey"
-                              checked={url == selectedImage}
-                              className="mt-3"
-                            />
+                          <div
+                            className="bg-image hover-overlay ripple shadow-1-strong rounded col-4"
+                            data-ripple-color="light"
+                          >
+                            <div className="img-nft">
+                              <img
+                                src={url}
+                              />
+                            </div>
+                            <div className="radio-img">
+                              <input
+                                type="radio"
+                                id="huey"
+                                name="drone"
+                                value="huey"
+                                checked={url == selectedImage}
+                                className="mt-3"
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
-                  
-                  </div>
-                  <div>
+                      ))}
+
+                    </div>
+                    <div>
                       <p style={{ textAlign: "center" }} className="dark:text-jacarta-300 text-4xs mb-3"
                       >Select the image you wish to mint.</p>
                     </div>
                   </>
-                   : ""
+                  : ""
               }
 
               {/* <div className="row main-row">

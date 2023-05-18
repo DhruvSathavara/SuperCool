@@ -19,11 +19,7 @@ function MyApp({ Component, pageProps }) {
   const scrollRef = useRef({
     scrollPos: 0,
   });
-  console.log('apiKey', process.env.apiKey);
-  console.log('infuraProjectKey', process.env.infuraProjectKey);
-  console.log('infuraSecretKey', process.env.infuraSecretKey);
-  console.log('privateKey', process.env.privateKey);
-
+  
 
   return (
     <>
