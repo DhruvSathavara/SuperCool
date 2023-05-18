@@ -21,6 +21,8 @@ const Create = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [generateLoading, setGenerateLoading] = useState(false);
   const [mintLoading, setMintLoading] = useState(false);
+  const [writePrompt, setWritePrompt] = useState("");
+
   const imgRef = useRef();
   const [placeholder, setPlaceholder] = useState(
     "Search a lion with Paint Brushes painting the mona lisa painting..."
@@ -50,7 +52,7 @@ const Create = () => {
       const res = await openai.createImage({
         prompt: prompt,
         n: 3,
-        size: "512x512",
+        size: "256x256",
       });
       // setPrompt(null);
       console.log(res);

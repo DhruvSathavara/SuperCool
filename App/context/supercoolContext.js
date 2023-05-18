@@ -17,7 +17,7 @@ export const SupercoolAuthContextProvider = (props) => {
   const [walletConnected, setWalletConnected] = useState(false);
   const [loading, setLoading] = useState(false);
   const [allNfts, setAllNfts] = useState([]);
-  const [prompt, setPrompt] = useState(null);
+  const [prompt, setPrompt] = useState("");
   const [userAdd, setUserAdd] = useState();
   const [genRanImgLoding, setGenRanImgLoding] = useState(false);
   // const [provider, setProvider] = useState(null);
