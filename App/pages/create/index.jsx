@@ -44,19 +44,19 @@ const Create = () => {
     apiKey: process.env.apiKey,
   });
   const openai = new OpenAIApi(configuration);
+console.log(process.env.apiKey,'apikey');
 
 
+  //   const createCompletion = async () => {
+  //     console.log(prompt);
 
-//   const createCompletion = async () => {
-//     console.log(prompt);
-
-//   const completion = await openai.createCompletion({
-//     model: "text-davinci-003", 
-//     prompt: prompt,
-//     max_tokens: 2048,
-//   });
-// console.log(completion.data.choices[0].text);
-//   }
+  //   const completion = await openai.createCompletion({
+  //     model: "text-davinci-003", 
+  //     prompt: prompt,
+  //     max_tokens: 2048,
+  //   });
+  // console.log(completion.data.choices[0].text);
+  //   }
 
 
 
@@ -68,7 +68,7 @@ const Create = () => {
     try {
       const res = await openai.createImage({
         prompt: prompt,
-        n: 3,
+        n: 1,
         size: "256x256",
       });
       // setPrompt(null);
@@ -77,12 +77,14 @@ const Create = () => {
       let arr = [];
       for (let i = 0; i < res.data.data.length; i++) {
         const img_url = res.data.data[i].url;
+        console.log('img_url', img_url);
         const response = await axios.get(img_url,
           // `https://cors-anywhere.herokuapp.com/${img_url}`
           { responseType: 'arraybuffer' })
+          console.log(response,'response');
         const arrayBuffer = response.data;
         const ipfsUrl = await handleImgUpload(arrayBuffer);
-        console.log(ipfsUrl);
+        console.log(ipfsUrl,'ipfsUrl');
         arr.push(ipfsUrl);
       }
       console.log(arr);
@@ -101,7 +103,7 @@ const Create = () => {
     } catch (e) {
       console.error("Failed to mint NFT: " + e.message);
     }
-   await getAllNfts()
+    await getAllNfts()
     setMintLoading(false);
     // setPrompt(null);
     setImages([]);

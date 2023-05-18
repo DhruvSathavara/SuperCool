@@ -22,12 +22,9 @@ export const SupercoolAuthContextProvider = (props) => {
   const [prompt, setPrompt] = useState("");
   const [userAdd, setUserAdd] = useState();
   const [genRanImgLoding, setGenRanImgLoding] = useState(false);
-<<<<<<< HEAD
   // const [provider, setProvider] = useState(null);
   // const [signer, setSigner] = useState(null);
 
-=======
->>>>>>> dhruv
   let provider;
   let signer;
   if (typeof window !== "undefined" && window.ethereum) {
