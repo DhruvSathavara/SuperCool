@@ -43,6 +43,23 @@ const Create = () => {
   });
   const openai = new OpenAIApi(configuration);
 
+
+
+//   const createCompletion = async () => {
+//     console.log(prompt);
+
+//   const completion = await openai.createCompletion({
+//     model: "text-davinci-003", 
+//     prompt: prompt,
+//     max_tokens: 2048,
+//   });
+// console.log(completion.data.choices[0].text);
+//   }
+
+
+
+
+
   const generateImage = async () => {
     setGenerateLoading(true);
     setPlaceholder(`Search ${prompt}...`);
@@ -82,7 +99,6 @@ const Create = () => {
     } catch (e) {
       console.error("Failed to mint NFT: " + e.message);
     }
-    // setLoading(!loading)
    await getAllNfts()
     setMintLoading(false);
     setPrompt(null);
@@ -328,41 +344,6 @@ const Create = () => {
                   </>
                    : ""
               }
-
-              {/* <div className="row main-row">
-              <>
-                {images && images.map((url) => (
-                    <div
-                      className="col-lg-4 mb-4 mb-lg-0"
-                      onClick={() => handleSelectedImg(url)}
-                    >
-                      <div
-                        className="bg-image hover-overlay ripple shadow-1-strong rounded col-4"
-                        data-ripple-color="light"
-                      >
-                        <div className="img-nft">
-                          <img
-                            src={url}
-                          />
-                        </div>
-                        <div className="radio-img">
-                          <input
-                            type="radio"
-                            id="huey"
-                            name="drone"
-                            value="huey"
-                            checked={url == selectedImage}
-                            className="mt-3"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                ))}
-                  </>
-                  <p style={{textAlign:"center"}} className="dark:text-jacarta-300 text-4xs mb-3"
-              >Select the image you wish to mint.</p>
-
-              </div> */}
 
             </div>
 

@@ -20,7 +20,7 @@ const User = () => {
   const [walletAddress, setWalletAddress] = useState(undefined);
   const pid = router.query.user;
   const [coverePhoto, setCoverePhoto] = useState();
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState();
   const [bio, setBio] = useState("");
   const [profilePhoto, setProfilePhoto] = useState();
   const [likesImage, setLikesImage] = useState(false);
@@ -29,40 +29,33 @@ const User = () => {
   const superCoolContext = React.useContext(SupercoolAuthContext);
   const { allNfts, getProfileData } = superCoolContext;
 
-
   localforage.getItem('address').then((value) => {
     setWalletAddress(value)
   })
 
   useEffect(() => {
-    // console.log(allNfts.length);
-    // if (walletAddress !== undefined) {
-    //   console.log(walletAddress);
-      ProfileData();
-    // }
+    ProfileData();
     if (allNfts.length > 0) {
       localforage.getItem('address').then(async (value) => {
         setAddress(value);
-        getUserData(value); 
+        getUserData(value);
       }
       )
     }
-   
   }, [])
-
   const ProfileData = async () => {
 
-    localforage.getItem('address').then( async (value) => {
+    localforage.getItem('address').then(async (value) => {
       setWalletAddress(value)
 
       const response = await getProfileData(value);
-      console.log('response--',response);
+      console.log('response--', response);
       setUsername(response.data.username)
       setBio(response.data.bio)
       setCoverePhoto(response.data.coverimage);
       setProfilePhoto(response.data.profilephoto)
     })
-  
+
   }
 
   const getUserData = async (address) => {
@@ -96,7 +89,7 @@ const User = () => {
             alt="banner"
             layout="fill"
             // objectFit="cover"
-						className="h-[18.75rem] w-full object-cover"
+            className="h-[18.75rem] w-full object-cover"
 
           />
         </div>

@@ -115,20 +115,6 @@ const Edit_user = () => {
 		}
 	};
 
-	const handleCoverPhoto = async (event) => {
-		const file = event.target.files[0];
-		const reader = new FileReader();
-		reader.onloadend = async () => {
-			const imageBuffer = Buffer.from(reader.result);
-			const imageHash = await uploadImageToIPFS(imageBuffer);
-			// Do something with the image hash, such as storing it in a database or using it in your application
-			console.log('Image hash:', imageHash);
-		};
-		reader.readAsArrayBuffer(file);
-	};
-
-
-
 
 	return (
 		<div>
