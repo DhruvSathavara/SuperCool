@@ -13,6 +13,8 @@ export const SupercoolAuthContext = createContext(undefined);
 export const SupercoolAuthContextProvider = (props) => {
 
   const web3ModalRef = useRef();
+  // let defPrompt = "I want you to act as a prompt engineer. You will help me write prompts for an ai art generator called Midjourney. I will provide you with short content ideas and your job is to elaborate these into full, explicit, coherent prompts. Prompts involve describing the content and style of images in concise accurate language. It is useful to be explicit and use references to popular culture, artists and mediums. Your focus needs to be on nouns and adjectives. I will give you some example prompts for your reference. Please define the exact camera that should be used Here is a formula for you to use(content insert nouns here)(medium: insert artistic medium here)(style: insert references to genres, artists and popular culture here)(lighting, reference the lighting here)(colours reference color styles and palettes here)(composition: reference cameras, specific lenses, shot types and positional elements here) when giving a prompt remove the brackets, speak in natural language and be more specific, use precise, articulate language. Example prompt: Portrait of a Celtic Jedi Sentinel with wet Shamrock Armor, green lightsaber, by Aleksi Briclot, shiny wet dramatic lighting. For now if understand what I asked to you just replay 'write anything'. And write full prompt from next request. "
+  
 
   const [walletConnected, setWalletConnected] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -20,9 +22,12 @@ export const SupercoolAuthContextProvider = (props) => {
   const [prompt, setPrompt] = useState("");
   const [userAdd, setUserAdd] = useState();
   const [genRanImgLoding, setGenRanImgLoding] = useState(false);
+<<<<<<< HEAD
   // const [provider, setProvider] = useState(null);
   // const [signer, setSigner] = useState(null);
 
+=======
+>>>>>>> dhruv
   let provider;
   let signer;
   if (typeof window !== "undefined" && window.ethereum) {
