@@ -93,7 +93,7 @@ const Item = () => {
 										</div>
 
 										<h1
-										className="font-display text-jacarta-700 mb-4 text-4xl font-semibold dark:text-white">
+											className="font-display text-jacarta-700 mb-4 text-4xl font-semibold dark:text-white">
 											{item.title}
 										</h1>
 
@@ -112,9 +112,9 @@ const Item = () => {
 											</div>
 											<span className="dark:text-jacarta-300 text-jacarta-400 text-sm">
 												1/1 available
-											</span>										
+											</span>
 										</div>
-										
+
 										{/* Description--- */}
 										<p className="dark:text-jacarta-300 mb-10">{item.description}</p>
 
@@ -159,12 +159,12 @@ const Item = () => {
 										{/* <!-- Bid --> */}
 										<div className="dark:bg-jacarta-700 dark:border-jacarta-600 border-jacarta-100 rounded-2lg border bg-white p-8">
 
-												<button
-													className="bg-accent shadow-accent-volume hover:bg-accent-dark inline-block w-full rounded-full py-3 px-8 text-center font-semibold text-white transition-all"
-													onClick={() => dispatch(bidsModalShow())}
-												>
-													Purchase NFT
-												</button>
+											<button
+												className="bg-accent shadow-accent-volume hover:bg-accent-dark inline-block w-full rounded-full py-3 px-8 text-center font-semibold text-white transition-all"
+												onClick={() => dispatch(bidsModalShow())}
+											>
+												Purchase NFT
+											</button>
 										</div>
 										{/* <!-- end bid --> */}
 									</div>
