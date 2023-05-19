@@ -5,6 +5,7 @@ import { Configuration, OpenAIApi } from "openai";
 import { SUPER_COOL_NFT_CONTRACT, abi } from "../../constant/constant";
 import { ethers } from "ethers";
 import { SupercoolAuthContext } from "../../context/supercoolContext";
+import { NFTStorage, File } from 'nft.storage'
 import axios from "axios";
 import CircularProgress from '@mui/material/CircularProgress';
 import ImageModal from "../modal/modal";
@@ -44,7 +45,6 @@ const Create = () => {
     apiKey: process.env.apiKey,
   });
   const openai = new OpenAIApi(configuration);
-console.log(process.env.apiKey,'apikey');
 
 
   //   const createCompletion = async () => {
@@ -58,8 +58,8 @@ console.log(process.env.apiKey,'apikey');
   // console.log(completion.data.choices[0].text);
   //   }
 
-
-
+  const NFT_STORAGE_TOKEN = process.env.REACT_APP_NFT_STORAGE_TOKEN;
+  const client = new NFTStorage({ token: NFT_STORAGE_TOKEN });
 
 
   const generateImage = async () => {
@@ -74,21 +74,62 @@ console.log(process.env.apiKey,'apikey');
       // setPrompt(null);
       console.log(res);
 
-      let arr = [];
+      let arry = [];
       for (let i = 0; i < res.data.data.length; i++) {
         const img_url = res.data.data[i].url;
         console.log('img_url', img_url);
-        const response = await axios.get(img_url,
-          // `https://cors-anywhere.herokuapp.com/${img_url}`
-          { responseType: 'arraybuffer' })
-          console.log(response,'response');
-        const arrayBuffer = response.data;
-        const ipfsUrl = await handleImgUpload(arrayBuffer);
-        console.log(ipfsUrl,'ipfsUrl');
-        arr.push(ipfsUrl);
+        // JD CORS Solution ------------------- 
+        const api = await axios.create({
+          baseURL:
+            "https://open-ai-enwn.onrender.com",
+        });
+        console.log('api==', api);
+        const obj = {
+          url: img_url
+        }
+        console.log('obj', obj);
+        let response = await api
+          .post("/image", obj)
+          .then((res) => {
+            return res;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        console.log('response', response);
+        const arr = new Uint8Array(response.data.data);
+        const blob = new Blob([arr], { type: 'image/jpeg' });
+        const imageFile = new File(
+          [blob],
+          `data.png`,
+          {
+            type: "image/jpeg",
+          }
+        );
+        console.log(imageFile, "response");
+        // const dd = await client.add(imageFile)
+        const metadata = await client.store({
+          name: "data",
+          description: "data",
+          image: imageFile
+        });
+        const imUrl = `https://nftstorage.link/ipfs/${metadata.ipnft}/metadata.json`;
+        console.log(imUrl, "imUrl");
+        const data = (await axios.get(imUrl)).data;
+        console.log(data.image, "data");
+        // JD CORS Solution ------------------- 
+
+        // const response = await axios.get(img_url,
+        //   // `https://cors-anywhere.herokuapp.com/${img_url}`
+        //   { responseType: 'arraybuffer' })
+        //   console.log(response,'response');
+        // const arrayBuffer = response.data;
+        // const ipfsUrl = await handleImgUpload(arrayBuffer);
+        // console.log(ipfsUrl, 'ipfsUrl');
+        arry.push(data.image);
       }
-      console.log(arr);
-      setImages(arr);
+      console.log(arry, '----arry');
+      setImages(arry);
       setGenerateLoading(false);
 
     } catch (error) {
@@ -313,7 +354,9 @@ console.log(process.env.apiKey,'apikey');
                 images.length > 0 ?
                   <>
                     <div className="row main-row">
+                      {console.log(images, '===images')}
                       {images && images.map((url) => (
+
                         <div
                           className="col-lg-4 mb-4 mb-lg-0"
                           onClick={() => handleSelectedImg(url)}
@@ -325,6 +368,7 @@ console.log(process.env.apiKey,'apikey');
                             <div className="img-nft">
                               <img
                                 src={url}
+                                alt='nft-images'
                               />
                             </div>
                             <div className="radio-img">
@@ -339,6 +383,7 @@ console.log(process.env.apiKey,'apikey');
                             </div>
                           </div>
                         </div>
+
                       ))}
 
                     </div>
