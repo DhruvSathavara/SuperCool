@@ -83,11 +83,9 @@ const Create = () => {
           baseURL:
             "https://open-ai-enwn.onrender.com",
         });
-        console.log('api==', api);
         const obj = {
           url: img_url
         }
-        console.log('obj', obj);
         let response = await api
           .post("/image", obj)
           .then((res) => {
@@ -96,7 +94,6 @@ const Create = () => {
           .catch((error) => {
             console.log(error);
           });
-        console.log('response', response);
         const arr = new Uint8Array(response.data.data);
         const blob = new Blob([arr], { type: 'image/jpeg' });
         const imageFile = new File(
@@ -106,7 +103,6 @@ const Create = () => {
             type: "image/jpeg",
           }
         );
-        console.log(imageFile, "response");
         // const dd = await client.add(imageFile)
         const metadata = await client.store({
           name: "data",
@@ -119,14 +115,20 @@ const Create = () => {
         console.log(data.image, "data");
         // JD CORS Solution ------------------- 
 
-        // const response = await axios.get(img_url,
+        // const response = await axios.get(img_url,  
         //   // `https://cors-anywhere.herokuapp.com/${img_url}`
         //   { responseType: 'arraybuffer' })
         //   console.log(response,'response');
         // const arrayBuffer = response.data;
         // const ipfsUrl = await handleImgUpload(arrayBuffer);
         // console.log(ipfsUrl, 'ipfsUrl');
-        arry.push(data.image);
+        const rep = data.image.replace(
+          "ipfs://",
+          "https://nftstorage.link/ipfs/"
+        );
+        console.log(rep, '==rep');
+
+        arry.push(rep);
       }
       console.log(arry, '----arry');
       setImages(arry);
@@ -135,8 +137,10 @@ const Create = () => {
     } catch (error) {
       console.error(`Error generating image: ${error}`);
     }
-    console.log(images);
+    // console.log(images);
   };
+
+ 
   const mintNft = async (_price, _metadataurl) => {
     try {
       const tx = await contract.mintNFT(_price, _metadataurl);
