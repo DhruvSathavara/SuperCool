@@ -22,12 +22,9 @@ export const SupercoolAuthContextProvider = (props) => {
   const [prompt, setPrompt] = useState("");
   const [userAdd, setUserAdd] = useState();
   const [genRanImgLoding, setGenRanImgLoding] = useState(false);
-<<<<<<< HEAD
   // const [provider, setProvider] = useState(null);
   // const [signer, setSigner] = useState(null);
 
-=======
->>>>>>> dhruv
   let provider;
   let signer;
   if (typeof window !== "undefined" && window.ethereum) {
@@ -103,10 +100,8 @@ export const SupercoolAuthContextProvider = (props) => {
         console.log(ethereum, 'ethererrmmm');
         const address = await signer.getAddress();
 
-        // Use the account address as needed
         console.log('Account address:', address);
       } else {
-        // Handle the case when no wallet is connected or logged out
         console.log('No wallet connected or logged out');
       }
     } catch (error) {
@@ -138,7 +133,6 @@ export const SupercoolAuthContextProvider = (props) => {
     },
   });
 
-
   const contract = new ethers.Contract(
     SUPER_COOL_NFT_CONTRACT,
     abi,
@@ -156,7 +150,6 @@ export const SupercoolAuthContextProvider = (props) => {
     const num = await contract.ranNum();
     setPrompt(RandomPrompts[num]);
     setGenRanImgLoding(false);
-    // console.log(num.toString());
   }
 
   const getProfileData = async (add) => {
@@ -168,9 +161,7 @@ export const SupercoolAuthContextProvider = (props) => {
       console.log(response.data);
       return response;
     }
-
   }
-
 
   const getAllNfts = async () => {
 
@@ -224,12 +215,6 @@ export const SupercoolAuthContextProvider = (props) => {
     const contentUri = `https://superfun.infura-ipfs.io/ipfs/${ipfsResult.path}`;
     console.log('contentUri', contentUri);
     return contentUri;
-
-  }
-
-
-  const getProfile = async () => {
-
   }
 
 
