@@ -3,7 +3,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 const RendersellNft = ({ rendersellNFT, setTitle, setDescription, setPrice, createNft, mintLoading }) => {
 
-    if (rendersellNFT === false) {
+    if (rendersellNFT === true) {
         return (
             <div className="mx-auto max-w-[48.125rem]">
                 <div className="mb-6">

@@ -2,16 +2,12 @@ import React, { useState } from "react";
 import StandardDropdown from "../../standardDropdown/dropdown";
 import { Button } from "@mui/material";
 import axios from "axios";
-import JacketCostume from "./jacket";
-import PantCostume from "./pant";
-import SkritCostume from "./skrit";
-import CoatCostume from "./coat";
-import ShirtCostume from "./shirt";
-import JumpsuitCostume from "./jumpsuit";
 
-const CreateCostume = () => {
+const WeaponFeatures = () => {
 
-    const [costumeType, setCostumeType] = useState(costumeType || 'costume type');
+    const [weaponType, setWeaponType] = useState(weaponType || 'weapon type');
+    const [designStyle, setDesignStyle] = useState(designStyle || 'design style');
+
 
 
     // let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create a profile avatar based on this information:- make sure image style will be ${imageStyle}, gender:${gender}, hair style:${hairstyle},hair color:${hairColor}${gender == "Male" ? `,facial hair:${facialHair}` : ""},facial Expression:${facialExpression},eye color:${eyeColor},skin tone:${skinTone},clothing style:${clothingStyle},accessories:${accessories},body type:${bodyType},age:${age},ethnicity:${ethnicity}, Remember to infuse the avatar with vitality and energy`
@@ -39,54 +35,83 @@ const CreateCostume = () => {
             console.error('Error:', error);
         }
     };
-
-    const costumeTypeOptionsText = [
+    
+    const weaponTypeOptionsText = [
         {
             id: 1,
-            text: 'Jacket',
+            text: 'Gun',
         },
         {
             id: 2,
-            text: 'Pant',
+            text: 'Rifle',
         },
         {
             id: 3,
-            text: 'Jumpsuit',
+            text: 'Bows',
         },
         {
             id: 4,
-            text: 'Shirt',
+            text: 'Shot gun',
         },
         {
             id: 5,
-            text: 'Coat',
+            text: 'Rocket launcher',
         },
         {
             id: 6,
-            text: 'Skirt',
+            text: 'sword',
         },
     ];
+
+    const designStyleOptionsText = [
+        {
+            id: 1,
+            text: 'Modern',
+        },
+        {
+            id: 2,
+            text: 'Futuristic',
+        },
+        {
+            id: 3,
+            text: 'Steampunk',
+        },
+        {
+            id: 4,
+            text: 'Ancient',
+        },
+        {
+            id: 5,
+            text: 'Robotic',
+        },
+        {
+            id: 6,
+            text: 'Fantasy',
+        },
+    ];
+
+    
+
 
 
 
     return (
         <>
-
             <StandardDropdown
-                dropdownItemText={costumeTypeOptionsText}
-                state={costumeType}
-                setState={setCostumeType}
+                dropdownItemText={weaponTypeOptionsText}
+                state={weaponType}
+                setState={setWeaponType}
             />
 
-            {costumeType == "Jacket" ? <JacketCostume /> : ""}
-            {costumeType == "Pant" ? <PantCostume /> : ""}
-            {costumeType == "Skirt" ? <SkritCostume /> : ""}
-            {costumeType == "Coat" ? <CoatCostume /> : ""}
-            {costumeType == "Shirt" ? <ShirtCostume /> : ""}
-            {costumeType == "Jumpsuit" ? <JumpsuitCostume /> : ""}
-            
+            <StandardDropdown
+                dropdownItemText={designStyleOptionsText}
+                state={designStyle}
+                setState={setDesignStyle}
+            />
+
+            <Button onClick={generateText}>Submit</Button>
         </>
     )
 }
 
-export default CreateCostume;
+export default WeaponFeatures;

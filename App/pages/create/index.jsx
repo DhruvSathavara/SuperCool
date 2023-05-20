@@ -51,16 +51,16 @@ const Create = () => {
   const openai = new OpenAIApi(configuration);
 
 
-  //   const createCompletion = async () => {
-  //     console.log(prompt);
+    const createCompletion = async () => {
+      console.log(prompt);
 
-  //   const completion = await openai.createCompletion({
-  //     model: "text-davinci-003", 
-  //     prompt: prompt,
-  //     max_tokens: 2048,
-  //   });
-  // console.log(completion.data.choices[0].text);
-  //   }
+    const completion = await openai.createCompletion({
+      model: "text-davinci-003", 
+      prompt: prompt,
+      max_tokens: 2048,
+    });
+  console.log(completion.data.choices[0].text);
+    }
 
   const NFT_STORAGE_TOKEN = process.env.REACT_APP_NFT_STORAGE_TOKEN;
   const client = new NFTStorage({ token: NFT_STORAGE_TOKEN });
@@ -197,6 +197,7 @@ const Create = () => {
   }
 
   return (
+    <>
     <div>
       <Meta title="SuperCool" />
       <section className="relative py-24">
@@ -314,10 +315,22 @@ const Create = () => {
             }
 
           </div>
-          {RendersellNft()}
+            <RendersellNft
+          rendersellNFT={rendersellNFT}
+          setTitle={setTitle}
+          setDescription={setDescription}
+          setPrice={setPrice}
+          createNft={createNft}
+          mintLoading={mintLoading}
+            />
         </div >
       </section >
     </div >
+
+    <div style={{marginTop:"180px"}}>
+      <Options/>
+    </div>
+    </>
   );
 };
 

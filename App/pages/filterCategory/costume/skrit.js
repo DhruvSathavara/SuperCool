@@ -2,16 +2,12 @@ import React, { useState } from "react";
 import StandardDropdown from "../../standardDropdown/dropdown";
 import { Button } from "@mui/material";
 import axios from "axios";
-import JacketCostume from "./jacket";
-import PantCostume from "./pant";
-import SkritCostume from "./skrit";
-import CoatCostume from "./coat";
-import ShirtCostume from "./shirt";
-import JumpsuitCostume from "./jumpsuit";
 
-const CreateCostume = () => {
+const SkritCostume = () => {
 
-    const [costumeType, setCostumeType] = useState(costumeType || 'costume type');
+    const [designStyle, setDesignStyle] = useState(designStyle || 'design style');
+    const [skritLength, setSkritLength] = useState(skritLength || 'skrit length');
+    const [skritColor, setSkritColor] = useState(skritColor || 'color');
 
 
     // let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create a profile avatar based on this information:- make sure image style will be ${imageStyle}, gender:${gender}, hair style:${hairstyle},hair color:${hairColor}${gender == "Male" ? `,facial hair:${facialHair}` : ""},facial Expression:${facialExpression},eye color:${eyeColor},skin tone:${skinTone},clothing style:${clothingStyle},accessories:${accessories},body type:${bodyType},age:${age},ethnicity:${ethnicity}, Remember to infuse the avatar with vitality and energy`
@@ -40,53 +36,90 @@ const CreateCostume = () => {
         }
     };
 
-    const costumeTypeOptionsText = [
+
+
+    const designStyleOptionsText = [
         {
             id: 1,
-            text: 'Jacket',
+            text: 'Modern',
         },
         {
             id: 2,
-            text: 'Pant',
+            text: 'Futuristic',
+        },
+       
+    ];
+
+    const skritLengthOptionsText = [
+        {
+            id: 1,
+            text: 'mini',
+        },
+        {
+            id: 2,
+            text: 'Knee-length',
         },
         {
             id: 3,
-            text: 'Jumpsuit',
+            text: 'Above-the-knee',
         },
         {
             id: 4,
-            text: 'Shirt',
+            text: 'Floor-length',
         },
         {
             id: 5,
-            text: 'Coat',
-        },
-        {
-            id: 6,
-            text: 'Skirt',
+            text: 'maxi',
         },
     ];
 
-
+    const skritColorOptionsText = [
+        {
+            id: 1,
+            text: 'Red',
+        },
+        {
+            id: 2,
+            text: 'Blue',
+        },
+        {
+            id: 3,
+            text: 'Black',
+        },
+        {
+            id: 4,
+            text: 'Grey',
+        },
+        {
+            id: 5,
+            text: 'Pink',
+        },
+    ];
 
     return (
         <>
 
             <StandardDropdown
-                dropdownItemText={costumeTypeOptionsText}
-                state={costumeType}
-                setState={setCostumeType}
+                dropdownItemText={designStyleOptionsText}
+                state={designStyle}
+                setState={setDesignStyle}
             />
 
-            {costumeType == "Jacket" ? <JacketCostume /> : ""}
-            {costumeType == "Pant" ? <PantCostume /> : ""}
-            {costumeType == "Skirt" ? <SkritCostume /> : ""}
-            {costumeType == "Coat" ? <CoatCostume /> : ""}
-            {costumeType == "Shirt" ? <ShirtCostume /> : ""}
-            {costumeType == "Jumpsuit" ? <JumpsuitCostume /> : ""}
-            
+            <StandardDropdown
+                dropdownItemText={skritLengthOptionsText}
+                state={skritLength}
+                setState={setSkritLength}
+            />
+
+            <StandardDropdown
+                dropdownItemText={skritColorOptionsText}
+                state={skritColor}
+                setState={setSkritColor}
+            />
+
+            <Button onClick={generateText}>Submit</Button>
         </>
     )
 }
 
-export default CreateCostume;
+export default SkritCostume;

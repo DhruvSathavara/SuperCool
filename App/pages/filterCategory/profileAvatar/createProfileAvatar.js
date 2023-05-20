@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import StandardDropdown from "../../standardDropdown/dropdown";
+import { Button } from "@mui/material";
+import axios from "axios";
 
 const ProfileAvatarFeatures = () => {
 
     const [gender, setGender] = useState(gender || 'gender');
-    // console.log('gender--', gender);
     const [hairstyle, setHairstyle] = useState(hairstyle || 'hair style');
-    // console.log('h style--', hairstyle);
     const [hairColor, setHairColor] = useState(hairColor || 'hair color');
-    // console.log('h color--', hairColor);
-
     const [facialHair, setFacialHair] = useState(facialHair || 'facial hair');
     const [facialExpression, setFacialExpression] = useState(facialExpression || 'Expression');
     const [eyeColor, setEyeColor] = useState(eyeColor || 'eyes');
@@ -22,23 +20,33 @@ const ProfileAvatarFeatures = () => {
     const [ethnicity, setEthnicity] = useState(ethnicity || 'ethnicity');
 
 
-    let promptData = {
-        gender:gender,
-        hairstyle:hairstyle,
-        hairColor:hairColor,
-        facialHair:facialHair,
-        facialExpression:facialExpression,
-        eyeColor:eyeColor,
-        skinTone:skinTone,
-        clothingStyle:clothingStyle,
-        accessories:accessories,
-        imageStyle:imageStyle,
-        bodyType:bodyType,
-        age:age,
-        ethnicity:ethnicity   
-    }
+   
+    let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create a profile avatar based on this information:- make sure image style will be ${imageStyle}, gender:${gender}, hair style:${hairstyle},hair color:${hairColor}${gender == "Male" ? `,facial hair:${facialHair}` : ""},facial Expression:${facialExpression},eye color:${eyeColor},skin tone:${skinTone},clothing style:${clothingStyle},accessories:${accessories},body type:${bodyType},age:${age},ethnicity:${ethnicity}, Remember to infuse the avatar with vitality and energy`
+    console.log(detailPrompt);
+    //   
+    const generateText = async () => {
 
-console.log(promptData);
+        try {
+            const response = await axios.post(
+                'https://api.openai.com/v1/engines/text-davinci-003/completions',
+                {
+                    prompt: detailPrompt,
+                    max_tokens: 700,
+                },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${process.env.apiKey}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+            console.log(response.data.choices[0].text);
+            //   setText(response.data.choices[0].text);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
 
     const genderOptionsText = [
         {
@@ -219,7 +227,7 @@ console.log(promptData);
         },
         {
             id: 2,
-            text: 'Hats',
+            text: 'Hat',
         },
         {
             id: 3,
@@ -335,20 +343,6 @@ console.log(promptData);
         },
     ];
 
-    const genderOptions = ["Male", "Female", "Non-binary", "Other"];
-    const hairstyleOptions = ["Short", "Medium", "Long", "Bald", "Curly", "Straight", "Wavy", "Braided", "Mohawk"];
-    const hairColorOptions = ["Blonde", "Brunette", "Black", "Red", "Grey", "Blue", "Pink"];
-    const facialHairOptions = ["Beard", "Mustache", "Goatee", "Clean-shaven"];
-    const facialExpressionOptions = ["Happy", "Sad", "Angry", "Surprised", "Neutral", "Smiling"];
-    const eyeColorOptions = ["Blue", "Brown", "Green", "Hazel", "Grey"];
-    const skinToneOptions = ["Light", "Medium", "Dark"];
-    const clothingStyleOptions = ["Casual", "Formal", "Sporty", "Retro", "Fantasy", "Sci-fi"];
-    const accessoriesOptions = ["Glasses", "Hats", "Earrings", "Necklaces", "Headphone"];
-    const imageStyleOptions = ["Clay Art Style", "Aesthetic Style", "Realistic Style", "Cartoonish Style", "Pixel Art Style", "Retro Style", "Pop Art Style", "Watercolor Style", "Minimalist Style", "Graffiti Style", "Anime Style", "Realistic Style", "Fantasy Style"];
-    const bodyTypeOptions = ["Slim", "Athletic", "Curvy", "Muscular"];
-    const ageOptions = ["Young", "Middle-aged", "Elderly"];
-    const ethnicityOptions = ["Caucasian", "African", "Asian", "Hispanic", "Other"];
-
     return (
         <>
             <StandardDropdown
@@ -424,12 +418,14 @@ console.log(promptData);
                 state={age}
                 setState={setAge}
             />
-            
-             <StandardDropdown
+
+            <StandardDropdown
                 dropdownItemText={ethnicityOptionsText}
                 state={ethnicity}
                 setState={setEthnicity}
             />
+
+            <Button onClick={generateText}>Submit</Button>
         </>
     )
 }
