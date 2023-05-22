@@ -4,16 +4,18 @@ import { Button } from "@mui/material";
 import axios from "axios";
 
 const WeaponFeatures = () => {
-
+    const superCoolContext = React.useContext(SupercoolAuthContext);
+    const { setPrompt } = superCoolContext;
     const [weaponType, setWeaponType] = useState(weaponType || 'weapon type');
     const [designStyle, setDesignStyle] = useState(designStyle || 'design style');
 
 
 
-    // let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create a profile avatar based on this information:- make sure image style will be ${imageStyle}, gender:${gender}, hair style:${hairstyle},hair color:${hairColor}${gender == "Male" ? `,facial hair:${facialHair}` : ""},facial Expression:${facialExpression},eye color:${eyeColor},skin tone:${skinTone},clothing style:${clothingStyle},accessories:${accessories},body type:${bodyType},age:${age},ethnicity:${ethnicity}, Remember to infuse the avatar with vitality and energy`
+    let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create an image of Weapon based on this information:- create a dangerous ${weaponType} and make sure it's design style will be ${designStyle} and Remember to infuse the weapon image with vitality and energy`
     // console.log(detailPrompt);
     //   
     const generateText = async () => {
+    console.log(detailPrompt);
 
         try {
             const response = await axios.post(
@@ -30,11 +32,13 @@ const WeaponFeatures = () => {
                 }
             );
             console.log(response.data.choices[0].text);
+            setPrompt(response.data.choices[0].text);
             //   setText(response.data.choices[0].text);
         } catch (error) {
             console.error('Error:', error);
         }
     };
+
     
     const weaponTypeOptionsText = [
         {

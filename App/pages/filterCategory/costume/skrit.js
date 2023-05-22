@@ -2,18 +2,21 @@ import React, { useState } from "react";
 import StandardDropdown from "../../standardDropdown/dropdown";
 import { Button } from "@mui/material";
 import axios from "axios";
+import { SupercoolAuthContext } from "../../../context/supercoolContext";
 
 const SkritCostume = () => {
-
+    const superCoolContext = React.useContext(SupercoolAuthContext);
+    const { setPrompt } = superCoolContext;
     const [designStyle, setDesignStyle] = useState(designStyle || 'design style');
     const [skritLength, setSkritLength] = useState(skritLength || 'skrit length');
     const [skritColor, setSkritColor] = useState(skritColor || 'color');
 
 
-    // let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create a profile avatar based on this information:- make sure image style will be ${imageStyle}, gender:${gender}, hair style:${hairstyle},hair color:${hairColor}${gender == "Male" ? `,facial hair:${facialHair}` : ""},facial Expression:${facialExpression},eye color:${eyeColor},skin tone:${skinTone},clothing style:${clothingStyle},accessories:${accessories},body type:${bodyType},age:${age},ethnicity:${ethnicity}, Remember to infuse the avatar with vitality and energy`
-    // console.log(detailPrompt);
-    //   
+    let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create Girl's costume Skrit based on this information:- make sure image style will be ${designStyle}, skrit color:${skritColor},shirt's length should be:${skritLength} and Remember to infuse the avatar with vitality and energy`
+
     const generateText = async () => {
+        console.log(detailPrompt);
+
 
         try {
             const response = await axios.post(
@@ -30,12 +33,12 @@ const SkritCostume = () => {
                 }
             );
             console.log(response.data.choices[0].text);
+            setPrompt(response.data.choices[0].text);
             //   setText(response.data.choices[0].text);
         } catch (error) {
             console.error('Error:', error);
         }
     };
-
 
 
     const designStyleOptionsText = [
@@ -47,7 +50,7 @@ const SkritCostume = () => {
             id: 2,
             text: 'Futuristic',
         },
-       
+
     ];
 
     const skritLengthOptionsText = [

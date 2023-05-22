@@ -15,20 +15,6 @@ const StandardDropdown = ({ dropdownItemText, state, setState}) => {
         setDropdownShow(false);
       };
 
-      
-    // const handleDropdown = () => {
-    //     window.addEventListener('click', (w) => {
-    //         if (w.target.closest('.dropdown-toggle')) {
-    //             if (dropdownShow) {
-    //                 setDropdownShow(false);
-    //             } else {
-    //                 setDropdownShow(true);
-    //             }
-    //         } else {
-    //             setDropdownShow(false);
-    //         }
-    //     });
-    // };
 
     return (
         <>
@@ -63,11 +49,7 @@ const StandardDropdown = ({ dropdownItemText, state, setState}) => {
                                 <button
                                     key={id}
                                     className="dropdown-item font-display text-jacarta-700 dark:hover:bg-jacarta-600 hover:bg-jacarta-50 flex w-full items-center justify-between rounded-xl px-5 py-2 text-left text-sm transition-colors dark:text-white"
-                                    // onClick={() => {
-                                    //     // setState(text)
-                                    //     handleDropdownItemClick(id, text)
-                                    //     // setDropdownItemActive(id);
-                                    // }}
+                                  
                                     onClick={() => handleDropdownItemClick(id, text)}
                                 >
                                     {text}

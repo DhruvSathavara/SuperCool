@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import StandardDropdown from "../../standardDropdown/dropdown";
 import { Button } from "@mui/material";
 import axios from "axios";
+import { SupercoolAuthContext } from "../../../context/supercoolContext";
 
 const ShirtCostume = () => {
-
+    const superCoolContext = React.useContext(SupercoolAuthContext);
+    const { setPrompt } = superCoolContext;
     const [designStyle, setDesignStyle] = useState(designStyle || 'design style');
     const [shirtType, setShirtType] = useState(shirtType || 'shirt type');
     const [sleeveLength, setSleeveLength] = useState(sleeveLength || 'sleeve length');
@@ -13,10 +15,9 @@ const ShirtCostume = () => {
 
 
 
-    // let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create a profile avatar based on this information:- make sure image style will be ${imageStyle}, gender:${gender}, hair style:${hairstyle},hair color:${hairColor}${gender == "Male" ? `,facial hair:${facialHair}` : ""},facial Expression:${facialExpression},eye color:${eyeColor},skin tone:${skinTone},clothing style:${clothingStyle},accessories:${accessories},body type:${bodyType},age:${age},ethnicity:${ethnicity}, Remember to infuse the avatar with vitality and energy`
-    // console.log(detailPrompt);
-    //   
+    let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create costume Shirt based on this information:- make sure image style will be ${designStyle}, shirt type:${shirtType}, shirt color:${shirtColor},shirt's sleeves should be:${sleeveLength} and there should be ${shirtPattern} pattern on shirt and Remember to infuse the avatar with vitality and energy`
     const generateText = async () => {
+        console.log(detailPrompt);
 
         try {
             const response = await axios.post(
@@ -33,13 +34,12 @@ const ShirtCostume = () => {
                 }
             );
             console.log(response.data.choices[0].text);
+            setPrompt(response.data.choices[0].text);
             //   setText(response.data.choices[0].text);
         } catch (error) {
             console.error('Error:', error);
         }
     };
-
-
 
     const designStyleOptionsText = [
         {

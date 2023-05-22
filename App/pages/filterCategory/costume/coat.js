@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import StandardDropdown from "../../standardDropdown/dropdown";
 import { Button } from "@mui/material";
+import { SupercoolAuthContext } from "../../../context/supercoolContext";
 import axios from "axios";
 
 const CoatCostume = () => {
-
+    const superCoolContext = React.useContext(SupercoolAuthContext);
+    const { setPrompt } = superCoolContext;
     const [designStyle, setDesignStyle] = useState(designStyle || 'design style');
     const [coatType, setCoatType] = useState(coatType || 'coat type');
     const [coatColor, setCoatColor] = useState(coatColor || 'color');
@@ -13,10 +15,11 @@ const CoatCostume = () => {
     const [sleeveLength, setSleeveLength] = useState(sleeveLength || 'sleeve length');
 
 
-    // let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create a profile avatar based on this information:- make sure image style will be ${imageStyle}, gender:${gender}, hair style:${hairstyle},hair color:${hairColor}${gender == "Male" ? `,facial hair:${facialHair}` : ""},facial Expression:${facialExpression},eye color:${eyeColor},skin tone:${skinTone},clothing style:${clothingStyle},accessories:${accessories},body type:${bodyType},age:${age},ethnicity:${ethnicity}, Remember to infuse the avatar with vitality and energy`
+    let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create costume Coat based on this information:- make sure image style will be ${designStyle}, coat type:${coatType}, coat color:${coatColor},coat length:${coatLength}$,coat collar type:${collarType} and sleeves will be ${sleeveLength} and Remember to infuse the avatar with vitality and energy`
     // console.log(detailPrompt);
     //   
     const generateText = async () => {
+        console.log(detailPrompt);
 
         try {
             const response = await axios.post(
@@ -33,6 +36,7 @@ const CoatCostume = () => {
                 }
             );
             console.log(response.data.choices[0].text);
+            setPrompt(response.data.choices[0].text);
             //   setText(response.data.choices[0].text);
         } catch (error) {
             console.error('Error:', error);
