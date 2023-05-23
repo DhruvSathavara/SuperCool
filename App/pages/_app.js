@@ -12,6 +12,7 @@ import { useRef } from "react";
 import { SupercoolAuthContextProvider } from "../context/supercoolContext";
 import { env } from "process";
 // const dotenv = require("dotenv")
+
 // dotenv.config()
 function MyApp({ Component, pageProps }) {
   const router = useRouter();

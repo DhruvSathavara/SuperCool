@@ -7,7 +7,7 @@ const footer = () => {
   return (
     <>
       {/* <!-- Footer --> */}
-      <footer className="dark:bg-jacarta-900 page-footer bg-white">
+      <footer className="dark:bg-jacarta-900 page-footer ">
         <div className="container">
           <div className="flex flex-col items-center justify-between space-y-2 py-8 sm:flex-row sm:space-y-0 footer-center">
             <span className="dark:text-jacarta-400 text-sm ">

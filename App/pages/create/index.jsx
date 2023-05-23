@@ -113,15 +113,7 @@ const Create = () => {
         console.log(imUrl, "imUrl");
         const data = (await axios.get(imUrl)).data;
         console.log(data.image, "data");
-        // JD CORS Solution ------------------- 
 
-        // const response = await axios.get(img_url,  
-        //   // `https://cors-anywhere.herokuapp.com/${img_url}`
-        //   { responseType: 'arraybuffer' })
-        //   console.log(response,'response');
-        // const arrayBuffer = response.data;
-        // const ipfsUrl = await handleImgUpload(arrayBuffer);
-        // console.log(ipfsUrl, 'ipfsUrl');
         const rep = data.image.replace(
           "ipfs://",
           "https://nftstorage.link/ipfs/"
@@ -139,8 +131,10 @@ const Create = () => {
     }
     // console.log(images);
   };
+  // JD CORS Solution END ------------------- 
 
- 
+
+
   const mintNft = async (_price, _metadataurl) => {
     try {
       const tx = await contract.mintNFT(_price, _metadataurl);
@@ -183,7 +177,7 @@ const Create = () => {
     let metadataurl = await uploadOnIpfs(nftData);
     mintNft(ethers.utils.parseUnits(price?.toString(), "ether"), metadataurl);
   }
-
+a
 
   const getCategory = async () => {
     const response = await openai.createCompletion({
@@ -296,6 +290,7 @@ const Create = () => {
   }
 
   return (
+
     <div>
       <Meta title="SuperCool" />
       <section className="relative py-24">

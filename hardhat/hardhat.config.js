@@ -3,11 +3,12 @@ require("dotenv").config({ path: ".env" });
 
 module.exports = {
   solidity: "0.8.1",
+  defaultNetwork: 'hardhat',
   networks: {
     mumbai: {
       url: process.env.quicknodehttpurl,
-      accounts: [process.env.accountprivetkey],
-    },
+      accounts: [process.env.accountprivetkey]
+    }
   },
   etherscan: {
     apiKey: {
@@ -15,3 +16,4 @@ module.exports = {
     },
   },
 };
+
