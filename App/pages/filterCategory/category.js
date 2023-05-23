@@ -5,7 +5,7 @@ import GamingAssetOption from "./gamingAsset/createGamingAsset";
 import CreateCostume from "./costume/createCostume";
 const Options = () => {
 
-  const [category, setCategory] = useState('select');
+  const [category, setCategory] = useState('profile avatar');
   const [dropdownItemActive, setDropdownItemActive] = useState(null);
   const [dropdownShow, setDropdownShow] = useState(false);
   const dropdownItemText = [

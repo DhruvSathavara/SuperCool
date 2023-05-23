@@ -17,9 +17,10 @@ const Create = () => {
   const superCoolContext = React.useContext(SupercoolAuthContext);
   const { uploadOnIpfs, handleImgUpload, loading, setLoading, GenerateNum, prompt, setPrompt, genRanImgLoding, getAllNfts } = superCoolContext;
   const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("Profile avatar" || category);
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState();
-  const [chain, setChain] = useState("Ethereum");
+  const [chain, setChain] = useState("Ethereum" || chain);
   const [rendersellNFT, setrendersellNFT] = useState(false)
   const [imageUrl, setImageUrl] = useState('');
   const [isMounted, setIsMounted] = useState(false);
@@ -72,7 +73,7 @@ const Create = () => {
     try {
       const res = await openai.createImage({
         prompt: prompt,
-        n: 1,
+        n: 3,
         size: "256x256",
       });
       // setPrompt(null);
@@ -180,9 +181,11 @@ const Create = () => {
     description: description,
     price: price,
     chain: chain,
-    nftfile: selectedImage
+    nftfile: selectedImage,
+    category: category
   }
   const createNft = async () => {
+    console.log(nftData);
     setMintLoading(true);
     let metadataurl = await uploadOnIpfs(nftData);
     mintNft(ethers.utils.parseUnits(price?.toString(), "ether"), metadataurl);
@@ -333,6 +336,10 @@ const Create = () => {
                     setPrice={setPrice}
                     createNft={createNft}
                     mintLoading={mintLoading}
+                    category={category}
+                    setCategory={setCategory}
+                    chain={chain}
+                    setChain={setChain}
                   />
                 </div >
               </section >

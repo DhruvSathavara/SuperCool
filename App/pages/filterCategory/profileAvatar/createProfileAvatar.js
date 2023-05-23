@@ -7,19 +7,19 @@ import { SupercoolAuthContext } from "../../../context/supercoolContext";
 const ProfileAvatarFeatures = () => {
     const superCoolContext = React.useContext(SupercoolAuthContext);
     const { setPrompt } = superCoolContext;
-    const [gender, setGender] = useState(gender || 'gender');
-    const [hairstyle, setHairstyle] = useState(hairstyle || 'hair style');
-    const [hairColor, setHairColor] = useState(hairColor || 'hair color');
-    const [facialHair, setFacialHair] = useState(facialHair || 'facial hair');
-    const [facialExpression, setFacialExpression] = useState(facialExpression || 'Expression');
-    const [eyeColor, setEyeColor] = useState(eyeColor || 'eyes');
-    const [skinTone, setSkinTone] = useState(skinTone || 'skin tone');
-    const [clothingStyle, setClothingStyle] = useState(clothingStyle || 'clothing style');
-    const [accessories, setAccessories] = useState(accessories || 'accessories');
-    const [imageStyle, setImageStyle] = useState(imageStyle || 'image style');
-    const [bodyType, setBodyType] = useState(bodyType || 'body type');
-    const [age, setAge] = useState(age || 'age');
-    const [ethnicity, setEthnicity] = useState(ethnicity || 'ethnicity');
+    const [gender, setGender] = useState('gender' || gender);
+    const [hairstyle, setHairstyle] = useState('hair style' || hairstyle);
+    const [hairColor, setHairColor] = useState('hair color' || hairColor);
+    const [facialHair, setFacialHair] = useState('facial hair' || facialHair);
+    const [facialExpression, setFacialExpression] = useState('Expression' || facialExpression);
+    const [eyeColor, setEyeColor] = useState('eyes' || eyeColor);
+    const [skinTone, setSkinTone] = useState('skin tone' || skinTone);
+    const [clothingStyle, setClothingStyle] = useState('clothing style' || clothingStyle);
+    const [accessories, setAccessories] = useState('accessories' || accessories);
+    const [imageStyle, setImageStyle] = useState('image style' || imageStyle);
+    const [bodyType, setBodyType] = useState('body type' || bodyType);
+    const [age, setAge] = useState('age' || age);
+    const [ethnicity, setEthnicity] = useState('ethnicity' || ethnicity);
 
 
     let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create a profile avatar based on this information:- make sure image style will be ${imageStyle}, gender:${gender}, hair style:${hairstyle},hair color:${hairColor}${gender == "Male" ? `,facial hair:${facialHair}` : ""},facial Expression:${facialExpression},eye color:${eyeColor},skin tone:${skinTone},clothing style:${clothingStyle},accessories:${accessories},body type:${bodyType},age:${age},ethnicity:${ethnicity}, Remember to infuse the avatar with vitality and energy`

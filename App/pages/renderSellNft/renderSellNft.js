@@ -1,9 +1,35 @@
 import React, { useState } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
+import ChainDropdown from "../standardDropdown/chainDropdown";
 
-const RendersellNft = ({ rendersellNFT, setTitle, setDescription, setPrice, createNft, mintLoading }) => {
+const RendersellNft = ({ rendersellNFT, setTitle, setDescription, setPrice, createNft, mintLoading, category, setCategory, chain, setChain }) => {
+    const blockChainOptionsText = [
+        {
+            id: 1,
+            text: 'Ethereum',
+        },
+        {
+            id: 2,
+            text: 'Polygon',
+        },
 
-    if (rendersellNFT === true) {
+    ];
+    const categoryOptionsText = [
+        {
+            id: 1,
+            text: 'Profile avatar',
+        },
+        {
+            id: 2,
+            text: 'gaming asset',
+        },
+        {
+            id: 3,
+            text: 'costume',
+        },
+
+    ];
+    if (rendersellNFT === false) {
         return (
             <div className="mx-auto max-w-[48.125rem]">
                 <div className="mb-6">
@@ -60,15 +86,37 @@ const RendersellNft = ({ rendersellNFT, setTitle, setDescription, setPrice, crea
                         required
                     />
                 </div>
-                <div className="mb-6">
-                    <label
-                        htmlFor="item-supply"
-                        className="font-display text-jacarta-700 mb-2 block dark:text-white"
-                    >
-                        Blockchain
-                    </label>
 
-                    <div className="dropdown relative mb-4 cursor-pointer ">
+                <div className="grid grid-cols-12">
+                    <div className="mb-6 col-span-6">
+                        <label
+                            htmlFor="item-supply"
+                            className="font-display text-jacarta-700 mb-2 block dark:text-white"
+                        >
+                            category
+                        </label>
+                        <div className="dropdown relative mb-4 cursor-pointer ">
+                            <ChainDropdown
+                                dropdownItemText={categoryOptionsText}
+                                state={category}
+                                setState={setCategory}
+                            />
+                        </div>
+                    </div>
+                    <div className="mb-6 col-span-6">
+                        <label
+                            htmlFor="item-supply"
+                            className="font-display text-jacarta-700 mb-2 block dark:text-white"
+                        >
+                            chain
+                        </label>
+                        <div className="dropdown relative mb-4 cursor-pointer ">
+                            <ChainDropdown
+                                dropdownItemText={blockChainOptionsText}
+                                state={chain}
+                                setState={setChain}
+                            />
+                        </div>
                     </div>
                 </div>
 
@@ -82,7 +130,6 @@ const RendersellNft = ({ rendersellNFT, setTitle, setDescription, setPrice, crea
                                 Create
                             </button>
                     }
-
                 </div>
             </div>
         );
