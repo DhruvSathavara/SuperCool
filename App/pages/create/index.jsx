@@ -34,7 +34,6 @@ const Create = () => {
   );
   const [images, setImages] = React.useState([]);
   const [selectedImage, setSelectedImage] = React.useState(null);
-  // console.log('the chosen one', selectedImage);
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -48,20 +47,8 @@ const Create = () => {
   const configuration = new Configuration({
     apiKey: process.env.apiKey,
   });
-  // console.log(process.env.apiKey);
   const openai = new OpenAIApi(configuration);
 
-
-  const createCompletion = async () => {
-    console.log(prompt);
-
-    const completion = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: prompt,
-      max_tokens: 2048,
-    });
-    console.log(completion.data.choices[0].text);
-  }
 
   const NFT_STORAGE_TOKEN = process.env.REACT_APP_NFT_STORAGE_TOKEN;
   const client = new NFTStorage({ token: NFT_STORAGE_TOKEN });
@@ -73,17 +60,15 @@ const Create = () => {
     try {
       const res = await openai.createImage({
         prompt: prompt,
-        n: 3,
+        n: 1,
         size: "256x256",
       });
-      // setPrompt(null);
       console.log(res);
 
       let arry = [];
       for (let i = 0; i < res.data.data.length; i++) {
         const img_url = res.data.data[i].url;
         console.log('img_url', img_url);
-        // JD CORS Solution ------------------- 
         const api = await axios.create({
           baseURL:
             "https://open-ai-enwn.onrender.com",
@@ -108,7 +93,6 @@ const Create = () => {
             type: "image/jpeg",
           }
         );
-        // const dd = await client.add(imageFile)
         const metadata = await client.store({
           name: "data",
           description: "data",
@@ -118,15 +102,6 @@ const Create = () => {
         console.log(imUrl, "imUrl");
         const data = (await axios.get(imUrl)).data;
         console.log(data.image, "data");
-        // JD CORS Solution ------------------- 
-
-        // const response = await axios.get(img_url,  
-        //   // `https://cors-anywhere.herokuapp.com/${img_url}`
-        //   { responseType: 'arraybuffer' })
-        //   console.log(response,'response');
-        // const arrayBuffer = response.data;
-        // const ipfsUrl = await handleImgUpload(arrayBuffer);
-        // console.log(ipfsUrl, 'ipfsUrl');
         const rep = data.image.replace(
           "ipfs://",
           "https://nftstorage.link/ipfs/"
@@ -142,7 +117,6 @@ const Create = () => {
     } catch (error) {
       console.error(`Error generating image: ${error}`);
     }
-    // console.log(images);
   };
 
 
@@ -155,7 +129,6 @@ const Create = () => {
     }
     await getAllNfts()
     setMintLoading(false);
-    // setPrompt(null);
     setImages([]);
     setTitle('');
     setDescription('');
@@ -191,8 +164,6 @@ const Create = () => {
     mintNft(ethers.utils.parseUnits(price?.toString(), "ether"), metadataurl);
   }
 
-
-
   function handleSelectedImg(url) {
     setrendersellNFT(false);
     setSelectedImage(url);
@@ -207,6 +178,9 @@ const Create = () => {
             <div
              style={{ marginTop: "160px" }}
             >
+              <p className="dark:text-jacarta-300 text-4xs mb-3">
+              Experiment and train modal as per your preference
+              </p>
               <Options />
             </div>
           </div>
@@ -346,8 +320,6 @@ const Create = () => {
           </div>
         </div>
       </div>
-
-
     </>
   );
 };

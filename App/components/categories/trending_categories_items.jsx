@@ -5,20 +5,29 @@ import { trendingCategoryData } from "../../data/categories_data";
 // import Recently_added_dropdown from "../dropdown/recently_added_dropdown";
 import { useSelector, useDispatch } from "react-redux";
 import { updateTrendingCategoryItemData } from "../../redux/counterSlice";
-
-const Trending_categories_items = ({data}) => {
-  const [itemdata, setItemdata] = useState(trendingCategoryData);
+import { SupercoolAuthContext } from "../../context/supercoolContext";
+const Trending_categories_items = ({ data }) => {
+  const superCoolContext = React.useContext(SupercoolAuthContext);
+  const { allNfts } = superCoolContext;
+  const [itemdata, setItemdata] = useState(data);
   const dispatch = useDispatch();
-  const { trendingCategorySorText } = useSelector((state) => state.counter);
   const [filterVal, setFilterVal] = useState(0);
-// console.log('data in cate',data);
+
+
+
+  console.log('data in cate', data);
+
+
   const handleFilter = (category) => {
+    // console.log('category---', category);
+    // console.log('item data---', itemdata);
+
     if (category !== "all") {
       setItemdata(
-        trendingCategoryData.filter((item) => item.category === category)
+        data.filter((item) => item?.category.toLowerCase() === category.toLowerCase())
       );
     } else {
-      setItemdata(trendingCategoryData);
+      setItemdata(data);
     }
   };
 
@@ -84,12 +93,10 @@ const Trending_categories_items = ({data}) => {
             }
           })}
         </ul>
-        {/* dropdown */}
-        {/* <Recently_added_dropdown data={sortText} dropdownFor="recently_added" /> */}
       </div>
 
       {/* <!-- Grid --> */}
-      <CategoryItem data={data} />
+      <CategoryItem data={itemdata} />
     </>
   );
 };

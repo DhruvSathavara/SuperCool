@@ -20,9 +20,10 @@ const ProfileAvatarFeatures = () => {
     const [bodyType, setBodyType] = useState('body type' || bodyType);
     const [age, setAge] = useState('age' || age);
     const [ethnicity, setEthnicity] = useState('ethnicity' || ethnicity);
+    const [background, setBackground] = useState('background' || background);
 
 
-    let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create a profile avatar based on this information:- make sure image style will be ${imageStyle}, gender:${gender}, hair style:${hairstyle},hair color:${hairColor}${gender == "Male" ? `,facial hair:${facialHair}` : ""},facial Expression:${facialExpression},eye color:${eyeColor},skin tone:${skinTone},clothing style:${clothingStyle},accessories:${accessories},body type:${bodyType},age:${age},ethnicity:${ethnicity}, Remember to infuse the avatar with vitality and energy`
+    let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create a profile avatar based on this information:- make sure image style will be ${imageStyle}, gender:${gender}, hair style:${hairstyle},hair color:${hairColor}${gender == "Male" ? `,facial hair:${facialHair}` : ""},facial Expression:${facialExpression},eye color:${eyeColor},skin tone:${skinTone},clothing style:${clothingStyle},accessories:${accessories},body type:${bodyType},age:${age},ethnicity:${ethnicity}, and the background of this image should be ${background} and Remember to infuse the avatar with vitality and energy`
     const generateText = async () => {
     console.log(detailPrompt);
 
@@ -42,7 +43,6 @@ const ProfileAvatarFeatures = () => {
             );
             console.log(response.data.choices[0].text);
             setPrompt(response.data.choices[0].text);
-            //   setText(response.data.choices[0].text);
         } catch (error) {
             console.error('Error:', error);
         }
@@ -296,18 +296,22 @@ const ProfileAvatarFeatures = () => {
     const bodyTypeOptionsText = [
         {
             id: 1,
-            text: 'Slim',
+            text: 'Insannely beautiful',
         },
         {
             id: 2,
-            text: 'Athletic',
+            text: 'Slim',
         },
         {
             id: 3,
-            text: 'Curvy',
+            text: 'Athletic',
         },
         {
             id: 4,
+            text: 'Curvy',
+        },
+        {
+            id: 5,
             text: 'Muscular',
         },
     ];
@@ -343,6 +347,44 @@ const ProfileAvatarFeatures = () => {
             text: 'Hispanic',
         },
     ];
+    const backgroundOptionsText = [
+        {
+            id: 1,
+            text: 'pain background',
+        },
+        {
+            id: 2,
+            text: 'beach',
+        },
+        {
+            id: 3,
+            text: 'ocean',
+        },
+        {
+            id: 4,
+            text: 'gym',
+        },
+        {
+            id: 5,
+            text: 'photo studio',
+        },
+        {
+            id: 6,
+            text: 'coffee place',
+        },
+        {
+            id: 7,
+            text: 'garden',
+        },
+        {
+            id: 8,
+            text: 'snow',
+        },
+        {
+            id: 9,
+            text: 'street',
+        },
+    ];
 
     return (
         <>
@@ -371,6 +413,12 @@ const ProfileAvatarFeatures = () => {
                     setState={setFacialHair}
                 />
                 : ""}
+
+            <StandardDropdown
+                dropdownItemText={backgroundOptionsText}
+                state={background}
+                setState={setBackground}
+            />
 
             <StandardDropdown
                 dropdownItemText={facialExpressionOptionsText}

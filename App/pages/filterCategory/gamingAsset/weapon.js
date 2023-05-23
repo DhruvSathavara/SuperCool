@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import StandardDropdown from "../../standardDropdown/dropdown";
 import { Button } from "@mui/material";
 import axios from "axios";
+import { SupercoolAuthContext } from "../../../context/supercoolContext";
 
 const WeaponFeatures = () => {
     const superCoolContext = React.useContext(SupercoolAuthContext);
@@ -12,8 +13,7 @@ const WeaponFeatures = () => {
 
 
     let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create an image of Weapon based on this information:- create a dangerous ${weaponType} and make sure it's design style will be ${designStyle} and Remember to infuse the weapon image with vitality and energy`
-    // console.log(detailPrompt);
-    //   
+    
     const generateText = async () => {
     console.log(detailPrompt);
 

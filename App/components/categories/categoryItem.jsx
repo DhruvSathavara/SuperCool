@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import Likes from "../likes";
-import { useDispatch, useSelector } from "react-redux";
-import { buyModalShow } from "../../redux/counterSlice";
-import { toast } from 'react-toastify';
 const likes = 54;
 const CategoryItem = ({ data }) => {
 
-  const dispatch = useDispatch();
   return (
     <div className="grid grid-cols-1 gap-[1.875rem] md:grid-cols-2 lg:grid-cols-4">
       {data && data.map((item) => {
