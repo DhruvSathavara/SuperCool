@@ -14,7 +14,7 @@ export const SupercoolAuthContextProvider = (props) => {
 
   const web3ModalRef = useRef();
   // let defPrompt = "I want you to act as a prompt engineer. You will help me write prompts for an ai art generator called Midjourney. I will provide you with short content ideas and your job is to elaborate these into full, explicit, coherent prompts. Prompts involve describing the content and style of images in concise accurate language. It is useful to be explicit and use references to popular culture, artists and mediums. Your focus needs to be on nouns and adjectives. I will give you some example prompts for your reference. Please define the exact camera that should be used Here is a formula for you to use(content insert nouns here)(medium: insert artistic medium here)(style: insert references to genres, artists and popular culture here)(lighting, reference the lighting here)(colours reference color styles and palettes here)(composition: reference cameras, specific lenses, shot types and positional elements here) when giving a prompt remove the brackets, speak in natural language and be more specific, use precise, articulate language. Example prompt: Portrait of a Celtic Jedi Sentinel with wet Shamrock Armor, green lightsaber, by Aleksi Briclot, shiny wet dramatic lighting. For now if understand what I asked to you just replay 'write anything'. And write full prompt from next request. "
-  
+
 
   const [walletConnected, setWalletConnected] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -34,51 +34,9 @@ export const SupercoolAuthContextProvider = (props) => {
     console.log('No wallet connected or logged out');
   }
 
- 
-
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined' && window.ethereum) {
-  //     const provider = new ethers.providers.Web3Provider(window.ethereum);
-  //     const signer = provider.getSigner();
-  //     setProvider(provider);
-  //     setSigner(signer);
-  //   }
-  // }, []);
-
-
-  // const initializeProvider = async () => {
-  //   try {
-  //     if (provider && signer) {
-  //       // Check if the user is connected to a wallet
-  //       if (window.ethereum && window.ethereum.selectedAddress) {
-  //         const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-  //         if (accounts.length > 0) {
-  //           console.log('Account address:', accounts[0]);
-  //         } else {
-  //           console.log('No wallet connected or logged out');
-  //         }
-  //       } else {
-  //         console.log('No wallet connected or logged out');
-  //       }
-  //     } else {
-  //       console.log('No wallet connected or logged out');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (provider && signer) {
-  //     initializeProvider();
-  //   }
-  // }, [provider, signer]);
-
-
 
   const login = async () => {
     if (!window.ethereum) return;
-
     try {
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
@@ -92,24 +50,18 @@ export const SupercoolAuthContextProvider = (props) => {
           method: 'wallet_switchEthereumChain',
           params: [{ chainId: '0x13881' }] // Polygon Mumbai chain ID
         });
-
         setWalletConnected(true);
       }
 
       if (ethereum && ethereum.selectedAddress) {
-        console.log(ethereum, 'ethererrmmm');
         const address = await signer.getAddress();
 
-        // Use the account address as needed
-        console.log('Account address:', address);
       } else {
-        // Handle the case when no wallet is connected or logged out
         console.log('No wallet connected or logged out');
       }
     } catch (error) {
       console.error('Login error:', error);
     }
-
   }
 
   const logout = async () => {
@@ -135,7 +87,6 @@ export const SupercoolAuthContextProvider = (props) => {
     },
   });
 
-
   const contract = new ethers.Contract(
     SUPER_COOL_NFT_CONTRACT,
     abi,
@@ -146,14 +97,13 @@ export const SupercoolAuthContextProvider = (props) => {
     const accounts = await ethereum.request({
       method: 'eth_requestAccounts',
     });
-    console.log(accounts);
+    // console.log(accounts);
     setGenRanImgLoding(true);
     const tx = await contract.getRandomNumber();
     await tx.wait();
     const num = await contract.ranNum();
     setPrompt(RandomPrompts[num]);
     setGenRanImgLoding(false);
-    // console.log(num.toString());
   }
 
   const getProfileData = async (add) => {
@@ -165,9 +115,7 @@ export const SupercoolAuthContextProvider = (props) => {
       console.log(response.data);
       return response;
     }
-
   }
-
 
   const getAllNfts = async () => {
 
@@ -221,14 +169,30 @@ export const SupercoolAuthContextProvider = (props) => {
     const contentUri = `https://superfun.infura-ipfs.io/ipfs/${ipfsResult.path}`;
     console.log('contentUri', contentUri);
     return contentUri;
-
   }
 
-
-  const getProfile = async () => {
-
-  }
-
+  const generateText = async (detailPrompt) => {
+    try {
+      const response = await axios.post(
+        'https://api.openai.com/v1/engines/text-davinci-003/completions',
+        {
+          prompt: detailPrompt,
+          max_tokens: 700,
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${process.env.apiKey}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log(response.data.choices[0].text);
+      setPrompt(response.data.choices[0].text);
+      // return response.data.choices[0].text;
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   return (
     <SupercoolAuthContext.Provider
@@ -249,7 +213,8 @@ export const SupercoolAuthContextProvider = (props) => {
         userAdd,
         uploadDatainIpfs,
         getAllNfts,
-        getProfileData
+        getProfileData,
+        generateText
       }}
       {...props}
     >
