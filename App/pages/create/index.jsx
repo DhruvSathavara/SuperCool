@@ -184,7 +184,7 @@ const Create = () => {
     let metadataurl = await uploadOnIpfs(nftData);
     mintNft(ethers.utils.parseUnits(price?.toString(), "ether"), metadataurl);
   }
-a
+
 
 
   function handleSelectedImg(url) {
