@@ -160,7 +160,6 @@ export const SupercoolAuthContextProvider = (props) => {
     return ipfsURL;
   };
 
-
   // Edit profile
 
   const uploadDatainIpfs = async (e) => {

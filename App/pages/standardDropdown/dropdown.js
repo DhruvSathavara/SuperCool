@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-const StandardDropdown = ({ dropdownItemText, state, setState, w}) => {
-console.log(w);
+const StandardDropdown = ({ dropdownItemText, state, setState}) => {
     const [dropdownItemActive, setDropdownItemActive] = useState(null);
     const [dropdownShow, setDropdownShow] = useState(false);
 
