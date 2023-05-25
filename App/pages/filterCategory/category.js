@@ -24,15 +24,14 @@ const Options = () => {
   ];
   return (
     <>
-    <StandardDropdown 
-    dropdownItemText={dropdownItemText}
-    state={category}
-    setState={setCategory}
-    
-    />
-    {category == "profile avatar" ? <ProfileAvatarFeatures/> : ""}
-    {category == "gaming asset" ? <GamingAssetOption/> : ""}
-    {category == "costume" ? <CreateCostume/> : ""}
+      <StandardDropdown
+        dropdownItemText={dropdownItemText}
+        state={category}
+        setState={setCategory}
+      />
+      {category == "profile avatar" ? <ProfileAvatarFeatures /> : ""}
+      {category == "gaming asset" ? <GamingAssetOption /> : ""}
+      {category == "costume" ? <CreateCostume /> : ""}
     </>
   );
 }

@@ -11,7 +11,7 @@ const JumpsuitCostume = () => {
     const [jumpsuitType, setJumpsuitType] = useState(jumpsuitType || 'jumpsuit type');
     const [closure, setClosure] = useState(closure || 'closure');
     const [jumpsuitColor, setjumpsuitColor] = useState(jumpsuitColor || 'color');
-  
+
 
     let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create costume Jumpsuit based on this information:- make sure image style will be ${designStyle}, jumpsuit type:${jumpsuitType}, jumpsuit color:${jumpsuitColor} and there should be ${closure} closure to the jumpsuit and Remember to infuse the avatar with vitality and energy`
     const generateText = async () => {
@@ -76,7 +76,7 @@ const JumpsuitCostume = () => {
             id: 6,
             text: 'Halter neck',
         },
-       
+
     ];
 
     const jumpsuitColorOptionsText = [
@@ -150,8 +150,15 @@ const JumpsuitCostume = () => {
                 state={closure}
                 setState={setClosure}
             />
-
-            <Button onClick={generateText}>Submit</Button>
+            <div style={{
+                // textAlign: "center" 
+                // , width: "100%" 
+            }}>
+                <Button color="secondary" className="animate-gradient mb-5" onClick={generateText} variant="outlined" style={{
+                    //  width: "100%", 
+                    fontSize: "20px"
+                }} >Submit</Button>
+            </div>
         </>
     )
 }

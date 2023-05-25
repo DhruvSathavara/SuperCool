@@ -128,39 +128,50 @@ const ShirtCostume = () => {
 
     return (
         <>
+            <div className="categories-scroll">
+                <StandardDropdown
+                    dropdownItemText={designStyleOptionsText}
+                    state={designStyle}
+                    setState={setDesignStyle}
+                />
 
-            <StandardDropdown
-                dropdownItemText={designStyleOptionsText}
-                state={designStyle}
-                setState={setDesignStyle}
-            />
+                <StandardDropdown
+                    dropdownItemText={shirtTypeOptionsText}
+                    state={shirtType}
+                    setState={setShirtType}
+                />
 
-            <StandardDropdown
-                dropdownItemText={shirtTypeOptionsText}
-                state={shirtType}
-                setState={setShirtType}
-            />
+                <StandardDropdown
+                    dropdownItemText={sleeveLengthOptionsText}
+                    state={sleeveLength}
+                    setState={setSleeveLength}
+                />
 
-            <StandardDropdown
-                dropdownItemText={sleeveLengthOptionsText}
-                state={sleeveLength}
-                setState={setSleeveLength}
-            />
+                <StandardDropdown
+                    dropdownItemText={shirtColorOptionsText}
+                    state={shirtColor}
+                    setState={setShirtColor}
+                />
 
-            <StandardDropdown
-                dropdownItemText={shirtColorOptionsText}
-                state={shirtColor}
-                setState={setShirtColor}
-            />
+                <StandardDropdown
+                    dropdownItemText={patternOptionsText}
+                    state={shirtPattern}
+                    setState={setShirtPattern}
+                />
 
-            <StandardDropdown
-                dropdownItemText={patternOptionsText}
-                state={shirtPattern}
-                setState={setShirtPattern}
-            />
+                <div style={{
+                    // textAlign: "center" 
+                    // , width: "100%" 
+                }}>
+                    <Button color="secondary" className="animate-gradient mb-5" onClick={generateText} variant="outlined" style={{
+                        //  width: "100%", 
+                        fontSize: "20px",
+                    }} >Submit</Button>
+                </div>
 
-            
-            <Button onClick={generateText}>Submit</Button>
+            </div>
+
+
         </>
     )
 }

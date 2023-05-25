@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 
-const ChainDropdown = ({ dropdownItemText, state, setState}) => {
+const ChainDropdown = ({ dropdownItemText, state, setState }) => {
     const [dropdownItemActive, setDropdownItemActive] = useState(null);
     const [dropdownShow, setDropdownShow] = useState(false);
 
     const handleDropdown = () => {
         setDropdownShow(!dropdownShow);
-      };
-    
-      const handleDropdownItemClick = (id, text) => {
+    };
+
+    const handleDropdownItemClick = (id, text) => {
         setState(text);
         setDropdownItemActive(id);
         setDropdownShow(false);
-      };
+    };
 
 
     return (
@@ -37,6 +37,7 @@ const ChainDropdown = ({ dropdownItemText, state, setState}) => {
                     </button>
 
                     <div
+                        style={{ width: "100% !important" }}
                         className={
                             dropdownShow
                                 ? ' dark:bg-jacarta-800 z-10 max-w-sm w-[13rem] whitespace-nowrap rounded-xl bg-white py-4 px-2 text-left shadow-xl absolute top-full show'

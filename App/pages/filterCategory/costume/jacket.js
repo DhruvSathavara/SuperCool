@@ -6,7 +6,7 @@ import { SupercoolAuthContext } from "../../../context/supercoolContext";
 const JacketCostume = () => {
 
     const superCoolContext = React.useContext(SupercoolAuthContext);
-  const { setPrompt } = superCoolContext;
+    const { setPrompt } = superCoolContext;
     const [designStyle, setDesignStyle] = useState(designStyle || 'design style');
     const [jacketStyle, setJacketStyle] = useState(jacketStyle || 'jacket style');
     const [jacketLength, setJacketLength] = useState(jacketLength || 'jacket length');
@@ -42,7 +42,7 @@ const JacketCostume = () => {
         }
     };
 
-     
+
 
     const designStyleOptionsText = [
         {
@@ -173,47 +173,58 @@ const JacketCostume = () => {
 
     return (
         <>
+            <div className="categories-scroll">
+                <StandardDropdown
+                    dropdownItemText={designStyleOptionsText}
+                    state={designStyle}
+                    setState={setDesignStyle}
+                />
 
-            <StandardDropdown
-                dropdownItemText={designStyleOptionsText}
-                state={designStyle}
-                setState={setDesignStyle}
-            />
+                <StandardDropdown
+                    dropdownItemText={jacketStyleOptionsText}
+                    state={jacketStyle}
+                    setState={setJacketStyle}
+                />
 
-            <StandardDropdown
-                dropdownItemText={jacketStyleOptionsText}
-                state={jacketStyle}
-                setState={setJacketStyle}
-            />
+                <StandardDropdown
+                    dropdownItemText={jacketLengthOptionsText}
+                    state={jacketLength}
+                    setState={setJacketLength}
+                />
 
-            <StandardDropdown
-                dropdownItemText={jacketLengthOptionsText}
-                state={jacketLength}
-                setState={setJacketLength}
-            />
+                <StandardDropdown
+                    dropdownItemText={pocketStyleOptionsText}
+                    state={pocketStyle}
+                    setState={setPocketStyle}
+                />
 
-            <StandardDropdown
-                dropdownItemText={pocketStyleOptionsText}
-                state={pocketStyle}
-                setState={setPocketStyle}
-            />
+                <StandardDropdown
+                    dropdownItemText={jacketColorOptionsText}
+                    state={jacketColor}
+                    setState={setJacketColor}
+                />
 
-            <StandardDropdown
-                dropdownItemText={jacketColorOptionsText}
-                state={jacketColor}
-                setState={setJacketColor}
-            />
-
-            <StandardDropdown
-                dropdownItemText={patternOptionsText}
-                state={jacketPattern}
-                setState={setJacketPattern}
-            />
-
-
+                <StandardDropdown
+                    dropdownItemText={patternOptionsText}
+                    state={jacketPattern}
+                    setState={setJacketPattern}
+                />
 
 
-            <Button onClick={generateText}>Submit</Button>
+                <div style={{
+                    // textAlign: "center" 
+                    // , width: "100%" 
+                }}>
+                    <Button color="secondary" className="animate-gradient mb-5" onClick={generateText} variant="outlined" style={{
+                        //  width: "100%", 
+                        fontSize: "20px"
+                    }} >Submit</Button>
+                </div>
+
+                
+            </div>
+
+
         </>
     )
 }
