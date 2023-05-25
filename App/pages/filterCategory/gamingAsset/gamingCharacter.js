@@ -282,7 +282,7 @@ const GamingCharacterFeatures = () => {
                     <Button color="secondary" className="animate-gradient mb-5" onClick={generateText} variant="outlined" style={{
                         //  width: "100%", 
                         fontSize: "20px"
-                    }} >Train Model</Button>
+                    }} >Submit</Button>
                 </div>
 
                 {/* <Button onClick={generateText}>Submit</Button> */}
