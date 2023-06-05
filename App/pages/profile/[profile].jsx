@@ -19,7 +19,6 @@ const Edit_user = () => {
 	const [walletAddress, setWalletAddress] = useState(undefined);
 	const [bio, setBio] = useState("");
 	const [profilePhoto, setProfilePhoto] = useState();
-	const [Data, setData] = useState()
 	// Profile data
 
 	localforage.getItem('address').then((value) => {
@@ -57,6 +56,7 @@ const Edit_user = () => {
 		setUsername(e.target.value)
 	}
 	const BioEvent = (e) => {
+		console.log(e);
 		setBio(e.target.value)
 	}
 	const handleCoverPhoto = async (event) => {
@@ -83,23 +83,13 @@ const Edit_user = () => {
 	}
 
 	const updateProfile = async () => {
+		console.log(Profiledata);
 		let url = await uploadDatainIpfs(Profiledata);
 		console.log('metadataurl==', url);
 
 		const tx = await contract.storeProfileData(url);
 		await tx.wait();
 
-
-		// profileUrl = metadataurl;
-		// console.log('profileUrl', profileUrl);
-		// const response = await axios.get(profileUrl);
-		// console.log(metadataurl, ':::metaprofile');
-		// setData(response.data);
-
-		// setBio('');
-		// setUsername("");
-		// setProfilePhoto('');
-		// setCoverePhoto('')
 	}
 	// console.log('Data', Data);
 
@@ -172,7 +162,7 @@ const Edit_user = () => {
 										placeholder="Enter username"
 										required
 										value={username}
-										onChange={() => UsernameEvent}
+										onChange={(e) => UsernameEvent(e)}
 									/>
 								</div>
 								<div className="mb-6">
@@ -185,7 +175,7 @@ const Edit_user = () => {
 										required
 										value={bio}
 										placeholder="Tell the world your story!"
-										onChange={() => BioEvent}
+										onChange={(e) => BioEvent(e)}
 									></textarea>
 								</div>
 

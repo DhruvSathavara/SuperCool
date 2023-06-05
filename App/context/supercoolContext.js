@@ -59,11 +59,13 @@ export const SupercoolAuthContextProvider = (props) => {
       } else {
         console.log('No wallet connected or logged out');
       }
+      getAllNfts();
     } catch (error) {
       console.error('Login error:', error);
     }
+    getAllNfts();
   }
-
+  console.log(' --loading value ===', loading);
   const logout = async () => {
     localforage.removeItem('address');
     setWalletConnected(false);
@@ -105,29 +107,33 @@ export const SupercoolAuthContextProvider = (props) => {
     setPrompt(RandomPrompts[num]);
     setGenRanImgLoding(false);
   }
-
+  // console.log(process.env.apiKey);
   const getProfileData = async (add) => {
     console.log('use add--', add);
     if (add !== undefined) {
       const dataurl = await contract.getUserProfile(add);
       console.log(dataurl);
       const response = await axios.get(dataurl);
-      console.log(response.data);
+      // console.log(response.data);
       return response;
     }
   }
-
+  const contractPro = new ethers.Contract(
+    SUPER_COOL_NFT_CONTRACT,
+    abi,
+    provider
+  );
   const getAllNfts = async () => {
 
     console.log('getting all nfts ...');
-    const totalNfts = await contract.getTotalSupply();
+    const totalNfts = await contractPro.getTotalSupply();
     const metadatas = [];
     for (let i = 1; i <= totalNfts.toString(); i++) {
-      const tokenURI = await contract.tokenURI(i);
+      const tokenURI = await contractPro.tokenURI(i);
       const response = await fetch(tokenURI);
       const metadata = await response.json();
-      const owner = await contract.ownerOf(i);
-      const maticToUsdPricee = await contract.convertMaticUsd(ethers.utils.parseUnits(metadata.price, 'ether'));
+      const owner = await contractPro.ownerOf(i);
+      const maticToUsdPricee = await contractPro.convertMaticUsd(ethers.utils.parseUnits(metadata.price, 'ether'));
 
       const newMetadata = { ...metadata, owner: owner, tokenId: i, maticToUSD: maticToUsdPricee._hex / 100000000 }
 
