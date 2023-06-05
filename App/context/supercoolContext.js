@@ -105,14 +105,14 @@ export const SupercoolAuthContextProvider = (props) => {
     setPrompt(RandomPrompts[num]);
     setGenRanImgLoding(false);
   }
-
+  console.log(process.env.apiKey);
   const getProfileData = async (add) => {
     console.log('use add--', add);
     if (add !== undefined) {
       const dataurl = await contract.getUserProfile(add);
       console.log(dataurl);
       const response = await axios.get(dataurl);
-      console.log(response.data);
+      // console.log(response.data);
       return response;
     }
   }

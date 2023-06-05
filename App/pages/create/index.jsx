@@ -60,7 +60,7 @@ const Create = () => {
     try {
       const res = await openai.createImage({
         prompt: prompt,
-        n: 1,
+        n: 3,
         size: "256x256",
       });
       console.log(res);
@@ -116,6 +116,7 @@ const Create = () => {
 
     } catch (error) {
       console.error(`Error generating image: ${error}`);
+      setGenerateLoading(false);
     }
   };
 
