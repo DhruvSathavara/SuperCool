@@ -95,10 +95,6 @@ const WeaponFeatures = () => {
     ];
 
 
-
-
-
-
     return (
         <>
             <StandardDropdown
