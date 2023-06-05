@@ -129,6 +129,7 @@ const Create = () => {
       console.error("Failed to mint NFT: " + e.message);
     }
     await getAllNfts()
+    setLoading(!loading);
     setMintLoading(false);
     setImages([]);
     setTitle('');

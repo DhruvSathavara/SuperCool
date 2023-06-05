@@ -15,9 +15,6 @@ const Trending_categories_items = ({ data }) => {
 
 
 
-  console.log('data in cate', data);
-
-
   const handleFilter = (category) => {
     // console.log('category---', category);
     // console.log('item data---', itemdata);
