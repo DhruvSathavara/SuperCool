@@ -119,6 +119,8 @@ const Create = () => {
       setGenerateLoading(false);
     }
   };
+  // JD CORS Solution END ------------------- 
+
 
 
   const mintNft = async (_price, _metadataurl) => {
@@ -178,147 +180,148 @@ const Create = () => {
         <div className="grid grid-cols-12 ">
           <div className="col-span-3">
             <div
-             style={{ marginTop: "160px" }}
+              className="categories-scroll"
+              style={{ marginTop: "160px" }}
             >
               <p className="dark:text-jacarta-300 text-4xs mb-3">
-              Experiment and train modal as per your preference
+                Experiment and train modal as per your preference
               </p>
               <Options />
             </div>
           </div>
           <div className="col-span-9">
-              <Meta title="SuperCool" />
+            <Meta title="SuperCool" />
 
-              <section className="relative py-24 nft-sections fixed">
-                <picture className="pointer-events-none absolute inset-0 -z-10 dark:hidden">
-                  <img
-                    src="/images/gradient_light.jpg"
-                    alt="gradient"
-                    className="h-full w-full"
-                  />
-                </picture>
+            <section className="relative py-24 nft-sections fixed">
+              <picture className="pointer-events-none absolute inset-0 -z-10 dark:hidden">
+                <img
+                  src="/images/gradient_light.jpg"
+                  alt="gradient"
+                  className="h-full w-full"
+                />
+              </picture>
 
-                <div className="container">
-                  <h1 className="font-display text-jacarta-700 py-16 text-center text-4xl font-medium dark:text-white">
-                    Let your creativity shine and give us a clear picture with your words
-                  </h1>
+              <div className="container nft-sections">
+                <h1 className="font-display text-jacarta-700 py-16 text-center text-4xl font-medium dark:text-white">
+                  Let your creativity shine and give us a clear picture with your words
+                </h1>
 
-                  <div className="mx-auto max-w-[48.125rem]">
+                <div className="mx-auto max-w-[48.125rem]">
 
-                    <div className="mb-6">
-                      <p className="dark:text-jacarta-300 text-4xs mb-3">
-                        We're excited to bring your NFT to life, but we need your input. Please provide us with a brief description of what you want it to look like. Or
-                        <span>
-                          <a
-                            className="hover:text-accent dark:hover:text-white text-jacarta-700 font-bold font-display mb-6 text-center text-md dark:text-white md:text-left lg:text-md xl:text-md animate-gradient"
-                            style={{ cursor: "pointer" }} onClick={GenerateNum}
-                          > {
-                              genRanImgLoding ?
-                                "generating random prompt..." : "generate random image."
+                  <div className="mb-6">
+                    <p className="dark:text-jacarta-300 text-4xs mb-3">
+                      We're excited to bring your NFT to life, but we need your input. Please provide us with a brief description of what you want it to look like. Or
+                      <span>
+                        <a
+                          className="hover:text-accent dark:hover:text-white text-jacarta-700 font-bold font-display mb-6 text-center text-md dark:text-white md:text-left lg:text-md xl:text-md animate-gradient"
+                          style={{ cursor: "pointer" }} onClick={GenerateNum}
+                        > {
+                            genRanImgLoding ?
+                              "generating random prompt..." : "generate random image."
 
-                            }  </a>
-                        </span>
-                      </p>
+                          }  </a>
+                      </span>
+                    </p>
 
-                      <textarea
-                        onChange={(e) => setPrompt(e.target.value)}
-                        placeholder={placeholder}
-                        value={prompt}
-                        id="item-description"
-                        className="dark:bg-jacarta-700 border-jacarta-100 hover:ring-accent/10 focus:ring-accent dark:border-jacarta-600 dark:placeholder:text-jacarta-300 w-full rounded-lg py-3 px-3 hover:ring-2 dark:text-white"
-                        rows="6"
-                        required
-                      >
-                      </textarea>
+                    <textarea
+                      onChange={(e) => setPrompt(e.target.value)}
+                      placeholder={placeholder}
+                      value={prompt}
+                      id="item-description"
+                      className="dark:bg-jacarta-700 border-jacarta-100 hover:ring-accent/10 focus:ring-accent dark:border-jacarta-600 dark:placeholder:text-jacarta-300 w-full rounded-lg py-3 px-3 hover:ring-2 dark:text-white"
+                      rows="6"
+                      required
+                    >
+                    </textarea>
 
-                      <div className="generate-btn">
-                        {generateLoading ?
-                          <CircularProgress />
-                          :
-                          <button
-                            className="bg-accent-lighter rounded-full py-3 px-8 text-center font-semibold text-white transition-all  "
-                            style={{ marginBottom: "15px" }}
-                            onClick={generateImage}
-                          >
-                            Generate
-                          </button>
-                        }
-                      </div>
-                      <br />
+                    <div className="generate-btn">
+                      {generateLoading ?
+                        <CircularProgress />
+                        :
+                        <button
+                          className="bg-accent-lighter rounded-full py-3 px-8 text-center font-semibold text-white transition-all  "
+                          style={{ marginBottom: "15px" }}
+                          onClick={generateImage}
+                        >
+                          Generate
+                        </button>
+                      }
+                    </div>
+                    <br />
 
-                      {
-                        images.length > 0 ?
-                          <>
-                            <div className="row main-row">
-                              {console.log(images, '===images')}
-                              {images && images.map((url) => (
+                    {
+                      images.length > 0 ?
+                        <>
+                          <div className="row main-row">
+                            {console.log(images, '===images')}
+                            {images && images.map((url) => (
 
+                              <div
+                                className="col-lg-4 mb-4 mb-lg-0"
+                                onClick={() => handleSelectedImg(url)}
+                              >
                                 <div
-                                  className="col-lg-4 mb-4 mb-lg-0"
-                                  onClick={() => handleSelectedImg(url)}
+                                  className="bg-image hover-overlay ripple shadow-1-strong rounded col-4"
+                                  data-ripple-color="light"
                                 >
-                                  <div
-                                    className="bg-image hover-overlay ripple shadow-1-strong rounded col-4"
-                                    data-ripple-color="light"
-                                  >
-                                    <div className="img-nft">
-                                      <img
-                                        src={url}
-                                        alt='nft-images'
-                                      />
-                                    </div>
-                                    <div className="radio-img">
-                                      <input
-                                        type="radio"
-                                        id="huey"
-                                        name="drone"
-                                        value="huey"
-                                        checked={url == selectedImage}
-                                        className="mt-3"
-                                      />
-                                    </div>
+                                  <div className="img-nft">
+                                    <img
+                                      src={url}
+                                      alt='nft-images'
+                                    />
+                                  </div>
+                                  <div className="radio-img">
+                                    <input
+                                      type="radio"
+                                      id="huey"
+                                      name="drone"
+                                      value="huey"
+                                      checked={url == selectedImage}
+                                      className="mt-3"
+                                    />
                                   </div>
                                 </div>
+                              </div>
 
-                              ))}
+                            ))}
 
-                            </div>
-                            <div>
-                              <p style={{ textAlign: "center" }} className="dark:text-jacarta-300 text-4xs mb-3"
-                              >Select the image you wish to mint.</p>
-                            </div>
-                          </>
-                          : ""
-                      }
-
-                    </div>
-
-                    {modalOpen &&
-                      <div className="img-overlay">
-                        <ImageModal setModalOpen={setModalOpen}
-                          selectedImage={selectedImage}
-                          setSelectedImage={setSelectedImage}
-                          createNft={createNft}
-                          setrendersellNFT={setrendersellNFT}
-                        />
-                      </div>
+                          </div>
+                          <div>
+                            <p style={{ textAlign: "center" }} className="dark:text-jacarta-300 text-4xs mb-3"
+                            >Select the image you wish to mint.</p>
+                          </div>
+                        </>
+                        : ""
                     }
 
                   </div>
-                  <RendersellNft
-                    rendersellNFT={rendersellNFT}
-                    setTitle={setTitle}
-                    setDescription={setDescription}
-                    setPrice={setPrice}
-                    createNft={createNft}
-                    mintLoading={mintLoading}
-                    category={category}
-                    setCategory={setCategory}
-                    chain={chain}
-                    setChain={setChain}
-                  />
-                </div >
-              </section >
+
+                  {modalOpen &&
+                    <div className="img-overlay">
+                      <ImageModal setModalOpen={setModalOpen}
+                        selectedImage={selectedImage}
+                        setSelectedImage={setSelectedImage}
+                        createNft={createNft}
+                        setrendersellNFT={setrendersellNFT}
+                      />
+                    </div>
+                  }
+
+                </div>
+                <RendersellNft
+                  rendersellNFT={rendersellNFT}
+                  setTitle={setTitle}
+                  setDescription={setDescription}
+                  setPrice={setPrice}
+                  createNft={createNft}
+                  mintLoading={mintLoading}
+                  category={category}
+                  setCategory={setCategory}
+                  chain={chain}
+                  setChain={setChain}
+                />
+              </div >
+            </section >
           </div>
         </div>
       </div>
