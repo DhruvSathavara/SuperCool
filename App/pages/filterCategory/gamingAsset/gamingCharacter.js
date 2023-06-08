@@ -16,11 +16,11 @@ const GamingCharacterFeatures = () => {
 
 
     let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create a Gaming Character based on this prompt:- so create a gaming character who will be ${characterType}, with clothing style:${clothingStyle}, with ${accessories} accessory, with ${footwear} footwear, with ${hairstyle} hair style lastly make sure to generate image with ${imageStyle} and Remember to infuse the avatar with vitality and energy`;
-     
+
     // console.log(detailPrompt);
-    
+
     const generateText = async () => {
-    console.log(detailPrompt);
+        console.log(detailPrompt);
 
         try {
             const response = await axios.post(
@@ -238,44 +238,57 @@ const GamingCharacterFeatures = () => {
 
     return (
         <>
-            <StandardDropdown
-                dropdownItemText={characterOptionsText}
-                state={characterType}
-                setState={setCharacterType}
-            />
+            <div className="categories-scroll">
+                <StandardDropdown
+                    dropdownItemText={characterOptionsText}
+                    state={characterType}
+                    setState={setCharacterType}
+                />
 
-            <StandardDropdown
-                dropdownItemText={clothingStyleOptionsText}
-                state={clothingStyle}
-                setState={setClothingStyle}
-            />
+                <StandardDropdown
+                    dropdownItemText={clothingStyleOptionsText}
+                    state={clothingStyle}
+                    setState={setClothingStyle}
+                />
 
-            <StandardDropdown
-                dropdownItemText={accessoriesOptionsText}
-                state={accessories}
-                setState={setAccessories}
-            />
+                <StandardDropdown
+                    dropdownItemText={accessoriesOptionsText}
+                    state={accessories}
+                    setState={setAccessories}
+                />
 
-            <StandardDropdown
-                dropdownItemText={hairStyleOptionsText}
-                state={hairstyle}
-                setState={setHairstyle}
-            />
+                <StandardDropdown
+                    dropdownItemText={hairStyleOptionsText}
+                    state={hairstyle}
+                    setState={setHairstyle}
+                />
 
-            <StandardDropdown
-                dropdownItemText={footwearOptionsText}
-                state={footwear}
-                setState={setFootwear}
-            />
+                <StandardDropdown
+                    dropdownItemText={footwearOptionsText}
+                    state={footwear}
+                    setState={setFootwear}
+                />
 
-            <StandardDropdown
-                dropdownItemText={imageStyleOptionsText}
-                state={imageStyle}
-                setState={setImageStyle}
-            />
+                <StandardDropdown
+                    dropdownItemText={imageStyleOptionsText}
+                    state={imageStyle}
+                    setState={setImageStyle}
+                />
 
+                <div style={{
+                    // textAlign: "center" 
+                    // , width: "100%" 
+                }}>
+                    <Button color="secondary" className="animate-gradient mb-5" onClick={generateText} variant="outlined" style={{
+                        //  width: "100%", 
+                        fontSize: "20px"
+                    }} >Submit</Button>
+                </div>
 
-            <Button onClick={generateText}>Submit</Button>
+                {/* <Button onClick={generateText}>Submit</Button> */}
+
+            </div>
+
         </>
     )
 }

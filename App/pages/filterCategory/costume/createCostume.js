@@ -76,6 +76,7 @@ const CreateCostume = () => {
                 dropdownItemText={costumeTypeOptionsText}
                 state={costumeType}
                 setState={setCostumeType}
+                // className="categories-scroll"
             />
 
             {costumeType == "Jacket" ? <JacketCostume /> : ""}

@@ -175,45 +175,55 @@ const CoatCostume = () => {
 
     return (
         <>
+            <div className="categories-scroll">
+                <StandardDropdown
+                    dropdownItemText={designStyleOptionsText}
+                    state={designStyle}
+                    setState={setDesignStyle}
+                />
 
-            <StandardDropdown
-                dropdownItemText={designStyleOptionsText}
-                state={designStyle}
-                setState={setDesignStyle}
-            />
+                <StandardDropdown
+                    dropdownItemText={coatTypeOptionsText}
+                    state={coatType}
+                    setState={setCoatType}
+                />
 
-            <StandardDropdown
-                dropdownItemText={coatTypeOptionsText}
-                state={coatType}
-                setState={setCoatType}
-            />
+                <StandardDropdown
+                    dropdownItemText={coatColorOptionsText}
+                    state={coatColor}
+                    setState={setCoatColor}
+                />
 
-            <StandardDropdown
-                dropdownItemText={coatColorOptionsText}
-                state={coatColor}
-                setState={setCoatColor}
-            />
+                <StandardDropdown
+                    dropdownItemText={coatLengthOptionsText}
+                    state={coatLength}
+                    setState={setCoatLength}
+                />
 
-            <StandardDropdown
-                dropdownItemText={coatLengthOptionsText}
-                state={coatLength}
-                setState={setCoatLength}
-            />
+                <StandardDropdown
+                    dropdownItemText={collarTypeOptionsText}
+                    state={collarType}
+                    setState={setCollarType}
+                />
 
-            <StandardDropdown
-                dropdownItemText={collarTypeOptionsText}
-                state={collarType}
-                setState={setCollarType}
-            />
+                <StandardDropdown
+                    dropdownItemText={sleeveLengthOptionsText}
+                    state={sleeveLength}
+                    setState={setSleeveLength}
+                />
 
-            <StandardDropdown
-                dropdownItemText={sleeveLengthOptionsText}
-                state={sleeveLength}
-                setState={setSleeveLength}
-            />
+                <div style={{
+                    // textAlign: "center" 
+                    // , width: "100%" 
+                }}>
+                    <Button color="secondary" className="animate-gradient mb-5" onClick={generateText} variant="outlined" style={{
+                        //  width: "100%", 
+                        fontSize: "20px"
+                    }} >Submit</Button>
+                </div>
 
+            </div>
 
-            <Button onClick={generateText}>Submit</Button>
         </>
     )
 }

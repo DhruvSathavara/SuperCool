@@ -25,7 +25,7 @@ const ProfileAvatarFeatures = () => {
 
     let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create a profile avatar based on this information:- make sure image style will be ${imageStyle}, gender:${gender}, hair style:${hairstyle},hair color:${hairColor}${gender == "Male" ? `,facial hair:${facialHair}` : ""},facial Expression:${facialExpression},eye color:${eyeColor},skin tone:${skinTone},clothing style:${clothingStyle},accessories:${accessories},body type:${bodyType},age:${age},ethnicity:${ethnicity}, and the background of this image should be ${background} and Remember to infuse the avatar with vitality and energy`
     const generateText = async () => {
-    console.log(detailPrompt);
+        console.log(detailPrompt);
 
         try {
             const response = await axios.post(
@@ -473,8 +473,16 @@ const ProfileAvatarFeatures = () => {
                 state={ethnicity}
                 setState={setEthnicity}
             />
+            <div style={{
+                // textAlign: "center" 
+                // , width: "100%" 
+            }}>
+                <Button color="secondary" className="animate-gradient mb-5" onClick={generateText} variant="outlined" style={{
+                    //  width: "100%", 
+                    fontSize: "20px"
+                }} >Submit</Button>
+            </div>
 
-            <Button onClick={generateText}>Submit</Button>
         </>
     )
 }

@@ -100,6 +100,7 @@ const RendersellNft = ({ rendersellNFT, setTitle, setDescription, setPrice, crea
                                 dropdownItemText={categoryOptionsText}
                                 state={category}
                                 setState={setCategory}
+                                
                             />
                         </div>
                     </div>

@@ -1,26 +1,26 @@
 import React, { useState } from "react";
 
-const StandardDropdown = ({ dropdownItemText, state, setState}) => {
+const StandardDropdown = ({ dropdownItemText, state, setState }) => {
     const [dropdownItemActive, setDropdownItemActive] = useState(null);
     const [dropdownShow, setDropdownShow] = useState(false);
 
     const handleDropdown = () => {
         setDropdownShow(!dropdownShow);
-      };
-    
-      const handleDropdownItemClick = (id, text) => {
+    };
+
+    const handleDropdownItemClick = (id, text) => {
         setState(text);
         setDropdownItemActive(id);
         setDropdownShow(false);
-      };
+    };
 
 
     return (
         <>
             <div className="mb-8 flex flex-wrap items-start justify-between">
-                <div className="dropdown relative my-1 cursor-pointer">
+                <div className="dropdown relative my-1 cursor-pointer width-dropdown">
                     <button
-                        className={`dark:bg-jacarta-700 dropdown-toggle border-jacarta-100 dark:border-jacarta-600 inline-flex w-48 items-center justify-between rounded-lg border bg-white py-2 px-3 text-sm dark:text-white`}
+                        className={`dark:bg-jacarta-700 dropdown-toggle border-jacarta-100 dark:border-jacarta-600 inline-flex w-48 items-center justify-between rounded-lg border bg-white py-2 px-3 text-sm dark:text-white width-dropdown`}
                         onClick={handleDropdown}
                     >
                         <span className="font-display">{state}</span>
@@ -37,6 +37,7 @@ const StandardDropdown = ({ dropdownItemText, state, setState}) => {
                     </button>
 
                     <div
+                        style={{ width: "100% !important" }}
                         className={
                             dropdownShow
                                 ? ' dark:bg-jacarta-800 z-10 max-w-sm w-[13rem] whitespace-nowrap rounded-xl bg-white py-4 px-2 text-left shadow-xl absolute top-full show'
@@ -48,7 +49,7 @@ const StandardDropdown = ({ dropdownItemText, state, setState}) => {
                                 <button
                                     key={id}
                                     className="dropdown-item font-display text-jacarta-700 dark:hover:bg-jacarta-600 hover:bg-jacarta-50 flex w-full items-center justify-between rounded-xl px-5 py-2 text-left text-sm transition-colors dark:text-white"
-                                  
+
                                     onClick={() => handleDropdownItemClick(id, text)}
                                 >
                                     {text}

@@ -13,9 +13,9 @@ const WeaponFeatures = () => {
 
 
     let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create an image of Weapon based on this information:- create a dangerous ${weaponType} and make sure it's design style will be ${designStyle} and Remember to infuse the weapon image with vitality and energy`
-    
+
     const generateText = async () => {
-    console.log(detailPrompt);
+        console.log(detailPrompt);
 
         try {
             const response = await axios.post(
@@ -39,7 +39,7 @@ const WeaponFeatures = () => {
         }
     };
 
-    
+
     const weaponTypeOptionsText = [
         {
             id: 1,
@@ -94,10 +94,6 @@ const WeaponFeatures = () => {
         },
     ];
 
-    
-
-
-
 
     return (
         <>
@@ -113,7 +109,15 @@ const WeaponFeatures = () => {
                 setState={setDesignStyle}
             />
 
-            <Button onClick={generateText}>Submit</Button>
+            <div style={{
+                // textAlign: "center" 
+                // , width: "100%" 
+            }}>
+                <Button color="secondary" className="animate-gradient mb-5" onClick={generateText} variant="outlined" style={{
+                    //  width: "100%", 
+                    fontSize: "20px"
+                }} >Submit</Button>
+            </div>
         </>
     )
 }
