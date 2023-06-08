@@ -1,11 +1,11 @@
-const { ethers } = require("hardhat");
+// const { ethers } = require("hardhat");
 require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config({ path: ".env" });
 
 
 module.exports = {
   solidity: "0.8.1",
-  defaultNetwork: 'hardhat',
+  // defaultNetwork: 'hardhat',
   networks: {
     mumbai: {
       url: process.env.quicknodehttpurl,
