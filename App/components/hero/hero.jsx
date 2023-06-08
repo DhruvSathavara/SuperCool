@@ -35,11 +35,11 @@ const hero = () => {
                   Upload
                 </a>
               </Link>
-              <Link href="/collection/explore_collection">
+              {/* <Link href=""> */}
                 <a className="text-accent shadow-white-volume hover:bg-accent-dark hover:shadow-accent-volume w-36 rounded-full bg-white py-3 px-8 text-center font-semibold transition-all hover:text-white">
                   Explore
                 </a>
-              </Link>
+              {/* </Link> */}
             </div>
           </div>
 

@@ -107,7 +107,7 @@ const Item = () => {
 													</span>
 												</Tippy>
 												<span className="text-green text-sm font-medium tracking-tight">
-													{item.price} ETH
+													{item.price} MATIC
 												</span>
 											</div>
 											<span className="dark:text-jacarta-300 text-jacarta-400 text-sm">
