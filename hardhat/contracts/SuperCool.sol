@@ -57,6 +57,7 @@ contract SUPCool is ERC721URIStorage, VRFConsumerBase {
         return newItemId;
     }
 
+
     function buyToken(uint256 tokenId) public payable {
         require(_exists(tokenId), "NFTMarketplace: token does not exist");
         require(

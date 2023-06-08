@@ -17,7 +17,7 @@ import localforage from 'localforage'
 export default function Header01() {
   const [toggle, setToggle] = useState(false);
   const [isCollapse, setCollapse] = useState(null);
-  const [address,setAddress]= useState();
+  const [address, setAddress] = useState();
 
   // window resize
   useEffect(() => {
@@ -25,12 +25,12 @@ export default function Header01() {
       if (window.innerWidth >= 1024) {
         setToggle(false);
       }
-  
+
     });
   });
   localforage.getItem('address').then((value) => {
     setAddress(value)
-   })
+  })
   const superCoolContext = React.useContext(SupercoolAuthContext);
   const { login, logout } = superCoolContext;
 
@@ -190,19 +190,19 @@ export default function Header01() {
       {/* main desktop menu sart*/}
       <header className="js-page-header fixed top-0 z-20 w-full backdrop-blur transition-colors">
         <div className="flex items-center px-6 py-6 xl:px-24 ">
-        
+
 
           <Link className="shrink-0" href="/">
-           <p className="text-jacarta-700 font-bold font-display mb-6 text-center text-2xl dark:text-white md:text-left lg:text-2xl xl:text-2xl animate-gradient">
+            <p className="text-jacarta-700 font-bold font-display mb-6 text-center text-2xl dark:text-white md:text-left lg:text-2xl xl:text-2xl animate-gradient">
               {/* Buy, sell and collect NFTs. */}
               Supercool
             </p>
-          </Link> 
+          </Link>
 
           <div className="js-mobile-menu dark:bg-jacarta-800 invisible fixed inset-0 z-10 ml-auto items-center bg-white opacity-0 lg:visible lg:relative lg:inset-auto lg:flex lg:bg-transparent lg:opacity-100 dark:lg:bg-transparent">
             <nav className="navbar w-full">
               <ul className="flex flex-col lg:flex-row">
-               
+
                 <li className="group">
                   <Link href="/create">
                     <a>
@@ -215,6 +215,24 @@ export default function Header01() {
                           }
                         >
                           Create
+                        </span>
+                      </button>
+                    </a>
+                  </Link>
+
+                </li>
+                <li className="group">
+                  <Link href="/createdynemic">
+                    <a>
+                      <button className="text-jacarta-700 font-display hover:text-accent focus:text-accent dark:hover:text-accent dark:focus:text-accent flex items-center justify-between py-3.5 text-base dark:text-white lg:px-5">
+                        <span
+                          className={
+                            isChildrenPageActive(route.asPath, "/createdynemic")
+                              ? "text-accent dark:text-accent"
+                              : ""
+                          }
+                        >
+                          Create DynemicNFT
                         </span>
                       </button>
                     </a>
@@ -261,7 +279,7 @@ export default function Header01() {
                   <div>
                     <button className="js-copy-clipboard font-display text-jacarta-700 my-4 flex select-none items-center whitespace-nowrap px-5 leading-none dark:text-white">
 
-                      { address !== null ? shortAddress(address) : ""}
+                      {address !== null ? shortAddress(address) : ""}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -494,7 +512,7 @@ export default function Header01() {
                 onClick={() => mobileCollapse(explore.id)}
                 className="dropdown-toggle text-jacarta-700 font-display hover:text-accent focus:text-accent dark:hover:text-accent dark:focus:text-accent flex items-center justify-between py-3.5 text-base dark:text-white lg:px-5 w-full"
               >
-           
+
                 <i className="lg:hidden">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -508,7 +526,7 @@ export default function Header01() {
                   </svg>
                 </i>
               </button>
-           
+
             </li>
             <li className="js-nav-dropdown group relative">
               <button
