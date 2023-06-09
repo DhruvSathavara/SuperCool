@@ -42,7 +42,7 @@ const Item = () => {
 									{/* <!-- Image --> */}
 									<figure className="mb-8 md:w-2/5 md:flex-shrink-0 md:flex-grow-0 md:basis-auto lg:w-1/2 w-full">
 										<button className=" w-full" onClick={() => setImageModal(true)}>
-											<img src={item.nftfile} alt={item.title} className="rounded-2xl cursor-pointer  w-full" />
+											<img src={item.image} alt={item.title} className="rounded-2xl cursor-pointer  w-full" />
 										</button>
 
 										{/* <!-- Modal --> */}
@@ -125,7 +125,7 @@ const Item = () => {
 													<Link href="/user/avatar_6">
 														<a className="relative block">
 															<img
-																src={item.nftfile}
+																src={item.image}
 																alt={item.title}
 																className="rounded-2lg h-12 w-12"
 																loading="lazy"

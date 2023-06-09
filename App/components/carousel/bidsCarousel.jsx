@@ -63,7 +63,7 @@ const BidsCarousel = () => {
                       <div className="w-full">
                         <Link href={`/item/${item.tokenId}`}>
                           <img
-                            src={item.nftfile}
+                            src={item.image}
                             alt={item.title}
                             height={230}
                             width={230}

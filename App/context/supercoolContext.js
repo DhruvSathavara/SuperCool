@@ -65,7 +65,6 @@ export const SupercoolAuthContextProvider = (props) => {
     }
     getAllNfts();
   }
-  console.log(' --loading value ===', loading);
   const logout = async () => {
     localforage.removeItem('address');
     setWalletConnected(false);
@@ -154,9 +153,7 @@ export const SupercoolAuthContextProvider = (props) => {
     const ipfsResult = await client.add(dataStringify);
     const contentUri = `https://superfun.infura-ipfs.io/ipfs/${ipfsResult.path}`;
 
-    console.log(contentUri, 'img link');
     return contentUri;
-    // console.log('ipfs result', ipfsResult);
   }
 
   const handleImgUpload = async (file) => {
