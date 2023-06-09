@@ -26,8 +26,7 @@ const hero = () => {
               {/* Super cool */}
             </h1>
             <p className="dark:text-jacarta-200 mb-8 text-center text-lg md:text-left">
-              The worlds largest digital marketplace for crypto collectibles and
-              non-fungible tokens
+            revolutionizing the way we create,collect and trade NFTs
             </p>
             <div className="flex space-x-4">
               <Link href="/create">

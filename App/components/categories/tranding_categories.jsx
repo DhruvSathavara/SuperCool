@@ -8,7 +8,7 @@ const Tranding_category = () => {
   const superCoolContext = React.useContext(SupercoolAuthContext);
   const { allNfts } = superCoolContext;
   return (
-    <section className="py-24">
+    <section className="py-24 mt-0">
       <div className="container">
         <HeadLine
           text="Trending categoriess"
