@@ -181,7 +181,7 @@ export default function CreateDynemic() {
   console.log('dynamic meta data urls--', dynamicMetadataArr);
   const createDynamicNft = async () => {
     try {
-      const tx = await contract.createWeatherDynamicNFT(ethers.utils.parseUnits(price?.toString(), "ether"), dynamicMetadataArr[0],dynamicMetadataArr[1], dynamicMetadataArr[2]);
+      const tx = await contract.mintDynamicNFT(city, dynamicMetadataArr ,ethers.utils.parseUnits(price?.toString(), "ether"));
       await tx.wait();
     } catch (e) {
       console.error("Failed to mint NFT: " + e.message);
