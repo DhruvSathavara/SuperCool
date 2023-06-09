@@ -1773,6 +1773,9 @@ html {
 	.w-50 {
 		width: 21rem;
 	}
+	.w-100 {
+		width: 48rem;
+	}
 
 	.w-7 {
 		width: 1.75rem;

@@ -12,7 +12,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import ImageModal from "../modal/modal";
 import RendersellNft from "../renderSellNft/renderSellNft";
 
-
 const Create = () => {
   const superCoolContext = React.useContext(SupercoolAuthContext);
   const { uploadOnIpfs, handleImgUpload, loading, setLoading, GenerateNum, prompt, setPrompt, genRanImgLoding, getAllNfts } = superCoolContext;
@@ -158,7 +157,7 @@ const Create = () => {
     description: description,
     price: price,
     chain: chain,
-    nftfile: selectedImage,
+    image: selectedImage,
     category: category
   }
   const createNft = async () => {

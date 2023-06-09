@@ -17,7 +17,7 @@ const CategoryItem = ({ data }) => {
                 <Link href={`/item/${item.tokenId}`}>
                   <img
                     style={{cursor:"pointer"}}
-                    src={item.nftfile}
+                    src={item.image}
                     alt="item 5"
                     className="w-full h-[230px] rounded-[0.625rem] object-cover"
                   />

@@ -7,8 +7,10 @@ import { SupercoolAuthContext } from "../../context/supercoolContext";
 import { NFTStorage, File } from 'nft.storage'
 import axios from "axios";
 import CircularProgress from '@mui/material/CircularProgress';
-import ImageModal from "../modal/modal";
-import RendersellNft from "../renderSellNft/renderSellNft";
+import ImageModal from "../modal/dynamicmodal";
+import RendersellNft from "../renderSellNft/renderDynamicSellNft";
+import DynamicImageModal from "../modal/dynamicmodal";
+import RenderDynamicsellNft from "../renderSellNft/renderDynamicSellNft";
 
 
 
@@ -17,11 +19,13 @@ export default function CreateDynemic() {
   const { uploadOnIpfs, handleImgUpload, loading, setLoading, GenerateNum, prompt, setPrompt, genRanImgLoding, getAllNfts } = superCoolContext;
 
   const [title, setTitle] = useState("");
+  const [city, setCity] = useState("");
   const [category, setCategory] = useState("Profile avatar" || category);
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState();
   const [chain, setChain] = useState("Ethereum" || chain);
   const [rendersellNFT, setrendersellNFT] = useState(false)
+  const [rendersellNFTAgain, setrendersellNFTAgain] = useState(true)
   const [imageUrl, setImageUrl] = useState('');
   const [isMounted, setIsMounted] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -31,6 +35,7 @@ export default function CreateDynemic() {
     "Create a dynamic NFT that visually transforms to represent real-time weather conditions..."
   );
   const [images, setImages] = React.useState([]);
+  const [dynamicMetadataArr, setDynemicMetadataArr] = React.useState([]);
   const [selectedImage, setSelectedImage] = React.useState(null);
 
 
@@ -101,18 +106,18 @@ export default function CreateDynemic() {
           image: imageFile
         });
         const imUrl = `https://nftstorage.link/ipfs/${metadata.ipnft}/metadata.json`;
-        console.log(imUrl, "imUrl");
+        // console.log(imUrl, "imUrl");
         const data = (await axios.get(imUrl)).data;
-        console.log(data.image, "data");
+        // console.log(data.image, "data");
         const rep = data.image.replace(
           "ipfs://",
           "https://nftstorage.link/ipfs/"
         );
-        console.log(rep, '==rep');
+        // console.log(rep, '==rep');
 
         arry.push(rep);
       }
-      console.log(arry, '----arry');
+      // console.log(arry, '----arry');
       setImages(arry);
       setGenerateLoading(false);
 
@@ -122,7 +127,11 @@ export default function CreateDynemic() {
     }
   };
 
+  const changeDynamicMetadata = async () => {
+    const tx = await contract.changeDynamicNFTMetadata("1");
+    await tx.wait();
 
+  }
 
   const mintNft = async (_price, _metadataurl) => {
     try {
@@ -158,33 +167,36 @@ export default function CreateDynemic() {
     title: title,
     description: description,
     price: price,
+    city: city,
     chain: chain,
-    nftfile: selectedImage,
+    image: selectedImage,
     category: category
   }
-  const createNft = async () => {
+  const StoreDyanamicNftsMetadata = async () => {
     console.log(nftData);
-    setMintLoading(true);
     let metadataurl = await uploadOnIpfs(nftData);
-    mintNft(ethers.utils.parseUnits(price?.toString(), "ether"), metadataurl);
+    dynamicMetadataArr.push(metadataurl);
+    setrendersellNFTAgain(false);
+  }
+  console.log('dynamic meta data urls--', dynamicMetadataArr);
+  const createDynamicNft = async () => {
+    try {
+      const tx = await contract.mintDynamicNFT(city, dynamicMetadataArr ,ethers.utils.parseUnits(price?.toString(), "ether"));
+      await tx.wait();
+    } catch (e) {
+      console.error("Failed to mint NFT: " + e.message);
+    }
+  }
+
+  function handleSelectedImg(url) {
+    setrendersellNFT(false);
+    setSelectedImage(url);
+    setModalOpen(true);
   }
 
   return (
     <>
       <div className="container">
-        {/* <div className="grid grid-cols-12 "> */}
-        {/* <div className="col-span-3">
-            <div
-              className="categories-scroll"
-              style={{ marginTop: "160px" }}
-            >
-              <p className="dark:text-jacarta-300 text-4xs mb-3">
-                Experiment and train modal as per your preference
-              </p>
-            <Options />  
-            </div>
-          </div> */}
-        {/* <div className="col-span-9"> */}
         <Meta title="SuperCool" />
 
         <section className="relative py-24 nft-sections fixed">
@@ -231,6 +243,14 @@ export default function CreateDynemic() {
                       Generate
                     </button>
                   }
+                                      {/* <button
+                      className="bg-accent-lighter rounded-full py-3 px-8 text-center font-semibold text-white transition-all  "
+                      style={{ marginBottom: "15px" }}
+                      onClick={changeDynamicMetadata}
+                    >
+                      change meta data
+                    </button>
+                   */}
                 </div>
                 <br />
 
@@ -275,6 +295,17 @@ export default function CreateDynemic() {
                         <p style={{ textAlign: "center" }} className="dark:text-jacarta-300 text-4xs mb-3"
                         >Select the image you wish to mint.</p>
                       </div>
+
+                      { dynamicMetadataArr.length === 3 ?
+                        <button
+                      className="bg-accent-lighter rounded-full py-3 px-8 text-center font-semibold text-white transition-all  "
+                      style={{ marginBottom: "15px" }}
+                      onClick={createDynamicNft}
+                    >
+                      create Dynamic NFT
+                    </button> : ""
+                    }
+
                     </>
                     : ""
                 }
@@ -282,23 +313,31 @@ export default function CreateDynemic() {
               </div>
 
               {modalOpen &&
-                <div className="img-overlay">
-                  <ImageModal setModalOpen={setModalOpen}
+                <div className="dynamic-img-overlay">
+                  <DynamicImageModal
+                  StoreDyanamicNftsMetadata={StoreDyanamicNftsMetadata}
+                    rendersellNFTAgain={rendersellNFTAgain}
+                    setrendersellNFTAgain={setrendersellNFTAgain}
+                    setModalOpen={setModalOpen}
                     selectedImage={selectedImage}
                     setSelectedImage={setSelectedImage}
-                    createNft={createNft}
                     setrendersellNFT={setrendersellNFT}
                   />
                 </div>
               }
 
             </div>
-            <RendersellNft
+            <RenderDynamicsellNft
+            StoreDyanamicNftsMetadata={StoreDyanamicNftsMetadata}
               rendersellNFT={rendersellNFT}
+              rendersellNFTAgain={rendersellNFTAgain}
+              setrendersellNFTAgain={setrendersellNFTAgain}
               setTitle={setTitle}
               setDescription={setDescription}
+              city={city}
+              setCity={setCity}
               setPrice={setPrice}
-              createNft={createNft}
+              createNft={StoreDyanamicNftsMetadata}
               mintLoading={mintLoading}
               category={category}
               setCategory={setCategory}
