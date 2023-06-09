@@ -1,4 +1,4 @@
-export const SUPER_COOL_NFT_CONTRACT = "0x4BAfC4ee6D02dA148c590AC9A3f9bB94a4C9a571"
+export const SUPER_COOL_NFT_CONTRACT = "0x79a16A425bba2776D36FFEebC1A29174d420957F"
 // export const SUPER_COOL_NFT_CONTRACT = "0xe98C5C2cD9E16D177373BC44CC3058Fbd1Cae15A"
 export const abi = [
   {
@@ -166,6 +166,19 @@ export const abi = [
     "inputs": [
       {
         "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "changeDynamicNFTMetadata",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
         "name": "_amountInUsd",
         "type": "uint256"
       }
@@ -179,6 +192,40 @@ export const abi = [
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "uri1",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "uri2",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "uri3",
+        "type": "string"
+      }
+    ],
+    "name": "createWeatherDynamicNFT",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -584,16 +631,3 @@ export const abi = [
     "type": "function"
   }
 ]
-
-
-
-
-
-
-
-
-
-
-
-
-

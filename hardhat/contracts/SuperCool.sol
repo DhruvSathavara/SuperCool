@@ -21,6 +21,16 @@ contract SUPCool is ERC721URIStorage, VRFConsumerBase {
     uint256 public ranNum;
     bytes32 public keyHash;
 
+
+    struct WeatherDynamicNFTMetadata {
+        string uri1;
+        string uri2;
+        string uri3;
+    }
+
+    mapping(uint256 => WeatherDynamicNFTMetadata) private _weatherDynamicNFTMetadata;
+    mapping(uint256 => bool) private _isWeatherDynamicNFT;
+
     mapping(uint256 => uint256) private tokenPrices;
     mapping(address => uint256[]) private userNFTs;
     mapping(address => string) private Profile;
@@ -57,6 +67,32 @@ contract SUPCool is ERC721URIStorage, VRFConsumerBase {
         return newItemId;
     }
 
+    function createWeatherDynamicNFT(uint256 price, string memory uri1, string memory uri2, string memory uri3) public returns (uint256) {
+        tokenCounter.increment();
+        uint256 newTokenId = tokenCounter.current();
+        _mint(msg.sender, newTokenId);
+        tokenPrices[newTokenId] = price;
+        
+        WeatherDynamicNFTMetadata memory metadata = WeatherDynamicNFTMetadata({
+            uri1: uri1,
+            uri2: uri2,
+            uri3: uri3
+        });
+        _weatherDynamicNFTMetadata[newTokenId] = metadata;
+        _isWeatherDynamicNFT[newTokenId] = true;
+        
+        _setTokenURI(newTokenId, uri1);
+        
+        return newTokenId;
+    }
+
+    function changeDynamicNFTMetadata(uint256 tokenId) public {
+        require(_exists(tokenId), "Token does not exist");
+        require(_isWeatherDynamicNFT[tokenId], "Token is not a dynamic NFT");
+
+    WeatherDynamicNFTMetadata storage metadata = _weatherDynamicNFTMetadata[tokenId];
+    _setTokenURI(tokenId, metadata.uri2);
+    }
 
     function buyToken(uint256 tokenId) public payable {
         require(_exists(tokenId), "NFTMarketplace: token does not exist");
