@@ -1,4 +1,5 @@
-export const SUPER_COOL_NFT_CONTRACT = "0x79a16A425bba2776D36FFEebC1A29174d420957F"
+const WEATHER_API_CONTRACT = "0x6abcD48695d9256d3f87a4bD1cA470e3b311652f"
+export const SUPER_COOL_NFT_CONTRACT = "0x216085A34B1cCeb481098e7A9863dcFc8De1d15e"
 // export const SUPER_COOL_NFT_CONTRACT = "0xe98C5C2cD9E16D177373BC44CC3058Fbd1Cae15A"
 export const abi = [
   {
@@ -14,24 +15,14 @@ export const abi = [
         "type": "string"
       },
       {
-        "internalType": "address",
-        "name": "vrfCoordinator",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "linkToken",
-        "type": "address"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "_keyHash",
-        "type": "bytes32"
-      },
-      {
         "internalType": "uint256",
-        "name": "_fee",
+        "name": "_interval",
         "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_weatherAPI",
+        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
@@ -85,6 +76,38 @@ export const abi = [
       }
     ],
     "name": "ApprovalForAll",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_fromTokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_toTokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "BatchMetadataUpdate",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "MetadataUpdate",
     "type": "event"
   },
   {
@@ -166,13 +189,66 @@ export const abi = [
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "tokenId",
+        "name": "_tokenId",
         "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "city",
+        "type": "string"
       }
     ],
-    "name": "changeDynamicNFTMetadata",
+    "name": "changeWeather",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "name": "checkUpkeep",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "upkeepNeeded",
+        "type": "bool"
+      },
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "a",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "b",
+        "type": "string"
+      }
+    ],
+    "name": "compareStrings",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "pure",
     "type": "function"
   },
   {
@@ -198,26 +274,11 @@ export const abi = [
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "price",
+        "name": "",
         "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "uri1",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "uri2",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "uri3",
-        "type": "string"
       }
     ],
-    "name": "createWeatherDynamicNFT",
+    "name": "dynamicTokenIds",
     "outputs": [
       {
         "internalType": "uint256",
@@ -225,7 +286,7 @@ export const abi = [
         "type": "uint256"
       }
     ],
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -353,6 +414,30 @@ export const abi = [
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "temperature",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getWeatherIpfsUri",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "owner",
         "type": "address"
@@ -390,13 +475,42 @@ export const abi = [
   {
     "inputs": [
       {
+        "internalType": "string",
+        "name": "city",
+        "type": "string"
+      },
+      {
+        "internalType": "string[]",
+        "name": "tokenURIs",
+        "type": "string[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
+      }
+    ],
+    "name": "mintDynamicNFT",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "price",
         "type": "uint256"
       },
       {
         "internalType": "string",
-        "name": "tokenURI",
+        "name": "tokenUri",
         "type": "string"
       }
     ],
@@ -441,6 +555,19 @@ export const abi = [
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "name": "performUpkeep",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -628,6 +755,38 @@ export const abi = [
     "name": "transferFrom",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "weatherAPI",
+    "outputs": [
+      {
+        "internalType": "contract WeatherAPI",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "weatherStage",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   }
 ]

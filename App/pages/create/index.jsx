@@ -49,7 +49,8 @@ const Create = () => {
   const openai = new OpenAIApi(configuration);
 
 
-  const NFT_STORAGE_TOKEN = process.env.REACT_APP_NFT_STORAGE_TOKEN;
+  const NFT_STORAGE_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDlkNTYwMUJiOWNFOTkyQjZkYjU4OWYzMGY1NDZGMmYxODJhM0RCOTAiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3MzM0NzIzNzMwNSwibmFtZSI6InRydXN0aWZpZWQtZnZtIn0.YDlyBmcRUT0lb2HmMzT0tS1AUY8pGNp1NHqN4xr8_fk";
+
   const client = new NFTStorage({ token: NFT_STORAGE_TOKEN });
 
 
@@ -60,7 +61,7 @@ const Create = () => {
       const res = await openai.createImage({
         prompt: prompt,
         n: 3,
-        size: "256x256",
+        size: "256X256",
       });
       console.log(res);
 
@@ -157,7 +158,7 @@ const Create = () => {
     description: description,
     price: price,
     chain: chain,
-    image: selectedImage,
+    image: "https://bafkreif4urrcdypupvez7ombtizi2asquarxhm3tojckbl35if5zzdqbpi.ipfs.nftstorage.link/",
     category: category
   }
   const createNft = async () => {

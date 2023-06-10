@@ -3,12 +3,21 @@ const { FEE, VRF_COORDINATOR, KEY_HASH, LINK_TOKEN } = require('../constant')
 
 async function main() {
 
-  const SuperCoolNFT = await hre.ethers.getContractFactory("SuperTest");
-  const supercool = await SuperCoolNFT.deploy("supercool", "SC", VRF_COORDINATOR, LINK_TOKEN, KEY_HASH, FEE);
+  const WeatherAPI = await hre.ethers.getContractFactory("WeatherAPI");
+  const weatherApi = await WeatherAPI.deploy();
+  // ("supercool", "SC", VRF_COORDINATOR, LINK_TOKEN, KEY_HASH, FEE);
 
-  await supercool.deployed();
+  await weatherApi.deployed();
+  console.log('deploy weatherAPI contract to', weatherApi.address);
 
-  console.log('deploy contract to', supercool.address);
+  const SuperCool = await hre.ethers.getContractFactory("SUPCool");
+  const superCool = await SuperCool.deploy("supercool", "SC",600,weatherApi.address);
+
+  await superCool.deployed();
+
+
+  console.log('deploy SuperCool contract to', superCool.address);
+
 
 }
 

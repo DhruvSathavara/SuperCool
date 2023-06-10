@@ -72,6 +72,7 @@ export const SupercoolAuthContextProvider = (props) => {
       console.log(value)
     })
   }
+  console.log(userAdd)
 
   const auth =
     "Basic " +
