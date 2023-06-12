@@ -6,20 +6,19 @@
 ### At SuperCool-AI The magic of AI and the power of blockchain converge. SuperCool is the Ai generative NFT marketplace for PFPs, game assets, metaverse avatars, and costumes. 
 
 ### Contract-Chainlink compatible
+![Super](https://github.com/DhruvSathavara/SuperCool/assets/69969675/4bc7c629-3583-4f6a-9229-72af6257fa4c)
 
-https://github.com/DhruvSathavara/SuperCool/tree/master/hardhat/contracts
 
 
 ## It includes
-
-![1](https://github.com/Disha1998/superNFT-readme/assets/69969675/5ec422ee-7ba7-467e-a7f5-ea0fa391ae25)
-![2](https://github.com/Disha1998/superNFT-readme/assets/69969675/ef2b5abe-8bf1-40ee-8c4c-57fc77f2df1d)
-![4](https://github.com/Disha1998/superNFT-readme/assets/69969675/a4ec04ad-cd7f-44c8-979d-18d0d6042c35)
-![5](https://github.com/Disha1998/superNFT-readme/assets/69969675/e080195b-6836-4776-bb38-368923a6188d)
-![6](https://github.com/Disha1998/superNFT-readme/assets/69969675/fda3d310-4a29-4bd1-b38e-334cf298953a)
-![7](https://github.com/Disha1998/superNFT-readme/assets/69969675/6beac0f2-ede3-40fb-b065-ba1ed6f79efb)
-![8](https://github.com/Disha1998/superNFT-readme/assets/69969675/5f9d5822-3de7-4aed-9c53-3120a9ba07a9)
-![3](https://github.com/Disha1998/superNFT-readme/assets/69969675/e9d79dad-6c5c-48f4-b938-12da886ad451)
+![1](https://github.com/DhruvSathavara/SuperCool/assets/69969675/eebb30ec-fb09-4029-adaa-a2d17f76612d)
+![2](https://github.com/DhruvSathavara/SuperCool/assets/69969675/a393f9f1-51ba-4029-a07f-f38dfffaff0e)
+![3](https://github.com/DhruvSathavara/SuperCool/assets/69969675/219cce59-39d8-4df5-9df5-42c64891bbb3)
+![4](https://github.com/DhruvSathavara/SuperCool/assets/69969675/ef7afb6f-0c21-459c-ab62-aeb36d64c07f)
+![5](https://github.com/DhruvSathavara/SuperCool/assets/69969675/1b04b832-4dd6-4fb2-8b71-60e08f560dcd)
+![6](https://github.com/DhruvSathavara/SuperCool/assets/69969675/d6bcf2e8-bd32-4ab3-a414-dbd7134a7333)
+![7](https://github.com/DhruvSathavara/SuperCool/assets/69969675/5b49937b-a55c-47df-a60d-ca434830c25a)
+![8](https://github.com/DhruvSathavara/SuperCool/assets/69969675/8da00d57-7980-4cfb-bd79-630d24f22c17)
 
 
 
