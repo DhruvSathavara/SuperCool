@@ -6,8 +6,7 @@
 ### At SuperCool-AI The magic of AI and the power of blockchain converge. SuperCool is the Ai generative NFT marketplace for PFPs, game assets, metaverse avatars, and costumes. 
 
 ### Contract-Chainlink compatible
-![Super](https://github.com/DhruvSathavara/SuperCool/assets/69969675/4bc7c629-3583-4f6a-9229-72af6257fa4c)
-
+https://github.com/DhruvSathavara/SuperCool/tree/master/hardhat/contracts
 
 
 ## It includes
