@@ -1,6 +1,6 @@
 # SuperCool-AI
 
-![Super](https://github.com/Disha1998/superNFT-readme/assets/69969675/ad7596a1-68ef-4192-8c8c-e25cb40198b1)
+![Super](https://github.com/DhruvSathavara/SuperCool/assets/69969675/abad6961-2ccb-437e-8311-aaf1a0e71148)
 
 
 ### At SuperCool-AI The magic of AI and the power of blockchain converge. SuperCool is the Ai generative NFT marketplace for PFPs, game assets, metaverse avatars, and costumes. 
