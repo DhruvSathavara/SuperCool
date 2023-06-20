@@ -10,7 +10,7 @@ https://github.com/DhruvSathavara/SuperCool/tree/master/hardhat/contracts
 
 
 ## It includes
-![1](https://github.com/DhruvSathavara/SuperCool/assets/69969675/eebb30ec-fb09-4029-adaa-a2d17f76612d)
+![1-new](https://github.com/DhruvSathavara/SuperCool/assets/69969675/ebd0f07a-2043-40ea-8c9a-013fdb5c5439)
 ![2](https://github.com/DhruvSathavara/SuperCool/assets/69969675/a393f9f1-51ba-4029-a07f-f38dfffaff0e)
 ![3](https://github.com/DhruvSathavara/SuperCool/assets/69969675/219cce59-39d8-4df5-9df5-42c64891bbb3)
 ![4](https://github.com/DhruvSathavara/SuperCool/assets/69969675/ef7afb6f-0c21-459c-ab62-aeb36d64c07f)
