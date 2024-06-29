@@ -28,10 +28,10 @@ const User = () => {
     if (typeof window !== undefined) {
       const address = localStorage.getItem('address');
       setWalletAddress(address);
-      if (address) {
-        getProfileData();
-        getUserData(address)
-      }
+      // if (address) {
+      //   getProfileData();
+      //   getUserData(address)
+      // }
     }
   }, [])
 

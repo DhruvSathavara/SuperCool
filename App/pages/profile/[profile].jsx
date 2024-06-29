@@ -88,15 +88,15 @@ const Edit_user = () => {
 		await storeUserProfile()
 	}
 
-	useEffect(() => {
-		if (typeof window !== undefined) {
-			const address = localStorage.getItem('address');
-			setWalletAddress(address);
-			if (address) {
-				getEditProfileData();
-			}
-		}
-	}, [])
+	// useEffect(() => {
+	// 	if (typeof window !== undefined) {
+	// 		const address = localStorage.getItem('address');
+	// 		setWalletAddress(address);
+	// 		if (address) {
+	// 			getEditProfileData();
+	// 		}
+	// 	}
+	// }, [])
 
 	const getEditProfileData = async () => {
 		try {
